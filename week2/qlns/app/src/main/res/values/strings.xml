@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">QLNS 2023</string>
+    <string name="btnThem">Thêm</string>
+    <string name="btnThoat">Thoát</string>
+    <string name="lblHoVaTen">Họ và Tên:</string>
+    <string name="edtHoVaTen">Nhập Họ và tên!</string>
+    <string name="lblBangCap">Bằng cấp:</string>
+    <string name="radTrungCap">Trung cấp</string>
+    <string name="radCaoDang">Cao đẳng</string>
+    <string name="radDaiHoc">Đại học</string>
+    <string name="lblSoThich">Sở thích:</string>
+    <string name="chkDocSach">Đọc sách</string>
+    <string name="chkDuLich">Du lịch</string>
+    <string name="edtSoThichKhac">Sở thích khác</string>
+    <string name="noDegree">Không bằng cấp</string>
+    <string name="noHobbies">Không sở thích</string>
+    <string name="mnuUpdate">Update</string>
+    <string name="mnuDelete">Delete</string>
+    <string name="mnuFind">Find</string>
+</resources>
