@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewbinding.ViewBinding;
 
@@ -35,7 +36,12 @@ public class MyRecycleViewAdapter extends RecyclerView.Adapter<MyRecycleViewAdap
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new MyViewHolder(ListItemBinding.inflate(context.getLayoutInflater(), parent, false));
+        Log.d("TAG-viewType", "onCreateViewHolder: " + viewType);
+        if(viewType == 0) {
+            return new MyViewHolder(ListItemBinding.inflate(context.getLayoutInflater(), parent, false));
+        } else {
+            return new MyViewHolder(ListItemInvertBinding.inflate(context.getLayoutInflater(), parent, false));
+        }
     }
 
     @Override
@@ -43,26 +49,51 @@ public class MyRecycleViewAdapter extends RecyclerView.Adapter<MyRecycleViewAdap
         //get data at position
         MyPerson person = list.get(position);
 
-        //render new data into RecycleView's item
-        holder.binding.lblName.setText(person.getName());
-
-        if (person.getDegree().equalsIgnoreCase(context.getResources().getString(R.string.radCaoDang))) {
-            holder.binding.imgDegree.setImageResource(R.mipmap.college);
-        }
-        else if (person.getDegree().equalsIgnoreCase(context.getResources().getString(R.string.radDaiHoc))) {
-            holder.binding.imgDegree.setImageResource(R.mipmap.university);
-        }
-        else if (person.getDegree().equalsIgnoreCase(context.getResources().getString(R.string.radTrungCap))) {
-            holder.binding.imgDegree.setImageResource(R.mipmap.midium);
-        }
-        else {
-            holder.binding.imgDegree.setImageResource(R.mipmap.none);
-        }
-
-        holder.binding.lblHobbies.setText(person.getHobbies());
-
         //update new position for RecycleView's Item
         holder.setPosition(position);
+
+        if(position % 2 == 0) {
+            //render new data into RecycleView's item
+            holder.binding.lblName.setText(person.getName());
+
+            holder.itemLayout = holder.binding.itemLayout;
+
+            if (person.getDegree().equalsIgnoreCase(context.getResources().getString(R.string.radCaoDang))) {
+                holder.binding.imgDegree.setImageResource(R.mipmap.college);
+            } else if (person.getDegree().equalsIgnoreCase(context.getResources().getString(R.string.radDaiHoc))) {
+                holder.binding.imgDegree.setImageResource(R.mipmap.university);
+            } else if (person.getDegree().equalsIgnoreCase(context.getResources().getString(R.string.radTrungCap))) {
+                holder.binding.imgDegree.setImageResource(R.mipmap.midium);
+            } else {
+                holder.binding.imgDegree.setImageResource(R.mipmap.none);
+            }
+
+            holder.binding.lblHobbies.setText(person.getHobbies());
+        } else {
+            //render new data into RecycleView's item
+            holder.invertBinding.lblName.setText(person.getName());
+
+            holder.itemLayout = holder.invertBinding.itemLayout;
+
+            if (person.getDegree().equalsIgnoreCase(context.getResources().getString(R.string.radCaoDang))) {
+                holder.invertBinding.imgDegree.setImageResource(R.mipmap.college);
+            } else if (person.getDegree().equalsIgnoreCase(context.getResources().getString(R.string.radDaiHoc))) {
+                holder.invertBinding.imgDegree.setImageResource(R.mipmap.university);
+            } else if (person.getDegree().equalsIgnoreCase(context.getResources().getString(R.string.radTrungCap))) {
+                holder.invertBinding.imgDegree.setImageResource(R.mipmap.midium);
+            } else {
+                holder.invertBinding.imgDegree.setImageResource(R.mipmap.none);
+            }
+
+            holder.invertBinding.lblHobbies.setText(person.getHobbies());
+        }
+
+
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return position % 2;
     }
 
     @Override
@@ -74,7 +105,17 @@ public class MyRecycleViewAdapter extends RecyclerView.Adapter<MyRecycleViewAdap
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
         private ListItemBinding binding;
-        private int position;
+        private ListItemInvertBinding invertBinding;
+        private int position = 0;
+        private ConstraintLayout itemLayout;
+
+        public ConstraintLayout getItemLayout() {
+            return itemLayout;
+        }
+
+        public void setItemLayout(ConstraintLayout itemLayout) {
+            this.itemLayout = itemLayout;
+        }
 
         public void setPosition(int position) {
             this.position = position;
@@ -83,28 +124,35 @@ public class MyRecycleViewAdapter extends RecyclerView.Adapter<MyRecycleViewAdap
             return position;
         }
 
-        public ListItemBinding getBinding() {
-            return binding;
-        }
+        public MyViewHolder(@NonNull ListItemInvertBinding itemView) {
+            super(itemView.getRoot());
 
-        public void setBinding(ListItemBinding binding) {
-            this.binding = binding;
-        }
+            invertBinding = (ListItemInvertBinding) itemView;
 
+            invertBinding.getRoot().setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(itemClickListener != null) {
+                        itemClickListener.onItemClick(MyViewHolder.this);
+                    } else {
+                        Log.d("TAG-item-click", "onClick: not set item listener yet");
+                    }
+                }
+            });
+        }
 
         public MyViewHolder(@NonNull ListItemBinding itemView) {
             super(itemView.getRoot());
 
-            binding = itemView;
+            binding = (ListItemBinding) itemView;
 
             binding.getRoot().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     if(itemClickListener != null) {
                         itemClickListener.onItemClick(MyViewHolder.this);
-                    }
-                    else {
-                        Log.d("TAG-adapter", "You must create an ItemClickListener");
+                    } else {
+                        Log.d("TAG-item-click", "onClick: not set item listener yet");
                     }
                 }
             });

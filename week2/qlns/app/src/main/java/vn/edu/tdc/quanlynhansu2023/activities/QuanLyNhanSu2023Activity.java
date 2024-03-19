@@ -1,17 +1,25 @@
 package vn.edu.tdc.quanlynhansu2023.activities;
 
+import android.content.res.ColorStateList;
+import android.graphics.Color;
+import android.nfc.cardemulation.CardEmulation;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.RoomDatabase;
@@ -35,6 +43,8 @@ public class QuanLyNhanSu2023Activity extends AppCompatActivity {
     private int selectedRow = -1;
     private int backColor;
     private View prev;
+    private int currentPosition = 0;
+    private boolean isAccendingPosition = true;
 
 //    PersonAdapter adapter;
     MyRecycleViewAdapter adapter;
@@ -106,7 +116,8 @@ public class QuanLyNhanSu2023Activity extends AppCompatActivity {
 
         //create an instance of RecycleView's LayoutManager
         LinearLayoutManager manager = new LinearLayoutManager(this);
-        manager.setOrientation(LinearLayoutManager.VERTICAL);
+//        GridLayoutManager manager = new GridLayoutManager(this, 2);
+        manager.setOrientation(LinearLayoutManager.HORIZONTAL);
         binding.personsList.setLayoutManager(manager);
 
         binding.personsList.setAdapter(adapter);
@@ -131,9 +142,37 @@ public class QuanLyNhanSu2023Activity extends AppCompatActivity {
         adapter.setOnItemClickListener(new MyRecycleViewAdapter.ItemClickListener() {
             @Override
             public void onItemClick(MyRecycleViewAdapter.MyViewHolder viewHolder) {
-                Log.d("TAG-adapter", "onItemClick: " + viewHolder.getRecycleViewPosition() +".");
+
+                if (selectedRow == -1) {
+                    backColor = viewHolder.getItemLayout().getSolidColor();
+
+                    viewHolder.getItemLayout().setBackgroundColor(getColor(R.color.selected));
+                    selectedRow = viewHolder.getRecycleViewPosition();
+                    prev = viewHolder.getItemLayout();
+
+                    setPerson(persons.get(viewHolder.getRecycleViewPosition()));
+                    binding.btnThem.setEnabled(false);
+
+                } else {
+                    if (selectedRow == viewHolder.getRecycleViewPosition()) {
+                        viewHolder.getItemLayout().setBackgroundColor(backColor);
+                        selectedRow = -1;
+                        clear();
+                        binding.btnThem.setEnabled(true);
+                    } else {
+                        prev.setBackgroundColor(backColor);
+                        viewHolder.getItemLayout().setBackgroundColor(getColor(R.color.selected));
+                        prev = viewHolder.getItemLayout();
+                        selectedRow = viewHolder.getRecycleViewPosition();
+                        clear();
+                        setPerson(persons.get(viewHolder.getRecycleViewPosition()));
+
+                    }
+                }
             }
         });
+
+        runBanner(binding.personsList, 1500);
 
         /*
         binding.personsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -228,11 +267,12 @@ public class QuanLyNhanSu2023Activity extends AppCompatActivity {
             binding.chkDocSach.setChecked(true);
             point++;
         }
-        if (hobbies[point].equalsIgnoreCase(binding.chkDuLich.getText().toString())) {
+        if (point <= hobbies.length && hobbies[point].equalsIgnoreCase(binding.chkDuLich.getText().toString())) {
             binding.chkDuLich.setChecked(true);
             point++;
         }
         String others = "";
+        binding.edtSoThichKhac.setText(others);
         for (int i = point; i < hobbies.length; ++i) {
             if (others.isEmpty()) {
                 if (!hobbies[i].equalsIgnoreCase(getResources().getString(R.string.noHobbies))) {
@@ -290,5 +330,27 @@ public class QuanLyNhanSu2023Activity extends AppCompatActivity {
     private void find(String name, ArrayList<MyPerson> persons) {
         //Log.d("test", "Find");
         databaseAPIs.findPersonByName(name, persons);
+    }
+
+    private void runBanner(RecyclerView myRecyclerView, long miniSec) {
+        final Handler handler = new Handler();
+
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                //repetitive behavier
+                if(currentPosition == persons.size()-1) {
+                    isAccendingPosition = false;
+                }
+
+                if(currentPosition == 0) {
+                    isAccendingPosition = true;
+                }
+
+                myRecyclerView.smoothScrollToPosition(isAccendingPosition? currentPosition++: currentPosition-- );
+                //run again
+                handler.postDelayed(this, miniSec);
+            }
+        });
     }
 }
