@@ -1,0 +1,14 @@
+[
+    {
+        "merged": "C:\\Users\\ACER\\.gradle\\daemon\\8.2\\vn.edu.tdc.player2024.app-mergeDebugResources-30:\\layout\\player_layout.xml",
+        "source": "C:\\Users\\ACER\\.gradle\\daemon\\8.2\\vn.edu.tdc.player2024.app-main-33:\\layout\\player_layout.xml"
+    },
+    {
+        "merged": "C:\\Users\\ACER\\.gradle\\daemon\\8.2\\vn.edu.tdc.player2024.app-mergeDebugResources-30:\\layout\\player_test_layout.xml",
+        "source": "C:\\Users\\ACER\\.gradle\\daemon\\8.2\\vn.edu.tdc.player2024.app-main-33:\\layout\\player_test_layout.xml"
+    },
+    {
+        "merged": "vn.edu.tdc.player2024.app-mergeDebugResources-30:/layout/player_test_layout.xml",
+        "source": "vn.edu.tdc.player2024.app-main-33:/layout/player_test_layout.xml"
+    }
+]
