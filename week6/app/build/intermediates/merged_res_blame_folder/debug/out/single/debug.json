@@ -1,0 +1,142 @@
+[
+    {
+        "merged": "C:\\Users\\ACER\\.gradle\\daemon\\8.2\\vn.edu.tdc.player2024.app-merged_res-31:\\mipmap-anydpi_ic_launcher_round.xml.flat",
+        "source": "C:\\Users\\ACER\\.gradle\\daemon\\8.2\\vn.edu.tdc.player2024.app-main-33:\\mipmap-anydpi\\ic_launcher_round.xml"
+    },
+    {
+        "merged": "C:\\Users\\ACER\\.gradle\\daemon\\8.2\\vn.edu.tdc.player2024.app-merged_res-31:\\xml_data_extraction_rules.xml.flat",
+        "source": "C:\\Users\\ACER\\.gradle\\daemon\\8.2\\vn.edu.tdc.player2024.app-main-33:\\xml\\data_extraction_rules.xml"
+    },
+    {
+        "merged": "C:\\Users\\ACER\\.gradle\\daemon\\8.2\\vn.edu.tdc.player2024.app-merged_res-31:\\layout_player_test_layout.xml.flat",
+        "source": "C:\\Users\\ACER\\.gradle\\daemon\\8.2\\vn.edu.tdc.player2024.app-main-33:\\layout\\player_test_layout.xml"
+    },
+    {
+        "merged": "C:\\Users\\ACER\\.gradle\\daemon\\8.2\\vn.edu.tdc.player2024.app-merged_res-31:\\layout_player_layout.xml.flat",
+        "source": "C:\\Users\\ACER\\.gradle\\daemon\\8.2\\vn.edu.tdc.player2024.app-main-33:\\layout\\player_layout.xml"
+    },
+    {
+        "merged": "C:\\Users\\ACER\\.gradle\\daemon\\8.2\\vn.edu.tdc.player2024.app-merged_res-31:\\drawable_ic_next_pressed.png.flat",
+        "source": "C:\\Users\\ACER\\.gradle\\daemon\\8.2\\vn.edu.tdc.player2024.app-main-33:\\drawable\\ic_next_pressed.png"
+    },
+    {
+        "merged": "C:\\Users\\ACER\\.gradle\\daemon\\8.2\\vn.edu.tdc.player2024.app-merged_res-31:\\drawable_ic_stop.png.flat",
+        "source": "C:\\Users\\ACER\\.gradle\\daemon\\8.2\\vn.edu.tdc.player2024.app-main-33:\\drawable\\ic_stop.png"
+    },
+    {
+        "merged": "C:\\Users\\ACER\\.gradle\\daemon\\8.2\\vn.edu.tdc.player2024.app-merged_res-31:\\drawable_ic_pause_pressed.png.flat",
+        "source": "C:\\Users\\ACER\\.gradle\\daemon\\8.2\\vn.edu.tdc.player2024.app-main-33:\\drawable\\ic_pause_pressed.png"
+    },
+    {
+        "merged": "C:\\Users\\ACER\\.gradle\\daemon\\8.2\\vn.edu.tdc.player2024.app-merged_res-31:\\mipmap-xxxhdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\ACER\\.gradle\\daemon\\8.2\\vn.edu.tdc.player2024.app-main-33:\\mipmap-xxxhdpi\\ic_launcher_round.webp"
+    },
+    {
+        "merged": "C:\\Users\\ACER\\.gradle\\daemon\\8.2\\vn.edu.tdc.player2024.app-merged_res-31:\\drawable_ic_play_pressed.png.flat",
+        "source": "C:\\Users\\ACER\\.gradle\\daemon\\8.2\\vn.edu.tdc.player2024.app-main-33:\\drawable\\ic_play_pressed.png"
+    },
+    {
+        "merged": "C:\\Users\\ACER\\.gradle\\daemon\\8.2\\vn.edu.tdc.player2024.app-merged_res-31:\\drawable_stop.xml.flat",
+        "source": "C:\\Users\\ACER\\.gradle\\daemon\\8.2\\vn.edu.tdc.player2024.app-main-33:\\drawable\\stop.xml"
+    },
+    {
+        "merged": "C:\\Users\\ACER\\.gradle\\daemon\\8.2\\vn.edu.tdc.player2024.app-merged_res-31:\\drawable_ic_pause.png.flat",
+        "source": "C:\\Users\\ACER\\.gradle\\daemon\\8.2\\vn.edu.tdc.player2024.app-main-33:\\drawable\\ic_pause.png"
+    },
+    {
+        "merged": "C:\\Users\\ACER\\.gradle\\daemon\\8.2\\vn.edu.tdc.player2024.app-merged_res-31:\\drawable_pause.xml.flat",
+        "source": "C:\\Users\\ACER\\.gradle\\daemon\\8.2\\vn.edu.tdc.player2024.app-main-33:\\drawable\\pause.xml"
+    },
+    {
+        "merged": "C:\\Users\\ACER\\.gradle\\daemon\\8.2\\vn.edu.tdc.player2024.app-merged_res-31:\\drawable_ic_stop_pressed.png.flat",
+        "source": "C:\\Users\\ACER\\.gradle\\daemon\\8.2\\vn.edu.tdc.player2024.app-main-33:\\drawable\\ic_stop_pressed.png"
+    },
+    {
+        "merged": "C:\\Users\\ACER\\.gradle\\daemon\\8.2\\vn.edu.tdc.player2024.app-merged_res-31:\\mipmap-xxhdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\ACER\\.gradle\\daemon\\8.2\\vn.edu.tdc.player2024.app-main-33:\\mipmap-xxhdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "C:\\Users\\ACER\\.gradle\\daemon\\8.2\\vn.edu.tdc.player2024.app-merged_res-31:\\mipmap-mdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\ACER\\.gradle\\daemon\\8.2\\vn.edu.tdc.player2024.app-main-33:\\mipmap-mdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "vn.edu.tdc.player2024.app-merged_res-31:/layout_player_test_layout.xml.flat",
+        "source": "vn.edu.tdc.player2024.app-main-33:/layout/player_test_layout.xml"
+    },
+    {
+        "merged": "C:\\Users\\ACER\\.gradle\\daemon\\8.2\\vn.edu.tdc.player2024.app-merged_res-31:\\mipmap-hdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\ACER\\.gradle\\daemon\\8.2\\vn.edu.tdc.player2024.app-main-33:\\mipmap-hdpi\\ic_launcher_round.webp"
+    },
+    {
+        "merged": "C:\\Users\\ACER\\.gradle\\daemon\\8.2\\vn.edu.tdc.player2024.app-merged_res-31:\\mipmap-xxhdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\ACER\\.gradle\\daemon\\8.2\\vn.edu.tdc.player2024.app-main-33:\\mipmap-xxhdpi\\ic_launcher_round.webp"
+    },
+    {
+        "merged": "C:\\Users\\ACER\\.gradle\\daemon\\8.2\\vn.edu.tdc.player2024.app-merged_res-31:\\drawable_ic_play.png.flat",
+        "source": "C:\\Users\\ACER\\.gradle\\daemon\\8.2\\vn.edu.tdc.player2024.app-main-33:\\drawable\\ic_play.png"
+    },
+    {
+        "merged": "C:\\Users\\ACER\\.gradle\\daemon\\8.2\\vn.edu.tdc.player2024.app-merged_res-31:\\mipmap-xhdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\ACER\\.gradle\\daemon\\8.2\\vn.edu.tdc.player2024.app-main-33:\\mipmap-xhdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "C:\\Users\\ACER\\.gradle\\daemon\\8.2\\vn.edu.tdc.player2024.app-merged_res-31:\\mipmap-hdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\ACER\\.gradle\\daemon\\8.2\\vn.edu.tdc.player2024.app-main-33:\\mipmap-hdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "C:\\Users\\ACER\\.gradle\\daemon\\8.2\\vn.edu.tdc.player2024.app-merged_res-31:\\drawable_next.xml.flat",
+        "source": "C:\\Users\\ACER\\.gradle\\daemon\\8.2\\vn.edu.tdc.player2024.app-main-33:\\drawable\\next.xml"
+    },
+    {
+        "merged": "C:\\Users\\ACER\\.gradle\\daemon\\8.2\\vn.edu.tdc.player2024.app-merged_res-31:\\drawable_ic_prev_pressed.png.flat",
+        "source": "C:\\Users\\ACER\\.gradle\\daemon\\8.2\\vn.edu.tdc.player2024.app-main-33:\\drawable\\ic_prev_pressed.png"
+    },
+    {
+        "merged": "C:\\Users\\ACER\\.gradle\\daemon\\8.2\\vn.edu.tdc.player2024.app-merged_res-31:\\drawable_ic_next.png.flat",
+        "source": "C:\\Users\\ACER\\.gradle\\daemon\\8.2\\vn.edu.tdc.player2024.app-main-33:\\drawable\\ic_next.png"
+    },
+    {
+        "merged": "C:\\Users\\ACER\\.gradle\\daemon\\8.2\\vn.edu.tdc.player2024.app-merged_res-31:\\mipmap-mdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\ACER\\.gradle\\daemon\\8.2\\vn.edu.tdc.player2024.app-main-33:\\mipmap-mdpi\\ic_launcher_round.webp"
+    },
+    {
+        "merged": "C:\\Users\\ACER\\.gradle\\daemon\\8.2\\vn.edu.tdc.player2024.app-merged_res-31:\\drawable_prev.xml.flat",
+        "source": "C:\\Users\\ACER\\.gradle\\daemon\\8.2\\vn.edu.tdc.player2024.app-main-33:\\drawable\\prev.xml"
+    },
+    {
+        "merged": "C:\\Users\\ACER\\.gradle\\daemon\\8.2\\vn.edu.tdc.player2024.app-merged_res-31:\\drawable_ic_prev.png.flat",
+        "source": "C:\\Users\\ACER\\.gradle\\daemon\\8.2\\vn.edu.tdc.player2024.app-main-33:\\drawable\\ic_prev.png"
+    },
+    {
+        "merged": "C:\\Users\\ACER\\.gradle\\daemon\\8.2\\vn.edu.tdc.player2024.app-merged_res-31:\\mipmap-xhdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\ACER\\.gradle\\daemon\\8.2\\vn.edu.tdc.player2024.app-main-33:\\mipmap-xhdpi\\ic_launcher_round.webp"
+    },
+    {
+        "merged": "C:\\Users\\ACER\\.gradle\\daemon\\8.2\\vn.edu.tdc.player2024.app-merged_res-31:\\drawable_ic_launcher_background.xml.flat",
+        "source": "C:\\Users\\ACER\\.gradle\\daemon\\8.2\\vn.edu.tdc.player2024.app-main-33:\\drawable\\ic_launcher_background.xml"
+    },
+    {
+        "merged": "C:\\Users\\ACER\\.gradle\\daemon\\8.2\\vn.edu.tdc.player2024.app-merged_res-31:\\drawable_ic_launcher_foreground.xml.flat",
+        "source": "C:\\Users\\ACER\\.gradle\\daemon\\8.2\\vn.edu.tdc.player2024.app-main-33:\\drawable\\ic_launcher_foreground.xml"
+    },
+    {
+        "merged": "C:\\Users\\ACER\\.gradle\\daemon\\8.2\\vn.edu.tdc.player2024.app-merged_res-31:\\mipmap-xxxhdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\ACER\\.gradle\\daemon\\8.2\\vn.edu.tdc.player2024.app-main-33:\\mipmap-xxxhdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "C:\\Users\\ACER\\.gradle\\daemon\\8.2\\vn.edu.tdc.player2024.app-merged_res-31:\\mipmap-anydpi_ic_launcher.xml.flat",
+        "source": "C:\\Users\\ACER\\.gradle\\daemon\\8.2\\vn.edu.tdc.player2024.app-main-33:\\mipmap-anydpi\\ic_launcher.xml"
+    },
+    {
+        "merged": "C:\\Users\\ACER\\.gradle\\daemon\\8.2\\vn.edu.tdc.player2024.app-merged_res-31:\\drawable_play.xml.flat",
+        "source": "C:\\Users\\ACER\\.gradle\\daemon\\8.2\\vn.edu.tdc.player2024.app-main-33:\\drawable\\play.xml"
+    },
+    {
+        "merged": "C:\\Users\\ACER\\.gradle\\daemon\\8.2\\vn.edu.tdc.player2024.app-merged_res-31:\\xml_backup_rules.xml.flat",
+        "source": "C:\\Users\\ACER\\.gradle\\daemon\\8.2\\vn.edu.tdc.player2024.app-main-33:\\xml\\backup_rules.xml"
+    },
+    {
+        "merged": "C:\\Users\\ACER\\.gradle\\daemon\\8.2\\vn.edu.tdc.player2024.app-merged_res-31:\\drawable_player_bg.png.flat",
+        "source": "C:\\Users\\ACER\\.gradle\\daemon\\8.2\\vn.edu.tdc.player2024.app-main-33:\\drawable\\player_bg.png"
+    }
+]
