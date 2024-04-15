@@ -1,4 +1,4 @@
-package vn.edu.tdc.xifood;
+package vn.edu.tdc.xifood.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 

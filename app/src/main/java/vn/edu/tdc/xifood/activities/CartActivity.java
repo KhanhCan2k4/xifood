@@ -1,10 +1,10 @@
-package vn.edu.tdc.xifood;
+package vn.edu.tdc.xifood.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class OrderProcessingActivity extends AppCompatActivity {
+public class CartActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
