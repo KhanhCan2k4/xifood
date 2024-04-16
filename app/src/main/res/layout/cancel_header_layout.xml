@@ -8,17 +8,19 @@
 
     <ImageButton
         android:id="@+id/btnCancel"
-        android:background="@drawable/baseline_cancel_24"
+        android:background="@drawable/btn_close"
         android:layout_gravity="center"
-        android:layout_width="50dp"
-        android:layout_height="50dp"/>
+        android:layout_marginLeft="20dp"
+        android:layout_width="20dp"
+        android:layout_height="20dp"/>
 
     <TextView
-        android:id="@+id/txtCacelLable"
-        android:text="Đơn mua"
+        android:id="@+id/txtTitle"
+        android:text="Example"
         android:gravity="center"
         android:textSize="25dp"
         android:textStyle="bold"
+        android:layout_marginRight="40dp"
         android:textColor="@color/black"
         android:layout_width="match_parent"
         android:layout_height="fill_parent"/>
