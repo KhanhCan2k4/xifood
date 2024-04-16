@@ -1,8 +1,9 @@
-package vn.edu.tdc.xifood.Model;
+package vn.edu.tdc.xifood.models;
 
 public class Category {
 
     private int id;
+    private int photo;
     private String name;
 
     public int getId() {
@@ -13,6 +14,13 @@ public class Category {
         this.id = id;
     }
 
+    public int getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(int photo) {
+        this.photo = photo;
+    }
     public String getName() {
         return name;
     }
@@ -23,8 +31,10 @@ public class Category {
 
     public Category() {
     }
-    public Category(int id, String name) {
+
+    public Category(int id, int photo, String name) {
         this.id = id;
+        this.photo = photo;
         this.name = name;
     }
 }
