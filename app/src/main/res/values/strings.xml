@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">android_project</string>
+    <string name="create_your_account"><u>Create Your Account</u> </string>
+    <string name="welcome_to_xifood">Welcome to XiFood</string>
+    <string name="login_now"><u>Login now </u></string>
+</resources>
