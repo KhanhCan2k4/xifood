@@ -1,31 +1,24 @@
 package vn.edu.tdc.xifood.models;
 
 public class User {
-    public User(String image, String name, String bio, String gender, String dayBorn, String email, String phoneNumber) {
-        this.image = image;
-        this.name = name;
-        this.bio = bio;
-        this.gender = gender;
-        this.dayBorn = dayBorn;
-        this.email = email;
-        this.phoneNumber = phoneNumber;
-    }
-    public User() {
-        this.image = "";
-        this.name = "";
-        this.bio = "";
-        this.gender = "";
-        this.dayBorn = "";
-        this.email = "";
-        this.phoneNumber = "";
+    //field
+    private int id;
+    private String name;
+    private String avatar;
+    private String bio;
+    private String dayBorn;
+    private String email;
+    private String gender;
+    private String phoneNumber;
+
+    //properties
+
+    public int getId() {
+        return id;
     }
 
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -36,20 +29,20 @@ public class User {
         this.name = name;
     }
 
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
     public String getBio() {
         return bio;
     }
 
     public void setBio(String bio) {
         this.bio = bio;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
     }
 
     public String getDayBorn() {
@@ -68,6 +61,14 @@ public class User {
         this.email = email;
     }
 
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
     public String getPhoneNumber() {
         return phoneNumber;
     }
@@ -76,12 +77,17 @@ public class User {
         this.phoneNumber = phoneNumber;
     }
 
-    private String image;
-    private String name;
-    private String bio;
-    private String gender;
-    private String dayBorn;
-    private String email;
-    private String phoneNumber;
+    public User(int id, String name, String avatar, String bio, String dayBorn, String email, String gender, String phoneNumber) {
+        this.id = id;
+        this.name = name;
+        this.avatar = avatar;
+        this.bio = bio;
+        this.dayBorn = dayBorn;
+        this.email = email;
+        this.gender = gender;
+        this.phoneNumber = phoneNumber;
+    }
 
+    public User() {
+    }
 }
