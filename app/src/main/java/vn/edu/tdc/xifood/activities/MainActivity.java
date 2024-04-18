@@ -122,6 +122,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        binding.btnCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, CartActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                startActivity(intent);
+            }
+        });
+
         adapter.setItemClickListener(new ListProductsAdapter.ItemClickListener() {
             @Override
             public void onItemClick(ListProductsAdapter.ViewHolder holder) {
