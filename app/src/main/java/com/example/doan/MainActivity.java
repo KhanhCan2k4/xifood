@@ -23,7 +23,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 private ProductDetailsLayoutBinding binding;
 private ArrayList<Topping> toppings;
-    private ArrayList<Bill> bills;
+private ArrayList<Bill> bills;
 private ToppinAdapter toppinAdapter ;
 private BillAdapter billAdapter;
 

@@ -2,8 +2,6 @@ package com.example.doan.Adapter;
 
 
 import android.app.Activity;
-import android.renderscript.ScriptGroup;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -11,6 +9,7 @@ import android.widget.AdapterView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.doan.Model.Cart;
 import com.example.doan.Model.Topping;
 import com.example.doan.databinding.ToppingItemtBinding;
 
@@ -47,16 +46,13 @@ private ArrayList<Topping> toppings;
     }
 
 
-    public ToppinAdapter(Activity context, ArrayList<Topping> toppings, AdapterView.OnItemClickListener clickListener) {
+    public ToppinAdapter(Activity context, ArrayList<Topping> toppings) {
         this.context = context;
         this.toppings = toppings;
         this.clickListener = clickListener;
     }
 
-    public ToppinAdapter(Activity context, ArrayList<Topping> toppings) {
-        this.context = context;
-        this.toppings = toppings;
-    }
+
 
 
     @NonNull
