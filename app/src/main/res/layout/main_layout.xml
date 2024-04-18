@@ -148,6 +148,7 @@
     </LinearLayout>
 
     <vn.edu.tdc.xifood.views.Navbar
+        android:id="@+id/navbar"
         android:layout_width="match_parent"
         android:layout_height="70dp"/>
 </LinearLayout>

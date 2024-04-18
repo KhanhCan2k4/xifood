@@ -7,9 +7,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".activities.DetailActivity">
+
+    <vn.edu.tdc.xifood.views.CancelHeader
+        android:id="@+id/cancelHeader"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"/>
 
     <ScrollView
+        android:paddingHorizontal="20dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 

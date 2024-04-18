@@ -4,7 +4,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -22,6 +25,7 @@ import vn.edu.tdc.xifood.data.ToppingData;
 import vn.edu.tdc.xifood.databinding.ProductDetailsLayoutBinding;
 import vn.edu.tdc.xifood.models.Bill;
 import vn.edu.tdc.xifood.models.Topping;
+import vn.edu.tdc.xifood.views.CancelHeader;
 
 public class DetailActivity extends AppCompatActivity {
 
@@ -30,14 +34,27 @@ public class DetailActivity extends AppCompatActivity {
     private ArrayList<Bill> bills;
     private ToppinAdapter toppinAdapter;
     private BillAdapter billAdapter;
+    private int id;
     ArrayList<String> uids;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        Intent intent = getIntent();
+
+        id = intent.getIntExtra("id", id);
+
         binding = ProductDetailsLayoutBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        binding.cancelHeader.setTitle("Sản phẩm #" + id);
+        binding.cancelHeader.setCancelListener(new CancelHeader.OnCancelListener() {
+            @Override
+            public void onCancel(View view) {
+                finish();
+            }
+        });
 
         //get data
         toppings = ToppingData.getToppings();

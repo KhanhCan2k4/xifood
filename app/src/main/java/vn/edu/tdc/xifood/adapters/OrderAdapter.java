@@ -62,6 +62,8 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
         holder.binding.orderList.setLayoutManager(manager);
         holder.binding.orderList.setAdapter(productAdapter);
 
+        holder.setId(order.getId());
+
         if (isAnOrder) {
             holder.binding.btnView.setVisibility(View.INVISIBLE);
             holder.binding.btnBuyBack.setVisibility(View.INVISIBLE);
@@ -79,16 +81,52 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
         private OrderItemLayoutBinding binding;
+        private int id;
+
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
 
         public MyViewHolder(@NonNull OrderItemLayoutBinding itemView) {
             super(itemView.getRoot());
 
             binding = itemView;
+
+            binding.btnView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (itemClickListener != null) {
+                        itemClickListener.onView(binding.btnView, id);
+                    }
+                }
+            });
+            binding.btnBuyBack.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (itemClickListener != null) {
+                        itemClickListener.onBuyback(binding.btnBuyBack, id);
+                    }
+                }
+            });
+//            binding.btnView.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    if (itemClickListener != null) {
+//                        itemClickListener.onView(binding.btnView);
+//                    }
+//                }
+//            });
         }
     }
 
     public interface OnItemClickListener {
-        public void onItemClick(MyViewHolder viewHolder);
+        public void onView(View view, int id);
+        public void onBuyback(View view, int id);
+        public void onCancel(View view, int id);
     }
 }
 

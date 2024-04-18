@@ -75,43 +75,10 @@
         android:layout_weight="5"
         android:layout_height="0dp"/>
 
-    <LinearLayout
+    <vn.edu.tdc.xifood.views.Navbar
+        android:id="@+id/navbar"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:orientation="horizontal"
-        android:background="@drawable/navbar_bg"
-        android:gravity="center"
-        android:layout_weight="1">
-
-        <ImageButton
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:layout_marginRight="50dp"
-            android:background="@drawable/home_icon">
-        </ImageButton>
-
-        <ImageButton
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:layout_marginRight="50dp"
-            android:background="@drawable/home_icon">
-        </ImageButton>
-
-        <ImageButton
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:layout_marginRight="50dp"
-            android:background="@drawable/home_icon">
-        </ImageButton>
-
-        <ImageButton
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:background="@drawable/home_icon">
-        </ImageButton>
-
-
-    </LinearLayout>
+        android:layout_height="70dp"/>
 
 
 

@@ -15,6 +15,11 @@ import vn.edu.tdc.xifood.R;
 
 public class CancelHeader extends LinearLayout {
     private OnCancelListener cancelListener = null;
+
+    public void setCancelListener(OnCancelListener cancelListener) {
+        this.cancelListener = cancelListener;
+    }
+
     public CancelHeader(Context context) {
         super(context);
         setUp(context);
@@ -35,31 +40,34 @@ public class CancelHeader extends LinearLayout {
 
         ImageButton btnCancel = findViewById(R.id.btnCancel);
 
-        if(cancelListener != null) {
-            if (btnCancel.isSelected()) {
-                cancelListener.onCancel(btnCancel);
+        btnCancel.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(cancelListener != null) {
+                    cancelListener.onCancel(btnCancel);
+                } else {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+
+                    builder.setTitle("Warning");
+                    builder.setCancelable(false);
+                    builder.setMessage("cancelListener is null");
+                    builder.setCancelable(true);
+
+                    builder.setPositiveButton(
+                            "Yes",
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    dialogInterface.cancel();
+                                }
+                            }
+                    );
+
+                    AlertDialog alertDialog = builder.create();
+                    alertDialog.show();
+                }
             }
-        } else {
-            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-
-            builder.setTitle("Warning");
-            builder.setCancelable(false);
-            builder.setMessage("cancelListener is null");
-            builder.setCancelable(true);
-
-            builder.setPositiveButton(
-                    "Yes",
-                    new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            dialogInterface.cancel();
-                        }
-                    }
-            );
-
-            AlertDialog alertDialog = builder.create();
-            alertDialog.show();
-        }
+        });
 
     }
 

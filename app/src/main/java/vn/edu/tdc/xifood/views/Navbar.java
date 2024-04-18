@@ -15,6 +15,15 @@ import vn.edu.tdc.xifood.R;
 public class Navbar extends LinearLayout {
     private View prevView = null;
     private OnNavClickListener navClickListener = null;
+
+    public OnNavClickListener getNavClickListener() {
+        return navClickListener;
+    }
+
+    public void setNavClickListener(OnNavClickListener navClickListener) {
+        this.navClickListener = navClickListener;
+    }
+
     private OnClickListener onClickListener = new OnClickListener() {
         @Override
         public void onClick(View view) {
@@ -36,7 +45,7 @@ public class Navbar extends LinearLayout {
                     if(view.getId() == R.id.btnHome) {
                         navClickListener.onHomeButtonClick(view);
                     } else if(view.getId() == R.id.btnDiscount) {
-                        navClickListener.onOrderButtonClick(view);
+                        navClickListener.onDiscountButtonClick(view);
                     } else if(view.getId() == R.id.btnOrder) {
                         navClickListener.onOrderButtonClick(view);
                     } else if(view.getId() == R.id.btnAccount) {

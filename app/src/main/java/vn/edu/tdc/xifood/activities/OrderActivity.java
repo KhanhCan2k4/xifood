@@ -6,18 +6,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Map;
-import java.util.Set;
 
-import vn.edu.tdc.xifood.R;
 import vn.edu.tdc.xifood.adapters.OrderAdapter;
 import vn.edu.tdc.xifood.databinding.OrderLayoutBinding;
 import vn.edu.tdc.xifood.models.Order;
 import vn.edu.tdc.xifood.models.Product;
+import vn.edu.tdc.xifood.views.Navbar;
 
 public class OrderActivity extends AppCompatActivity {
     private OrderLayoutBinding binding;
@@ -31,8 +31,6 @@ public class OrderActivity extends AppCompatActivity {
         binding = OrderLayoutBinding.inflate(getLayoutInflater());
 
         setContentView(binding.getRoot());
-
-        binding.cancelHeader.setTitle("Đơn mua");
 
         orders = new ArrayList<>();
         Order order1 = new Order(123);
@@ -65,5 +63,67 @@ public class OrderActivity extends AppCompatActivity {
 
         binding.orderList.setLayoutManager(manager);
         binding.orderList.setAdapter(orderAdapter);
+
+        orderAdapter.setOnItemClickListener(new OrderAdapter.OnItemClickListener() {
+            @Override
+            public void onView(View view, int id) {
+                Intent intent = new Intent(OrderActivity.this, PurchaseActivity.class);
+                intent.putExtra("id", id);
+
+                startActivity(intent);
+            }
+
+            @Override
+            public void onBuyback(View view, int id) {
+                Intent intent = new Intent(OrderActivity.this, PurchaseActivity.class);
+                intent.putExtra("id", id);
+
+                startActivity(intent);
+            }
+
+            @Override
+            public void onCancel(View view, int id) {
+
+            }
+        });
+
+        binding.navbar.setNavClickListener(new Navbar.OnNavClickListener() {
+            @Override
+            public void onHomeButtonClick(View view) {
+                Intent intent = new Intent(OrderActivity.this, MainActivity.class);
+
+                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+
+                // chuyen
+                startActivity(intent);
+            }
+
+            @Override
+            public void onDiscountButtonClick(View view) {
+                //chuyen qua danh muc uu dai
+                Intent intent = new Intent(OrderActivity.this, ListProductsActivity.class);
+                intent.putExtra("id", 1);
+
+                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+
+                // chuyen
+                startActivity(intent);
+            }
+
+            @Override
+            public void onOrderButtonClick(View view) {
+                //ignore
+            }
+
+            @Override
+            public void onAccountButtonClick(View view) {
+                Intent intent = new Intent(OrderActivity.this, SettingActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+
+                // chuyen
+                startActivity(intent);
+            }
+        });
+
     }
 }

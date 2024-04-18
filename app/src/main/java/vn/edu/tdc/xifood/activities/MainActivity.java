@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
@@ -25,6 +26,7 @@ import vn.edu.tdc.xifood.data.ListProductsData;
 import vn.edu.tdc.xifood.databinding.MainLayoutBinding;
 import vn.edu.tdc.xifood.models.Category;
 import vn.edu.tdc.xifood.models.Product;
+import vn.edu.tdc.xifood.views.Navbar;
 
 public class MainActivity extends AppCompatActivity {
     private MainLayoutBinding binding;
@@ -82,6 +84,53 @@ public class MainActivity extends AppCompatActivity {
 
         viewFlipper = findViewById(R.id.bannerViewFlipper);
         ActionViewFlipper();
+
+        binding.navbar.setNavClickListener(new Navbar.OnNavClickListener() {
+            @Override
+            public void onHomeButtonClick(View view) {
+                //ignore
+            }
+
+            @Override
+            public void onDiscountButtonClick(View view) {
+                //chuyen qua danh muc uu dai
+                Intent intent = new Intent(MainActivity.this, ListProductsActivity.class);
+                intent.putExtra("id", 1);
+
+                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+
+                // chuyen
+                startActivity(intent);
+            }
+
+            @Override
+            public void onOrderButtonClick(View view) {
+                Intent intent = new Intent(MainActivity.this, OrderActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+
+                // chuyen
+                startActivity(intent);
+            }
+
+            @Override
+            public void onAccountButtonClick(View view) {
+                Intent intent = new Intent(MainActivity.this, SettingActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+
+                // chuyen
+                startActivity(intent);
+            }
+        });
+
+        adapter.setItemClickListener(new ListProductsAdapter.ItemClickListener() {
+            @Override
+            public void onItemClick(ListProductsAdapter.ViewHolder holder) {
+                Intent intent = new Intent(MainActivity.this, DetailActivity.class);
+                intent.putExtra("id", holder.getProductId());
+
+                startActivity(intent);
+            }
+        });
 
     }
 
