@@ -1,76 +1,147 @@
 package vn.edu.tdc.xifood.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
 
-import java.util.ArrayList;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 
 import vn.edu.tdc.xifood.R;
-import vn.edu.tdc.xifood.data.AccountData;
-import vn.edu.tdc.xifood.databinding.LoginLayoutBinding;
-import vn.edu.tdc.xifood.models.Account;
-import vn.edu.tdc.xifood.models.User;
+import vn.edu.tdc.xifood.activities.MainActivity;
+import vn.edu.tdc.xifood.activities.RegisterActivity;
+import vn.edu.tdc.xifood.data.UserPreferences;
 
 public class LoginActivity extends AppCompatActivity {
-    private LoginLayoutBinding binding;
+    private EditText usernameEditText, passwordEditText;
+    private GoogleSignInClient mGoogleSignInClient;
+    private static final int RC_SIGN_IN = 9001;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.login_layout);
 
-        binding = LoginLayoutBinding.inflate(getLayoutInflater());
+        usernameEditText = findViewById(R.id.username);
+        passwordEditText = findViewById(R.id.password);
 
-        setContentView(binding.getRoot());
+        passwordEditText.setTransformationMethod(new PasswordTransformationMethod());
 
-        binding.btnRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        });
+        findViewById(R.id.btnRegister).setOnClickListener(v -> navigateToRegister());
 
-        binding.btnSignIn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ArrayList<Account> listAccounts = AccountData.dataAccount();
-                //lay account co san
-                for (Account acc: listAccounts) {
-                    Account loginAccount = acc;
+        findViewById(R.id.btnSignIn).setOnClickListener(v -> login());
 
-                    //lay du lieu tu nguoi dung nhap vao
-                    String username = binding.username.getText().toString().trim();
-                    String password = binding.password.getText().toString().trim();
+        findViewById(R.id.loginWithGoogle).setOnClickListener(v -> signInWithGoogle());
+    }
 
-                    //Nhan du lieu từ Register Activity
-//                    Intent intentData = getIntent();
-//                    String value1 = intentData.getStringExtra("Array_Account");
-//                    Log.d("si", value1);
+    private void navigateToRegister() {
+        Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+        startActivity(intent);
+        finish();
+    }
 
-                    if (loginAccount.getUsername().equalsIgnoreCase(username) && loginAccount.getPassword().equalsIgnoreCase(password)) {
-                        //Dang nhap hop le
-                        if (loginAccount.getRole() == 0) {
-                            //Khach hang
-                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                            startActivity(intent);
-                            finish();
-                        } else {
-                            //Admin
-                            //...//
-                        }
-                    } else {
-                        Toast.makeText(LoginActivity.this, "Login Unsuccessfully", Toast.LENGTH_LONG).show();
+    private void login() {
+        String username = usernameEditText.getText().toString().trim();
+        String password = passwordEditText.getText().toString().trim();
+
+        if (TextUtils.isEmpty(username) || TextUtils.isEmpty(password)) {
+            showAlert("LỖI", "Vui lòng điền đầy đủ thông tin");
+            return;
+        }
+
+        // Kiểm tra thông tin đăng nhập
+        UserPreferences userPrefs = new UserPreferences(this);
+        if (userPrefs.checkLogin(username, password)) {
+            // Đăng nhập thành công
+            navigateToMainActivity();
+        } else {
+            // Đăng nhập thất bại
+            showAlert("LỖI", "Đăng nhập không thành công. Vui lòng kiểm tra lại thông tin đăng nhập.");
+        }
+    }
+
+    private void navigateToMainActivity() {
+        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    private void showAlert(String title, String message) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(title)
+                .setMessage(message)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
                     }
-                }
+                })
+                .show();
+    }
+
+    private void signInWithGoogle() {
+        // Khởi tạo GoogleSignInOptions
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+
+        // Khởi tạo GoogleSignInClient
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+
+        // Gửi Intent để yêu cầu đăng nhập Google
+        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+        startActivityForResult(signInIntent, RC_SIGN_IN);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == RC_SIGN_IN) {
+            if (resultCode == RESULT_OK) {
+                handleSignInResult(data);
+            } else {
+                // Xử lý trường hợp đăng nhập không thành công
+                Log.e("GoogleSignIn", "Đăng nhập không thành công");
+                showAlert("LỖI", "Đăng nhập không thành công. Vui lòng kiểm tra lại thông tin đăng nhập.");
             }
-        });
+        }
+    }
+
+    private void handleSignInResult(Intent data) {
+        GoogleSignIn.getSignedInAccountFromIntent(data)
+                .addOnSuccessListener(googleSignInAccount -> {
+                    // Xử lý đăng nhập thành công
+                    onGoogleSignInSuccess(googleSignInAccount);
+                })
+                .addOnFailureListener(e -> {
+                    // Xử lý đăng nhập thất bại
+                    Log.e("GoogleSignIn", "Đăng nhập không thành công", e);
+                    showAlert("LỖI", "Đăng nhập không thành công");
+                });
     }
 
 
+    private void onGoogleSignInSuccess(GoogleSignInAccount account) {
+        String googleUsername = account.getDisplayName();
+        String googleEmail = account.getEmail();
+
+        // Lưu thông tin đăng nhập vào SharedPreferences
+        UserPreferences userPrefs = new UserPreferences(this);
+        userPrefs.saveGoogleSignIn(googleUsername, googleEmail);
+
+        // Chuyển hướng đến MainActivity
+        navigateToMainActivity();
+    }
 }
