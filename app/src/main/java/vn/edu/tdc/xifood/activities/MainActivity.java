@@ -54,7 +54,8 @@ public class MainActivity extends AppCompatActivity {
         binding.listCategory.setAdapter(listCategoryAdapter);
 
         //san pham
-        products = ListProductsData.getProducts();
+//        products = ListProductsData.getProducts();
+        products = CategoryData.getProductsByCategoryID(5);
 
         ListProductsAdapter adapter = new ListProductsAdapter(this, products);
         GridLayoutManager manager2 = new GridLayoutManager(this, 3);
@@ -70,14 +71,14 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(ListCategoryAdapter.ViewHolder holder) {
                 int id = holder.getId();
                 if (id > 0) {
-                        Intent intent = new Intent(MainActivity.this, ListProductsActivity.class);
-                        intent.putExtra("id", id);
-                        Log.d("id", id + "");
+                    Intent intent = new Intent(MainActivity.this, ListProductsActivity.class);
+                    intent.putExtra("id", id);
+                    Log.d("id", id + "");
 
-                        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 
-                        // chuyen
-                        startActivity(intent);
+                    // chuyen
+                    startActivity(intent);
                 }
             }
         });

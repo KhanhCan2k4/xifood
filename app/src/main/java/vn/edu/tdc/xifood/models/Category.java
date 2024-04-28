@@ -1,10 +1,22 @@
 package vn.edu.tdc.xifood.models;
 
+import java.util.ArrayList;
+
 public class Category {
+
+    ArrayList<Product> products;
 
     private int id;
     private int photo;
     private String name;
+
+    public ArrayList<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(ArrayList<Product> products) {
+        this.products = products;
+    }
 
     public int getId() {
         return id;

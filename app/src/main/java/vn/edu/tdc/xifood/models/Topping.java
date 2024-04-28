@@ -1,9 +1,18 @@
 package vn.edu.tdc.xifood.models;
 
 public class Topping {
-private String name="";
-private double price=0;
-private int soluong =0;
+    private String key;
+    private String name = "";
+    private double price = 0;
+    private int soluong = 0;
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
+    }
 
     public String getName() {
         return name;
@@ -34,6 +43,7 @@ private int soluong =0;
         this.price = price;
         this.soluong = soluong;
     }
+
     public Topping() {
 
     }

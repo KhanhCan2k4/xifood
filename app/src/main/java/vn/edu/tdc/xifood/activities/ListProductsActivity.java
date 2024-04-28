@@ -73,7 +73,8 @@ public class ListProductsActivity extends AppCompatActivity {
         });
 
         //san pham, doi du lieu trong danh sach san pham theo danh muc
-        products = ListProductsData.getProducts();
+//        products = ListProductsData.getProducts();
+        products = CategoryData.getProductsByCategoryID(id);
 
         adapter = new ListProductsAdapter(this, products);
         GridLayoutManager manager2 = new GridLayoutManager(this, 3);
@@ -132,8 +133,12 @@ public class ListProductsActivity extends AppCompatActivity {
         id = nextId;
 
         binding.categoryName.setText(categories.get(id).getName());
-        products = ListProductsData.getProducts();
+//        products = ListProductsData.getProducts();
+        products = CategoryData.getProductsByCategoryID(id);
 
+        //xet mang moi, truoc khi cap nhat
+        adapter.setProducts(products);
+        //thong bao cap nhat
         adapter.notifyDataSetChanged();
     }
 
