@@ -10,9 +10,6 @@ public class Topping {
     private long price;
     private ArrayList<Category> categories;
 
-    public Topping(Topping topping) {
-    }
-
     public String getKey() {
         return key;
     }
@@ -44,8 +41,5 @@ public class Topping {
     public Topping(String name, long price) {
         this.name = name;
         this.price = price;
-    }
-    public Topping() {
-        // Constructor mặc định không làm gì cả, nhưng cần phải có để Firebase có thể sử dụng.
     }
 }

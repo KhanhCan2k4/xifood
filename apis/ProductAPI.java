@@ -1,7 +1,5 @@
 package vn.edu.tdc.xifood.apis;
 
-import android.util.Log;
-
 import androidx.annotation.NonNull;
 
 import com.google.firebase.database.DataSnapshot;
@@ -17,7 +15,6 @@ import vn.edu.tdc.xifood.datamodels.Product;
 public class ProductAPI {
     private static String tblName = "products";
     private static DatabaseReference productRef = FirebaseDatabase.getInstance().getReference(tblName);
-   // casi naof cos callback thif dung new
     public static void  all(FirebaseCallbackAll callback) {
         productRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -38,12 +35,11 @@ public class ProductAPI {
         });
     }
 
-    public static void find(String key, FirebaseCallback callback) {
-        DatabaseReference itemRef = productRef.child(key);
+    public static void find(int id, FirebaseCallback callback) {
+        DatabaseReference itemRef = productRef.child("" + id);
         itemRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Log.d("dangtimsanpham", "a nhan nhan nhan ");
                 Product product = null;
                 if (snapshot.exists()) {
                     product = snapshot.getValue(Product.class);
