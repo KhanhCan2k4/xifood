@@ -215,6 +215,25 @@ public class DetailActivity extends AppCompatActivity {
 
             }
         });
+        Button buyNow = binding.buyNow;
+        Button addToCard = binding.addToCart;
+        buyNow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DetailActivity.this,PurchaseActivity.class );
+                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                startActivity(intent);
+            }
+        });
+        addToCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DetailActivity.this,CartActivity.class );
+                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                startActivity(intent);
+            }
+        });
+
 
     }
 
