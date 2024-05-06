@@ -136,8 +136,9 @@
                         android:textSize="25dp"
                         android:textStyle="bold" />
 
-                    <EditText
+                    <Spinner
                         android:id="@+id/genderUser"
+                        android:entries="@array/genderUser"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
