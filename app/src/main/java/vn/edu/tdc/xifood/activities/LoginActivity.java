@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import vn.edu.tdc.xifood.apis.UserAPI;
 import vn.edu.tdc.xifood.databinding.LoginLayoutBinding;
 import vn.edu.tdc.xifood.datamodels.User;
+import vn.edu.tdc.xifood.staffProcessing.MainStaffActivity;
 
 public class LoginActivity extends AppCompatActivity {
     private LoginLayoutBinding binding;
@@ -37,6 +38,17 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+//       Nút đăng nhập
+        binding.btnSignIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this, MainStaffActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+//       Nút đăng ký
         binding.btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
