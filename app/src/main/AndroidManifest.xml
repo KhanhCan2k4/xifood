@@ -39,8 +39,7 @@
             android:windowSoftInputMode="adjustNothing" />
         <activity
             android:name=".activities.LoginActivity"
-            android:exported="true"
-            android:windowSoftInputMode="adjustNothing">
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -73,8 +72,7 @@
             android:windowSoftInputMode="adjustNothing" />
         <activity
             android:name=".activities.AccountActivity"
-            android:exported="false"
-            android:windowSoftInputMode="adjustNothing" />
+            />
         <activity
             android:name=".activities.SettingActivity"
             android:exported="false"

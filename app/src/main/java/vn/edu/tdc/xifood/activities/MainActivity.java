@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
 
         viewFlipper = findViewById(R.id.bannerViewFlipper);
         ActionViewFlipper();
-
+        //viết sự kiện cho các button trong navbar
         binding.navbar.setNavClickListener(new Navbar.OnNavClickListener() {
             @Override
             public void onHomeButtonClick(View view) {
