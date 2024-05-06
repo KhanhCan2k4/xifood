@@ -10,7 +10,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-import vn.edu.tdc.xifood.models.Product;
+import vn.edu.tdc.xifood.datamodels.Product;
 
 public class ProductAPI {
     private static String tblName = "products";
