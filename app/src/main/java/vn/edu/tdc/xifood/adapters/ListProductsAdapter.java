@@ -17,6 +17,8 @@ import vn.edu.tdc.xifood.models.Product;
 public class ListProductsAdapter extends RecyclerView.Adapter<ListProductsAdapter.ViewHolder> {
     private Activity context;
     private ArrayList<Product> products;
+    
+
     private ItemClickListener itemClickListener;
 
     public void setItemClickListener(ItemClickListener itemClickListener) {
@@ -46,6 +48,10 @@ public class ListProductsAdapter extends RecyclerView.Adapter<ListProductsAdapte
     @Override
     public int getItemCount() {
         return products.size();
+    }
+
+    public void setProducts(ArrayList<Product> products) {
+        this.products = products;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

@@ -1,6 +1,7 @@
 package vn.edu.tdc.xifood.models;
 
 public class Product {
+    private String key;
     private int id;
     private String name;
     private String description;
@@ -8,6 +9,14 @@ public class Product {
 
     private int price;
     private int amount;
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
+    }
 
     public int getPrice() {
         return price;

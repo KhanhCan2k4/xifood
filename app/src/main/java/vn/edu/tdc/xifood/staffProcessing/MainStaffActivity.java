@@ -1,4 +1,4 @@
-package vn.edu.tdc.xifood.activities;
+package vn.edu.tdc.xifood.staffProcessing;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -6,21 +6,25 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
 import java.util.ArrayList;
 
+import vn.edu.tdc.xifood.R;
+import vn.edu.tdc.xifood.activities.DetailActivity;
+import vn.edu.tdc.xifood.activities.ListProductsActivity;
+import vn.edu.tdc.xifood.activities.MainActivity;
+import vn.edu.tdc.xifood.activities.OrderActivity;
+import vn.edu.tdc.xifood.activities.SettingActivity;
 import vn.edu.tdc.xifood.adapters.ListCategoryAdapter;
 import vn.edu.tdc.xifood.adapters.ListProductsAdapter;
 import vn.edu.tdc.xifood.data.CategoryData;
-import vn.edu.tdc.xifood.data.ListProductsData;
 import vn.edu.tdc.xifood.databinding.ListProductsLayoutBinding;
 import vn.edu.tdc.xifood.models.Category;
 import vn.edu.tdc.xifood.models.Product;
 import vn.edu.tdc.xifood.views.Navbar;
 
-public class ListProductsActivity extends AppCompatActivity {
+public class MainStaffActivity extends AppCompatActivity {
 
     private ListProductsLayoutBinding binding;
     private ArrayList<Product> products;
@@ -39,12 +43,12 @@ public class ListProductsActivity extends AppCompatActivity {
         //lay du lieu
         categories = CategoryData.getCategoryArrayList();
         listCategoryAdapter = new ListCategoryAdapter(this, categories);
-        LinearLayoutManager manager = new LinearLayoutManager(ListProductsActivity.this);
+        LinearLayoutManager manager = new LinearLayoutManager(MainStaffActivity.this);
 
         //nhan gia tri
 //        id = new Intent().getIntExtra("id", id);
-//        id = 2;
-        id = getIntent().getIntExtra("id", id);
+        id = 1;
+//        id = getIntent().getIntExtra("id", id);
 
         // xet huong
         manager.setOrientation(LinearLayoutManager.HORIZONTAL);
@@ -61,12 +65,7 @@ public class ListProductsActivity extends AppCompatActivity {
                     if (nextId > 0) {
                         upDate(nextId);
                     } else {
-                        //chuyen ve main (khong can truyen du lieu)
-                        Intent intent = new Intent(ListProductsActivity.this, MainActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-
-                        // chuyen
-                        startActivity(intent);
+                        upDate(1);
                     }
                 }
             }
@@ -83,15 +82,22 @@ public class ListProductsActivity extends AppCompatActivity {
         binding.listProducts.setLayoutManager(manager2);
         binding.listProducts.setAdapter(adapter);
 
+        //thay đổi nút home-icon thành nút cart
+        binding.homeIcon.setBackgroundResource(R.drawable.cart_icon);
+        binding.homeIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainStaffActivity.this, CartStaffActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+//              chuyển trang
+                startActivity(intent);
+            }
+        });
+
         binding.navbar.setNavClickListener(new Navbar.OnNavClickListener() {
             @Override
             public void onHomeButtonClick(View view) {
                 //ignore
-                Intent intent = new Intent(ListProductsActivity.this, MainActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-
-                // chuyen
-                startActivity(intent);
             }
 
             @Override
@@ -101,7 +107,7 @@ public class ListProductsActivity extends AppCompatActivity {
 
             @Override
             public void onOrderButtonClick(View view) {
-                Intent intent = new Intent(ListProductsActivity.this, OrderActivity.class);
+                Intent intent = new Intent(MainStaffActivity.this, OrderStaffActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 
                 // chuyen
@@ -110,7 +116,7 @@ public class ListProductsActivity extends AppCompatActivity {
 
             @Override
             public void onAccountButtonClick(View view) {
-                Intent intent = new Intent(ListProductsActivity.this, SettingActivity.class);
+                Intent intent = new Intent(MainStaffActivity.this, AccountStaffActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 
                 // chuyen
@@ -121,7 +127,7 @@ public class ListProductsActivity extends AppCompatActivity {
         adapter.setItemClickListener(new ListProductsAdapter.ItemClickListener() {
             @Override
             public void onItemClick(ListProductsAdapter.ViewHolder holder) {
-                Intent intent = new Intent(ListProductsActivity.this, DetailActivity.class);
+                Intent intent = new Intent(MainStaffActivity.this, DetailActivity.class);
                 intent.putExtra("id", holder.getProductId());
 
                 startActivity(intent);

@@ -1,4 +1,4 @@
-package vn.edu.tdc.xifood.activities;
+package vn.edu.tdc.xifood.staffProcessing;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -7,16 +7,14 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.FrameLayout;
-import android.widget.Toast;
 
-import vn.edu.tdc.xifood.apis.ImageStorageReference;
-import vn.edu.tdc.xifood.apis.UserAPI;
-import vn.edu.tdc.xifood.models.User;
+import vn.edu.tdc.xifood.R;
+import vn.edu.tdc.xifood.activities.AccountActivity;
+import vn.edu.tdc.xifood.activities.SettingActivity;
 import vn.edu.tdc.xifood.databinding.AccountLayoutBinding;
+import vn.edu.tdc.xifood.models.User;
 
-public class AccountActivity extends AppCompatActivity {
-
+public class AccountStaffActivity extends AppCompatActivity {
     private AccountLayoutBinding binding;
     private User user = new User();
     private Boolean isEditable = false;
@@ -50,7 +48,7 @@ public class AccountActivity extends AppCompatActivity {
                     setUserInEditText();
 
                     //vo hieu hoa chinh sua
-                   setEnableEdit(false);
+                    setEnableEdit(false);
                 }
             }
         });
@@ -71,7 +69,7 @@ public class AccountActivity extends AppCompatActivity {
                                     binding.editBtn.setSelected(false);
                                     setEnableEdit(false);
                                     isEditable = false;
-                                    Intent intent = new Intent( AccountActivity.this, SettingActivity.class);
+                                    Intent intent = new Intent( AccountStaffActivity.this, MainStaffActivity.class);
                                     intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                                     // chuyen
                                     startActivity(intent);
@@ -93,7 +91,7 @@ public class AccountActivity extends AppCompatActivity {
                                     isEditable = false;
                                     setEnableEdit(false);
                                     setUser(user);
-                                    Intent intent = new Intent( AccountActivity.this, SettingActivity.class);
+                                    Intent intent = new Intent( AccountStaffActivity.this, MainStaffActivity.class);
                                     intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                                     // chuyen
                                     startActivity(intent);
@@ -105,7 +103,7 @@ public class AccountActivity extends AppCompatActivity {
                     alert.show();
                 }
                 else{
-                    Intent intent = new Intent( AccountActivity.this, SettingActivity.class);
+                    Intent intent = new Intent( AccountStaffActivity.this, MainStaffActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                     // chuyen
                     startActivity(intent);

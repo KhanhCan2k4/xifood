@@ -79,23 +79,26 @@ public class DetailActivity extends AppCompatActivity {
         uids = new ArrayList<String>();
 
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        DatabaseReference databaseReference = firebaseDatabase.getReference();
-        firebaseDatabase.getReference("users").addValueEventListener(new ValueEventListener() {
+        DatabaseReference myRef = firebaseDatabase.getReference("actions");
+        DatabaseReference myRef2 = firebaseDatabase.getReference("new");
+        myRef2.setValue(bills.get(0));
+//        myRef = myRef.push();
+        myRef.setValue("huhu");
+
+        myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
-                    for(DataSnapshot shot : snapshot.getChildren()) {
-                        uids.add(shot.getKey());
-                    }
+                    uids.add(snapshot.getValue(String.class));
+                    Toast.makeText(DetailActivity.this, "" + uids.toString(), Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                Log.w("File", "Failed to read value.", error.toException());
             }
         });
-        Toast.makeText(this, "hihi" + uids.toString(), Toast.LENGTH_SHORT).show();
     }
 
 }

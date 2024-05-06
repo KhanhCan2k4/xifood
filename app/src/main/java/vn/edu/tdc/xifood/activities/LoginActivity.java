@@ -5,10 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
 
-import vn.edu.tdc.xifood.R;
 import vn.edu.tdc.xifood.databinding.LoginLayoutBinding;
+import vn.edu.tdc.xifood.staffProcessing.MainStaffActivity;
 
 public class LoginActivity extends AppCompatActivity {
     private LoginLayoutBinding binding;
@@ -17,10 +16,27 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+//        String a = "abcxyz";
+//
+//        SharePreference.setSharedPreferences(this);
+//        SharePreference.store("1", a);
+//        Log.d("TAG", "SharePreference: " + SharePreference.find("1"));
+
         binding = LoginLayoutBinding.inflate(getLayoutInflater());
 
         setContentView(binding.getRoot());
 
+//       Nút đăng nhập
+        binding.btnSignIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this, MainStaffActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+//       Nút đăng ký
         binding.btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -30,20 +46,5 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        binding.btnSignIn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String username = binding.username.getText().toString().trim();
-                String password = binding.password.getText().toString().trim();
-
-                if (username == "admin" && password == "111") {
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                    startActivity(intent);
-                    finish();
-                } else {
-                    Toast.makeText(LoginActivity.this, "Login Unsuccessfully", Toast.LENGTH_LONG).show();
-                }
-            }
-        });
     }
 }
