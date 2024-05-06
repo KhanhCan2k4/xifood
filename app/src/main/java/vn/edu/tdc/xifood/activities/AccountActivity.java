@@ -7,6 +7,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import vn.edu.tdc.xifood.apis.ImageStorageReference;
 import vn.edu.tdc.xifood.apis.UserAPI;
@@ -48,7 +50,7 @@ public class AccountActivity extends AppCompatActivity {
                     setUserInEditText();
 
                     //vo hieu hoa chinh sua
-                    setEnableEdit(false);
+                   setEnableEdit(false);
                 }
             }
         });
