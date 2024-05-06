@@ -4,9 +4,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
+import java.util.ArrayList;
+
+import vn.edu.tdc.xifood.apis.UserAPI;
 import vn.edu.tdc.xifood.databinding.LoginLayoutBinding;
+import vn.edu.tdc.xifood.datamodels.User;
 import vn.edu.tdc.xifood.staffProcessing.MainStaffActivity;
 
 public class LoginActivity extends AppCompatActivity {
@@ -25,6 +30,13 @@ public class LoginActivity extends AppCompatActivity {
         binding = LoginLayoutBinding.inflate(getLayoutInflater());
 
         setContentView(binding.getRoot());
+
+        UserAPI.all(new UserAPI.FirebaseCallbackAll() {
+            @Override
+            public void onCallback(ArrayList<User> users) {
+                Log.d("nhi", "onCallback: " + users.size());
+            }
+        });
 
 //       Nút đăng nhập
         binding.btnSignIn.setOnClickListener(new View.OnClickListener() {

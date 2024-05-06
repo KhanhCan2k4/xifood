@@ -22,12 +22,14 @@
                 android:gravity="center"
                 android:layout_weight="1">
                 <ImageView
+                    android:id="@+id/imageAvatar"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:background="@drawable/cart_icon"
                     android:layout_weight="1">
                 </ImageView>
                 <TextView
+                    android:id="@+id/username"
                     android:layout_width="0dp"
                     android:text="Nhi"
                     android:gravity="bottom"
