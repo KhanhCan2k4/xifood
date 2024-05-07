@@ -10,7 +10,7 @@ import android.view.View;
 
 import vn.edu.tdc.xifood.apis.ImageStorageReference;
 import vn.edu.tdc.xifood.apis.UserAPI;
-import vn.edu.tdc.xifood.models.User;
+import vn.edu.tdc.xifood.datamodels.User;
 import vn.edu.tdc.xifood.databinding.AccountLayoutBinding;
 
 public class AccountActivity extends AppCompatActivity {
@@ -114,30 +114,30 @@ public class AccountActivity extends AppCompatActivity {
 
     public User dataUser(){
         User user1 = new User();
-        user1.setId(1);
+        user1.setKey(String.valueOf(1));
         user1.setAvatar("");
-        user1.setName("Dylan");
+        user1.setFullName("Dylan");
         user1.setBio("2019 kết hôn với Khoai lang Thang 2022 kết hôn với Quân Ap, 2023 kết hôn với Mono");
         user1.setGender("Bisexcent");
-        user1.setDayBorn("28/01/2004");
+        user1.setDayOfBirth("28/01/2004");
         user1.setEmail("vandupluss@gmail.com");
         user1.setPhoneNumber("085850234");
         return user1;
     }
 
     private void setUserInEditText(){
-        user.setName(binding.nameUser.getText().toString());
+        user.setFullName(binding.nameUser.getText().toString());
         user.setBio(binding.bioUser.getText().toString());
         user.setGender(binding.genderUser.getText().toString());
-        user.setDayBorn(binding.dayBornUser.getText().toString());
+        user.setDayOfBirth(binding.dayBornUser.getText().toString());
         user.setEmail(binding.emailUser.getText().toString());
         user.setPhoneNumber(binding.phoneNumberUser.getText().toString());
     }
     private void setUser(User user){
-        binding.nameUser.setText(user.getName());
+        binding.nameUser.setText(user.getFullName());
         binding.bioUser.setText(user.getBio());
         binding.genderUser.setText(user.getGender());
-        binding.dayBornUser.setText(user.getDayBorn());
+        binding.dayBornUser.setText(user.getDayOfBirth());
         binding.emailUser.setText(user.getEmail());
         binding.phoneNumberUser.setText(user.getPhoneNumber());
     }

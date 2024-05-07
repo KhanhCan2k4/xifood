@@ -28,6 +28,7 @@ import java.util.List;
 import vn.edu.tdc.xifood.R;
 import vn.edu.tdc.xifood.adapters.ListCategoryAdapter;
 import vn.edu.tdc.xifood.adapters.ListProductsAdapter;
+import vn.edu.tdc.xifood.apis.CategoryAPI;
 import vn.edu.tdc.xifood.apis.ProductAPI;
 import vn.edu.tdc.xifood.data.CategoryData;
 import vn.edu.tdc.xifood.data.ListProductsData;
@@ -42,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<Category> categories;
     private ListCategoryAdapter listCategoryAdapter;
     private ViewFlipper viewFlipper;
+    public static final String CLICKED_CATEGORY_KEY = "key";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,49 +53,71 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         //lay du lieu
-//        categories = CategoryData.getCategoryArrayList();
-        listCategoryAdapter = new ListCategoryAdapter(this, categories);
-        LinearLayoutManager manager = new LinearLayoutManager(MainActivity.this);
-
-        // xet huong
-        manager.setOrientation(LinearLayoutManager.HORIZONTAL);
-
-        binding.listCategory.setLayoutManager(manager);
-        binding.listCategory.setAdapter(listCategoryAdapter);
-
-        //san pham
-//        products = ListProductsData.getProducts();
-        products = new ArrayList<>();
-        ProductAPI.all(new ProductAPI.FirebaseCallbackAll() {
+        categories = new ArrayList<>();
+        CategoryAPI.all(new CategoryAPI.FirebaseCallbackAll() {
             @Override
-            public void onCallback(ArrayList<Product> products) {
+            public void onCallback(ArrayList<Category> categoriesList) {
+                for (Category category: categoriesList) {
+                    categories.add(category);
+                }
+                listCategoryAdapter = new ListCategoryAdapter(MainActivity.this, categories);
+                LinearLayoutManager manager = new LinearLayoutManager(MainActivity.this);
 
+                // xet huong
+                manager.setOrientation(LinearLayoutManager.HORIZONTAL);
+
+                binding.listCategory.setLayoutManager(manager);
+                binding.listCategory.setAdapter(listCategoryAdapter);
+                //goi uy quyen cho danh muc
+                listCategoryAdapter.setItemClick(new ListCategoryAdapter.ItemClickListener() {
+                    @Override
+                    public void onItemClick(ListCategoryAdapter.ViewHolder holder) {
+                        String key = holder.getCategoryKey();
+                        if (!key.isEmpty()) {
+                            Intent intent = new Intent(MainActivity.this, ListProductsActivity.class);
+                            intent.putExtra(CLICKED_CATEGORY_KEY, key);
+                            Log.d(CLICKED_CATEGORY_KEY, key + "");
+
+                            intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+
+                            // chuyen
+                            startActivity(intent);
+                        }
+                    }
+                });
             }
         });
 
-        ListProductsAdapter adapter = new ListProductsAdapter(this, products);
-        GridLayoutManager manager2 = new GridLayoutManager(this, 3);
-        manager.setOrientation(GridLayoutManager.HORIZONTAL);
-
-        binding.listProducts.setLayoutManager(manager2);
-        binding.listProducts.setAdapter(adapter);
-
-
-        //goi uy quyen cho danh muc
-        listCategoryAdapter.setItemClick(new ListCategoryAdapter.ItemClickListener() {
+        //san pham
+        products = new ArrayList<>();
+        ProductAPI.all(new ProductAPI.FirebaseCallbackAll() {
             @Override
-            public void onItemClick(ListCategoryAdapter.ViewHolder holder) {
-                int id = holder.getId();
-                if (id > 0) {
-                    Intent intent = new Intent(MainActivity.this, ListProductsActivity.class);
-                    intent.putExtra("id", id);
-                    Log.d("id", id + "");
-
-                    intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-
-                    // chuyen
-                    startActivity(intent);
+            public void onCallback(ArrayList<Product> productsList) {
+                Log.d("No-1", "onCallback: " + productsList.size());
+                for (Product product: productsList) {
+                    for (Category category: product.getCategories()) {
+                        if ("5".equals(category.getKey())) {
+                            products.add(product);
+                        }
+                    }
                 }
+
+                Log.d("No-2", "onCallback: "+ products.size());
+                ListProductsAdapter adapter = new ListProductsAdapter(MainActivity.this, products);
+                GridLayoutManager manager2 = new GridLayoutManager(MainActivity.this, 3);
+                manager2.setOrientation(GridLayoutManager.VERTICAL);
+
+                binding.listProducts.setLayoutManager(manager2);
+                binding.listProducts.setAdapter(adapter);
+                adapter.setItemClickListener(new ListProductsAdapter.ItemClickListener() {
+                    @Override
+                    public void onItemClick(ListProductsAdapter.ViewHolder holder) {
+                        Intent intent = new Intent(MainActivity.this, DetailActivity.class);
+                        intent.putExtra("id", holder.getProductId());
+
+                        startActivity(intent);
+                    }
+                });
             }
         });
 
@@ -110,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
             public void onDiscountButtonClick(View view) {
                 //chuyen qua danh muc uu dai
                 Intent intent = new Intent(MainActivity.this, ListProductsActivity.class);
-                intent.putExtra("id", 1);
+                intent.putExtra(MainActivity.CLICKED_CATEGORY_KEY, "0");
 
                 intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 
@@ -142,16 +166,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, CartActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                startActivity(intent);
-            }
-        });
-
-        adapter.setItemClickListener(new ListProductsAdapter.ItemClickListener() {
-            @Override
-            public void onItemClick(ListProductsAdapter.ViewHolder holder) {
-                Intent intent = new Intent(MainActivity.this, DetailActivity.class);
-                intent.putExtra("id", holder.getProductId());
-
                 startActivity(intent);
             }
         });

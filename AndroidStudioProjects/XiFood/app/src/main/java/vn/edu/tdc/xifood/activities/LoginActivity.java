@@ -21,6 +21,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import vn.edu.tdc.xifood.R;
 import vn.edu.tdc.xifood.activities.MainActivity;
 import vn.edu.tdc.xifood.activities.RegisterActivity;
+import vn.edu.tdc.xifood.apis.SharePreference;
 import vn.edu.tdc.xifood.data.UserPreferences;
 
 public class LoginActivity extends AppCompatActivity {
@@ -32,6 +33,13 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_layout);
+
+        SharePreference.setSharedPreferences(LoginActivity.this);
+        //check used to login
+        if (!SharePreference.find(SharePreference.USER_TOKEN_KEY).isEmpty()) {
+            Log.d("TAG", "onCreate: used to login");
+            navigateToMainActivity();
+        }
 
         usernameEditText = findViewById(R.id.username);
         passwordEditText = findViewById(R.id.password);
@@ -64,6 +72,9 @@ public class LoginActivity extends AppCompatActivity {
         UserPreferences userPrefs = new UserPreferences(this);
         if (userPrefs.checkLogin(username, password)) {
             // Đăng nhập thành công
+            Log.d("TAG", "login: success" );
+            SharePreference.setSharedPreferences(LoginActivity.this);
+            SharePreference.store(SharePreference.USER_TOKEN_KEY, username.hashCode() + "");
             navigateToMainActivity();
         } else {
             // Đăng nhập thất bại

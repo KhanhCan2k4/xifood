@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 
 public class SharePreference {
     private static String sharePreferenceName = "MY_PREFERENCE";
+    public static final String USER_TOKEN_KEY = "USER_TOKEN_KEY";
     private static SharedPreferences sharedPreferences = null;
 
     public static void setSharedPreferences(Context context) {
