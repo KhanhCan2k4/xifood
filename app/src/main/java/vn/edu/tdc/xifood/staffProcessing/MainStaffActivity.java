@@ -20,8 +20,8 @@ import vn.edu.tdc.xifood.adapters.ListCategoryAdapter;
 import vn.edu.tdc.xifood.adapters.ListProductsAdapter;
 import vn.edu.tdc.xifood.data.CategoryData;
 import vn.edu.tdc.xifood.databinding.ListProductsLayoutBinding;
-import vn.edu.tdc.xifood.models.Category;
-import vn.edu.tdc.xifood.models.Product;
+import vn.edu.tdc.xifood.datamodels.Category;
+import vn.edu.tdc.xifood.datamodels.Product;
 import vn.edu.tdc.xifood.views.Navbar;
 
 public class MainStaffActivity extends AppCompatActivity {
@@ -41,7 +41,7 @@ public class MainStaffActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         //lay du lieu
-        categories = CategoryData.getCategoryArrayList();
+        categories = new ArrayList<>();
         listCategoryAdapter = new ListCategoryAdapter(this, categories);
         LinearLayoutManager manager = new LinearLayoutManager(MainStaffActivity.this);
 
@@ -73,7 +73,7 @@ public class MainStaffActivity extends AppCompatActivity {
 
         //san pham, doi du lieu trong danh sach san pham theo danh muc
 //        products = ListProductsData.getProducts();
-        products = CategoryData.getProductsByCategoryID(id);
+        products = new ArrayList<>();
 
         adapter = new ListProductsAdapter(this, products);
         GridLayoutManager manager2 = new GridLayoutManager(this, 3);
@@ -140,7 +140,7 @@ public class MainStaffActivity extends AppCompatActivity {
 
         binding.categoryName.setText(categories.get(id).getName());
 //        products = ListProductsData.getProducts();
-        products = CategoryData.getProductsByCategoryID(id);
+        products = new ArrayList<>();
 
         //xet mang moi, truoc khi cap nhat
         adapter.setProducts(products);
