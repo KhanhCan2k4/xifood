@@ -10,8 +10,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
+import vn.edu.tdc.xifood.apis.ImageStorageReference;
 import vn.edu.tdc.xifood.databinding.ListCategoriesBinding;
-import vn.edu.tdc.xifood.models.Category;
+import vn.edu.tdc.xifood.datamodels.Category;
 
 public class ListCategoryAdapter extends RecyclerView.Adapter<ListCategoryAdapter.ViewHolder> {
 
@@ -55,8 +56,8 @@ public class ListCategoryAdapter extends RecyclerView.Adapter<ListCategoryAdapte
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Category category = categories.get(position);
-        holder.id = category.getId();
-        holder.listCategoriesBinding.photoCategory.setBackgroundResource(category.getPhoto());
+        holder.categoryKey = category.getKey();
+        ImageStorageReference.setImageInto(holder.listCategoriesBinding.photoCategory, category.getIcon());
         holder.listCategoriesBinding.nameCategory.setText(category.getName());
     }
 
@@ -68,6 +69,16 @@ public class ListCategoryAdapter extends RecyclerView.Adapter<ListCategoryAdapte
     public class ViewHolder extends RecyclerView.ViewHolder {
         private ListCategoriesBinding listCategoriesBinding;
         private int id;
+
+        public String getCategoryKey() {
+            return categoryKey;
+        }
+
+        public void setCategoryKey(String categoryKey) {
+            this.categoryKey = categoryKey;
+        }
+
+        private String categoryKey;
 
         public int getId() {
             return id;

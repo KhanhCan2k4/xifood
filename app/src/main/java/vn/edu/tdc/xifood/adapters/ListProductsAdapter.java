@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 import vn.edu.tdc.xifood.R;
 import vn.edu.tdc.xifood.databinding.ListProductBinding;
-import vn.edu.tdc.xifood.models.Product;
+import vn.edu.tdc.xifood.datamodels.Product;
 
 public class ListProductsAdapter extends RecyclerView.Adapter<ListProductsAdapter.ViewHolder> {
     private Activity context;
@@ -25,7 +25,7 @@ public class ListProductsAdapter extends RecyclerView.Adapter<ListProductsAdapte
         this.itemClickListener = itemClickListener;
     }
 
-    public ListProductsAdapter(Activity context, ArrayList<Product> products) {
+    public ListProductsAdapter(Activity context,ArrayList<Product> products) {
         this.context = context;
         this.products = products;
     }
@@ -42,7 +42,7 @@ public class ListProductsAdapter extends RecyclerView.Adapter<ListProductsAdapte
         holder.listProductBinding.productImage.setImageResource(R.drawable.milk_tea);
         holder.listProductBinding.productName.setText(product.getName());
         holder.listProductBinding.priceProduct.setText(product.getPrice() + "VND");
-        holder.setProductId(product.getId());
+        holder.setProductKey(product.getKey());
     }
 
     @Override
@@ -56,6 +56,16 @@ public class ListProductsAdapter extends RecyclerView.Adapter<ListProductsAdapte
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         private int ProductId;
+
+        public String getProductKey() {
+            return productKey;
+        }
+
+        public void setProductKey(String productKey) {
+            this.productKey = productKey;
+        }
+
+        private String productKey;
 
         public int getProductId() {
             return ProductId;

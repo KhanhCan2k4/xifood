@@ -56,4 +56,9 @@ public class Product {
         this.name = name;
         this.price = price;
     }
+
+    public Product() {
+        this.name = "";
+        this.price = 0;
+    }
 }

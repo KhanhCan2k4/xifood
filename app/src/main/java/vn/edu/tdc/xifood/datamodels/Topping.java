@@ -42,4 +42,8 @@ public class Topping {
         this.name = name;
         this.price = price;
     }
+    public Topping() {
+        this.name = "";
+        this.price = 0;
+    }
 }
