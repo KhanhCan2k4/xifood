@@ -4,6 +4,8 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -11,11 +13,14 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import vn.edu.tdc.xifood.datamodels.User;
 
 public class UserAPI {
     private static String tblName = "users";
+    public static final int STAFF_PERMISSION = 12345;
     private static DatabaseReference userRef = FirebaseDatabase.getInstance().getReference(tblName);
 
     public static void  all(FirebaseCallbackAll callback) {
@@ -56,14 +61,14 @@ public class UserAPI {
             }
         });
     }
-    public static void store(User user) {
+    public static Task<Void> store(User user) {
         DatabaseReference itemRef = userRef.push();
         user.setKey(itemRef.getKey());
-        itemRef.setValue(user);
+        return itemRef.setValue(user);
     }
 
     public static void update(User user) {
-        DatabaseReference itemRef = userRef.child(user.getKey() + "");
+        DatabaseReference itemRef = userRef.child(user.getKey());
         itemRef.setValue(user);
     }
     public static void destroy(User user) {
