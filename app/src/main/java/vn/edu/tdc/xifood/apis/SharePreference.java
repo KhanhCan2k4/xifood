@@ -14,6 +14,7 @@ public class SharePreference {
     public static final String USER_AVATAR = "USER_AVATAR";
     public static final String USER_PASS = "USER_PASS";
     public static final String USER_PERMISSION = "USER_PERMISSION";
+    public static final String CART_KEY = "CART_KEY";
     private static SharedPreferences sharedPreferences = null;
     public static void setSharedPreferences(Context context) {
         sharedPreferences = context.getSharedPreferences(sharePreferenceName, Context.MODE_PRIVATE);

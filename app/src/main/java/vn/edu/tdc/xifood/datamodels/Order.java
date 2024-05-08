@@ -26,6 +26,20 @@ public class Order {
     public void setOrderedProducts(ArrayList<OrderedProduct> orderedProducts) {
         this.orderedProducts = orderedProducts;
     }
+    public void addOrderedProduct(OrderedProduct orderedProduct) {
+        for (OrderedProduct op: orderedProducts) {
+            if (op.getProduct().getKey().equals(orderedProduct.getProduct().getKey())) {
+                op.setAmount(op.getAmount()+ orderedProduct.getAmount());
+
+                if (op.getAmount() > 5) {
+                    op.setAmount(5);
+                }
+
+                return;
+            }
+        }
+        orderedProducts.add(orderedProduct);
+    }
 
     public String getDate() {
         return date;
@@ -51,35 +65,4 @@ public class Order {
     public Order() {
     }
 
-    public class OrderedProduct {
-        private Product product;
-        private ArrayList<Topping> toppings;
-        private int amount;
-
-        public Product getProduct() {
-            return product;
-        }
-        public void setProduct(Product product) {
-            this.product = product;
-        }
-
-        public ArrayList<Topping> getToppings() {
-            return toppings;
-        }
-        public void setToppings(ArrayList<Topping> toppings) {
-            this.toppings = toppings;
-        }
-
-        public int getAmount() {
-            return amount;
-        }
-        public void setAmount(int amount) {
-            this.amount = amount;
-        }
-
-        public OrderedProduct(Product product, int amount) {
-            this.product = product;
-            this.amount = amount;
-        }
-    }
 }

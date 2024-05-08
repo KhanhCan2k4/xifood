@@ -35,8 +35,8 @@ public class ProductAPI {
         });
     }
 
-    public static void find(int id, FirebaseCallback callback) {
-        DatabaseReference itemRef = productRef.child("" + id);
+    public static void find(String key, FirebaseCallback callback) {
+        DatabaseReference itemRef = productRef.child(key);
         itemRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {

@@ -113,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onItemClick(ListProductsAdapter.ViewHolder holder) {
                         Intent intent = new Intent(MainActivity.this, DetailActivity.class);
-                        intent.putExtra("id", holder.getProductId());
+                        intent.putExtra(DetailActivity.DETAIL_PRODUCT_KEY, holder.getProductKey());
 
                         startActivity(intent);
                     }
