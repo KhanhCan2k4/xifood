@@ -14,8 +14,9 @@ import android.view.View;
 import java.util.ArrayList;
 
 import vn.edu.tdc.xifood.adapters.OrderAdapter;
+import vn.edu.tdc.xifood.apis.OrderAPI;
 import vn.edu.tdc.xifood.databinding.OrderLayoutBinding;
-import vn.edu.tdc.xifood.models.Order;
+import vn.edu.tdc.xifood.datamodels.Order;
 import vn.edu.tdc.xifood.models.Product;
 import vn.edu.tdc.xifood.views.Navbar;
 
@@ -32,37 +33,42 @@ public class OrderActivity extends AppCompatActivity {
 
         setContentView(binding.getRoot());
 
-        orders = new ArrayList<>();
-        Order order1 = new Order(123);
-        Order order2 = new Order(124);
-        Order order3 = new Order(125);
+//        orders = new ArrayList<>();
+//        Order order1 = new Order(123);
+//        Order order2 = new Order(124);
+//        Order order3 = new Order(125);
+//
+//        Product product1 = new Product(1, "Sản phẩm 1", "=", 20000);
+//        Product product2 = new Product(2, "Sản phẩm 2", "=", 20000);
+//        Product product3 = new Product(3, "Sản phẩm 3", "=", 20000);
+//        Product product4 = new Product(4, "Sản phẩm 2", "=", 20000);
+//        Product product5 = new Product(5, "Sản phẩm 3", "=", 20000);
+//
+//        product1.setAmount(2);
+//        product2.setAmount(5);
+//        product3.setAmount(6);
+//        product4.setAmount(2);
+//        product5.setAmount(1);
+//
+//        order1.setProducts(product1, product3);
+//        order2.setProducts(product1, product2, product3, product4, product5);
+//        order3.setProducts(product1, product3, product4, product5);
+//
+//        orders.add(order1);
+//        orders.add(order2);
+//        orders.add(order3);
+        OrderAPI.all(new OrderAPI.FirebaseCallbackAll() {
+            @Override
+            public void onCallback(ArrayList<Order> orders) {
+                Log.d("oderActivity", "onCallback: "+orders.size());
+                orderAdapter = new OrderAdapter(OrderActivity.this, orders);
+                GridLayoutManager manager = new GridLayoutManager(OrderActivity.this, 3);
+                manager.setOrientation(RecyclerView.HORIZONTAL);
 
-        Product product1 = new Product(1, "Sản phẩm 1", "=", 20000);
-        Product product2 = new Product(2, "Sản phẩm 2", "=", 20000);
-        Product product3 = new Product(3, "Sản phẩm 3", "=", 20000);
-        Product product4 = new Product(4, "Sản phẩm 2", "=", 20000);
-        Product product5 = new Product(5, "Sản phẩm 3", "=", 20000);
+                binding.orderList.setLayoutManager(manager);
+                binding.orderList.setAdapter(orderAdapter);
 
-        product1.setAmount(2);
-        product2.setAmount(5);
-        product3.setAmount(6);
-        product4.setAmount(2);
-        product5.setAmount(1);
 
-        order1.setProducts(product1, product3);
-        order2.setProducts(product1, product2, product3, product4, product5);
-        order3.setProducts(product1, product3, product4, product5);
-
-        orders.add(order1);
-        orders.add(order2);
-        orders.add(order3);
-
-        orderAdapter = new OrderAdapter(this, orders);
-        GridLayoutManager manager = new GridLayoutManager(this, 3);
-        manager.setOrientation(RecyclerView.HORIZONTAL);
-
-        binding.orderList.setLayoutManager(manager);
-        binding.orderList.setAdapter(orderAdapter);
 
         orderAdapter.setOnItemClickListener(new OrderAdapter.OnItemClickListener() {
             @Override
@@ -86,7 +92,8 @@ public class OrderActivity extends AppCompatActivity {
 
             }
         });
-
+            }
+        });
         binding.navbar.setNavClickListener(new Navbar.OnNavClickListener() {
             @Override
             public void onHomeButtonClick(View view) {

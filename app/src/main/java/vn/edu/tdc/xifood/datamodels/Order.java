@@ -1,7 +1,6 @@
 package vn.edu.tdc.xifood.datamodels;
 
 import java.util.ArrayList;
-import java.util.Map;
 
 public class Order {
     public static final int STATUS_WAITING = 0;
@@ -27,6 +26,7 @@ public class Order {
         this.orderedProducts = orderedProducts;
     }
 
+
     public String getDate() {
         return date;
     }
@@ -48,7 +48,23 @@ public class Order {
         this.user = user;
     }
 
+    public Order(Order order) {
+        this.key = order.getKey();
+        this.orderedProducts = order.getOrderedProducts();
+        this.date = order.getDate();
+        this.status = order.getStatus();
+        this.user = order.getUser();
+    }
     public Order() {
+
+    }
+
+    public Order(String key, ArrayList<OrderedProduct> orderedProducts, String date, int status, User user) {
+        this.key = key;
+        this.orderedProducts = orderedProducts;
+        this.date = date;
+        this.status = status;
+        this.user = user;
     }
 
     public class OrderedProduct {
@@ -59,6 +75,7 @@ public class Order {
         public Product getProduct() {
             return product;
         }
+
         public void setProduct(Product product) {
             this.product = product;
         }
@@ -66,6 +83,7 @@ public class Order {
         public ArrayList<Topping> getToppings() {
             return toppings;
         }
+
         public void setToppings(ArrayList<Topping> toppings) {
             this.toppings = toppings;
         }
@@ -73,13 +91,24 @@ public class Order {
         public int getAmount() {
             return amount;
         }
+
         public void setAmount(int amount) {
             this.amount = amount;
         }
 
-        public OrderedProduct(Product product, int amount) {
+        public OrderedProduct(Product product, ArrayList<Topping> toppings, int amount) {
             this.product = product;
+            this.toppings = toppings;
             this.amount = amount;
+        }
+
+//        public OrderedProduct() {
+//            this.product = new Product();
+//            this.toppings = new ArrayList<>();
+//            this.amount = 0;
+//        }
+        public OrderedProduct() {
+            // Constructor mặc định không làm gì cả, nhưng cần phải có để Firebase có thể deserialize dữ liệu.
         }
     }
 }

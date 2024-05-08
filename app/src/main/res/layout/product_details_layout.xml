@@ -77,12 +77,12 @@
                     android:text="+" />
 
                 <TextView
-                    android:id="@+id/totalProduct"
+                    android:id="@+id/productMount"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                   android:textSize="25dp"
+                    android:textSize="25dp"
                     android:text="1" />
 
                 <Button
