@@ -43,7 +43,9 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<Category> categories;
     private ListCategoryAdapter listCategoryAdapter;
     private ViewFlipper viewFlipper;
-    public static final String CLICKED_CATEGORY_KEY = "key";
+    public static final String CLICKED_CATEGORY_KEY = "CLICKED_CATEGORY_KEY";
+    public static final String CATEGORY_SHOULD_TRY = "CATEGORY_SHOULD_TRY";
+    public static final String CATEGORY_RECENTS = "CATEGORY_RECENTS";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.d("No-1", "onCallback: " + productsList.size());
                 for (Product product: productsList) {
                     for (Category category: product.getCategories()) {
-                        if ("5".equals(category.getKey())) {
+                        if (CATEGORY_SHOULD_TRY.equals(category.getKey())) {
                             products.add(product);
                         }
                     }

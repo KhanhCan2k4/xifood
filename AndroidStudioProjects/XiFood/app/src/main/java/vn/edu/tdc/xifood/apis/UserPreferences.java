@@ -1,4 +1,4 @@
-package vn.edu.tdc.xifood.data;
+package vn.edu.tdc.xifood.apis;
 
 import android.content.Context;
 import android.content.SharedPreferences;

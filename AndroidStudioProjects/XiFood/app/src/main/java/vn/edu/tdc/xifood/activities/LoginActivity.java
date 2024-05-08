@@ -22,7 +22,7 @@ import vn.edu.tdc.xifood.R;
 import vn.edu.tdc.xifood.activities.MainActivity;
 import vn.edu.tdc.xifood.activities.RegisterActivity;
 import vn.edu.tdc.xifood.apis.SharePreference;
-import vn.edu.tdc.xifood.data.UserPreferences;
+import vn.edu.tdc.xifood.apis.UserPreferences;
 
 public class LoginActivity extends AppCompatActivity {
     private EditText usernameEditText, passwordEditText;

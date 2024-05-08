@@ -16,7 +16,7 @@ import java.security.MessageDigest;
 import java.util.ArrayList;
 
 import vn.edu.tdc.xifood.R;
-import vn.edu.tdc.xifood.data.UserPreferences;
+import vn.edu.tdc.xifood.apis.UserPreferences;
 
 public class RegisterActivity extends AppCompatActivity {
     private EditText usernameEditText, emailEditText, passwordEditText, confirmPasswordEditText;
