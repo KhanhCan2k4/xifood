@@ -227,7 +227,6 @@ public class AccountActivity extends AppCompatActivity {
         user.setKey(SharePreference.find(SharePreference.USER_TOKEN_KEY));
         user.setPassword(SharePreference.find(SharePreference.USER_PASS));
         user.setFullName(binding.nameUser.getText().toString());
-        user.setBio(binding.bioUser.getText().toString());
         switch (binding.genderUser.getSelectedItemPosition()) {
             case 0:
                 user.setGender(GENDER_MALE);
@@ -256,7 +255,6 @@ public class AccountActivity extends AppCompatActivity {
         user.setPermistion(SharePreference.findPermission());
 
         binding.nameUser.setText(user.getFullName());
-        binding.bioUser.setText(user.getBio());
         if (user.getGender().equalsIgnoreCase(GENDER_MALE)) {
             binding.genderUser.setSelection(0);
         } else  if (user.getGender().equalsIgnoreCase(GENDER_FEMALE)) {
@@ -276,7 +274,6 @@ public class AccountActivity extends AppCompatActivity {
 
     private void setEnableEdit(boolean isEditable) {
         binding.nameUser.setEnabled(isEditable);
-        binding.bioUser.setEnabled(isEditable);
         binding.genderUser.setClickable(isEditable);
         binding.dayBornUser.setEnabled(isEditable);
         binding.emailUser.setEnabled(isEditable);

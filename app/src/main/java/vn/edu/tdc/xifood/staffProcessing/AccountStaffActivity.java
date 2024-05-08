@@ -127,7 +127,6 @@ public class AccountStaffActivity extends AppCompatActivity {
 
     private void setUserInEditText(){
         user.setName(binding.nameUser.getText().toString());
-        user.setBio(binding.bioUser.getText().toString());
 //        user.setGender(binding.genderUser.getText().toString());
         user.setDayBorn(binding.dayBornUser.getText().toString());
         user.setEmail(binding.emailUser.getText().toString());
@@ -135,7 +134,6 @@ public class AccountStaffActivity extends AppCompatActivity {
     }
     private void setUser(User user){
         binding.nameUser.setText(user.getName());
-        binding.bioUser.setText(user.getBio());
 //        binding.genderUser.setText(user.getGender());
         binding.dayBornUser.setText(user.getDayBorn());
         binding.emailUser.setText(user.getEmail());
@@ -143,7 +141,6 @@ public class AccountStaffActivity extends AppCompatActivity {
     }
     private void setEnableEdit(boolean isEditable){
         binding.nameUser.setEnabled(isEditable);
-        binding.bioUser.setEnabled(isEditable);
         binding.genderUser.setEnabled(isEditable);
         binding.dayBornUser.setEnabled(isEditable);
         binding.emailUser.setEnabled(isEditable);
