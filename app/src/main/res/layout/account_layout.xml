@@ -82,8 +82,7 @@
                     android:id="@+id/imageAvatar"
                     android:layout_width="150dp"
                     android:layout_height="150dp"
-                    android:background="@drawable/border_radius"
-                    android:src="@mipmap/ic_launcher" />
+                    android:background="@drawable/border_radius" />
             </LinearLayout>
 
             <LinearLayout
@@ -107,6 +106,7 @@
                         android:enabled="false"
                         android:gravity="center"
                         android:textSize="30dp"
+                        android:inputType="textPersonName"
                         android:textStyle="bold" />
 
                     <EditText
@@ -172,6 +172,7 @@
                         android:enabled="false"
                         android:gravity="center_vertical"
                         android:textSize="25dp"
+                        android:inputType="date"
                         android:textStyle="bold" />
                 </LinearLayout>
 
@@ -199,6 +200,7 @@
                         android:enabled="false"
                         android:gravity="center_vertical"
                         android:textSize="25dp"
+                        android:inputType="textEmailAddress"
                         android:textStyle="bold" />
                 </LinearLayout>
 
@@ -226,6 +228,7 @@
                         android:enabled="false"
                         android:gravity="center_vertical"
                         android:textSize="25dp"
+                        android:inputType="phone"
                         android:textStyle="bold" />
                 </LinearLayout>
 
