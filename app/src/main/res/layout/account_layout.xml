@@ -79,7 +79,7 @@
                 android:gravity="center">
 
                 <ImageView
-                    android:id="@+id/imageUser"
+                    android:id="@+id/imageAvatar"
                     android:layout_width="150dp"
                     android:layout_height="150dp"
                     android:background="@drawable/border_radius"
@@ -136,8 +136,9 @@
                         android:textSize="25dp"
                         android:textStyle="bold" />
 
-                    <EditText
+                    <Spinner
                         android:id="@+id/genderUser"
+                        android:entries="@array/genderUser"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"

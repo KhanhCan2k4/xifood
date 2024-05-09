@@ -9,13 +9,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 import vn.edu.tdc.xifood.R;
+import vn.edu.tdc.xifood.databinding.OrderItemLayoutBinding;
 import vn.edu.tdc.xifood.databinding.OrderedProductItemLayoutBinding;
-import vn.edu.tdc.xifood.datamodels.Order;
-import vn.edu.tdc.xifood.datamodels.Product;
+import vn.edu.tdc.xifood.models.Order;
+import vn.edu.tdc.xifood.models.Product;
 
 public class OrderedProductAdapter extends RecyclerView.Adapter<OrderedProductAdapter.MyViewHolder> {
     private Activity context;
-    private ArrayList<Order.OrderedProduct> products = new ArrayList<>();
+    private ArrayList<Product> products = new ArrayList<>();
     private OnItemClickListener itemClickListener;
 
 //    public OrderedProductAdapter(Activity context, ArrayList<Order.OrderedProduct> orderedProducts) {
@@ -25,7 +26,7 @@ public class OrderedProductAdapter extends RecyclerView.Adapter<OrderedProductAd
         this.itemClickListener = itemClickListener;
     }
 
-    public OrderedProductAdapter(Activity context, ArrayList<Order.OrderedProduct> products) {
+    public OrderedProductAdapter(Activity context, ArrayList<Product> products) {
         this.context = context;
         this.products = products;
     }
@@ -38,29 +39,29 @@ public class OrderedProductAdapter extends RecyclerView.Adapter<OrderedProductAd
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        Product product = products.get(position).getProduct();
+        Product product = products.get(position);
 
         holder.binding.productName.setText(product.getName());
         holder.binding.productImage.setImageResource(R.drawable.ic_launcher_background);
 
-        holder.binding.txtAmount.setText("0");
-       // holder.binding.txtAmount.setText(product.getAmount() + "");
 
-//        holder.binding.btnDecreaseAmount.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                product.setAmount(product.getAmount() - 1);
-//                holder.binding.txtAmount.setText(product.getAmount() + "");
-//            }
-//        });
-//
-//        holder.binding.btnIncreaseAmount.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                product.setAmount(product.getAmount() + 1);
-//                holder.binding.txtAmount.setText(product.getAmount() + "");
-//            }
-//        });
+        holder.binding.txtAmount.setText(product.getAmount() + "");
+
+        holder.binding.btnDecreaseAmount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                product.setAmount(product.getAmount() - 1);
+                holder.binding.txtAmount.setText(product.getAmount() + "");
+            }
+        });
+
+        holder.binding.btnIncreaseAmount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                product.setAmount(product.getAmount() + 1);
+                holder.binding.txtAmount.setText(product.getAmount() + "");
+            }
+        });
     }
 
     @Override

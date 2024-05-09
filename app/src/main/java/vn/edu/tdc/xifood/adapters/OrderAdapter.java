@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 import vn.edu.tdc.xifood.databinding.OrderItemLayoutBinding;
-import vn.edu.tdc.xifood.datamodels.Order;
+import vn.edu.tdc.xifood.models.Order;
 
 public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder> {
     private Activity context;
@@ -51,28 +51,19 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        Order order = new Order(orders.get(position));
+        Order order = orders.get(position);
 
-//        Order order = orders.get(position);
-//
-//      holder.binding.textOrderCode.setText(String.format("Đơn số #%d", order.getId()));
-        holder.binding.textOrderCode.setText(String.format("Đơn số #%d", order.getKey()));
-//
-//        GridLayoutManager manager = new GridLayoutManager(context, 3);
-//        manager.setOrientation(GridLayoutManager.VERTICAL);
+        holder.binding.textOrderCode.setText(String.format("Đơn số #%d", order.getId()));
+
         GridLayoutManager manager = new GridLayoutManager(context, 3);
         manager.setOrientation(GridLayoutManager.VERTICAL);
-//
-//        OrderedProductAdapter productAdapter = new OrderedProductAdapter(context, order.getProducts());
-        OrderedProductAdapter productAdapter = new OrderedProductAdapter(context, order.getOrderedProducts());
 
-//        holder.binding.orderList.setLayoutManager(manager);
-//        holder.binding.orderList.setAdapter(productAdapter);
+        OrderedProductAdapter productAdapter = new OrderedProductAdapter(context, order.getProducts());
         holder.binding.orderList.setLayoutManager(manager);
         holder.binding.orderList.setAdapter(productAdapter);
-//
-//        holder.setId(order.getId());
-        holder.setId(new Integer(order.getKey()));
+
+        holder.setId(order.getId());
+
         if (isAnOrder) {
             holder.binding.btnView.setVisibility(View.INVISIBLE);
             holder.binding.btnBuyBack.setVisibility(View.INVISIBLE);

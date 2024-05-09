@@ -11,7 +11,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 import vn.edu.tdc.xifood.models.Category;
-import vn.edu.tdc.xifood.datamodels.Order;
+import vn.edu.tdc.xifood.models.Order;
 
 public class OrderAPI {
     private static String tblName = "orders";

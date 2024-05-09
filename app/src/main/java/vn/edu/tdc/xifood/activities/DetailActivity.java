@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -33,13 +34,12 @@ import vn.edu.tdc.xifood.data.ToppingData;
 import vn.edu.tdc.xifood.databinding.ProductDetailsLayoutBinding;
 import vn.edu.tdc.xifood.datamodels.Product;
 import vn.edu.tdc.xifood.models.Bill;
-import vn.edu.tdc.xifood.datamodels.Topping;
+import vn.edu.tdc.xifood.models.Topping;
 import vn.edu.tdc.xifood.views.CancelHeader;
 
 public class DetailActivity extends AppCompatActivity {
 
     private ProductDetailsLayoutBinding binding;
-        private ArrayList<Product> arrProducts;
     private ArrayList<Topping> toppings;
     private ArrayList<Bill> bills;
     private ToppinAdapter toppinAdapter;
@@ -49,20 +49,14 @@ public class DetailActivity extends AppCompatActivity {
     private int id;
 //    private Map<String, Integer> toppings;
     private String key;
-    ArrayList<String> uids;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
         Intent intent = getIntent();
 
-
         id = intent.getIntExtra("id", id);
-
-        key = "0";
-
 
         binding = ProductDetailsLayoutBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -83,21 +77,6 @@ public class DetailActivity extends AppCompatActivity {
             }
         });
 
-
-//        //get data
-      //  toppings = ToppingData.getToppings();
-//        ToppingAPI.all(new ToppingAPI.FirebaseCallbackAll() {
-//            @Override
-//            public void onCallback(ArrayList<Topping> toppings) {
-//                toppinAdapter = new ToppinAdapter(this, toppings);
-//                LinearLayoutManager manager = new LinearLayoutManager(DetailActivity.this);
-//                manager.setOrientation(LinearLayoutManager.VERTICAL);
-//                binding.toppingList.setLayoutManager(manager);
-//                if (toppinAdapter != null) {
-//                    toppinAdapter.notifyDataSetChanged();
-//                }
-//            }
-//        });
         ToppingAPI.all(new ToppingAPI.FirebaseCallbackAll() {
             @Override
             public void onCallback(ArrayList<Topping> toppings) {
@@ -114,77 +93,7 @@ public class DetailActivity extends AppCompatActivity {
                 binding.toppingList.setAdapter(toppinAdapter);
             }
         });
-//
-////        Log.d("ToppingData", "Size of toppings: " + toppings.size());
-       // toppinAdapter = new ToppinAdapter(this, toppings);
 
-//
-//
-
-//        binding.toppingList.setAdapter(toppinAdapter);
-//
-//        //bill
-//        bills = BillData.getBills();
-//
-//
-//        billAdapter = new BillAdapter(this, bills);
-//        LinearLayoutManager manager2 = new LinearLayoutManager(DetailActivity.this);
-//        manager.setOrientation(LinearLayoutManager.VERTICAL);
-//
-//        binding.oderListView.setLayoutManager(manager2);
-//        binding.oderListView.setAdapter(billAdapter);
-//        uids = new ArrayList<String>();
-
-//        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-//        DatabaseReference databaseReference = firebaseDatabase.getReference();
-//        firebaseDatabase.getReference("users").addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                if (snapshot.exists()) {
-//                    for(DataSnapshot shot : snapshot.getChildren()) {
-//                        uids.add(shot.getKey());
-//                    }
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
-//        Toast.makeText(this, "hihi" + uids.toString(), Toast.LENGTH_SHORT).show();
-
-//        ProductAPI.all(new ProductAPI.FirebaseCallbackAll() {
-//            @Override
-//            public void onCallback(ArrayList<Product> products) {
-//                arrProducts = products;
-//                Log.d("product", products.size()+"");
-//                product = arrProducts.get(id);
-//
-//        minus.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if(soluong >0)
-//                {
-//                    soluong--;
-//                }
-//                else {
-//                    soluong=0;
-//                }
-//            }
-//        });
-//        add.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//               soluong++;
-//            }
-//        });
-//        name.setText(product.getName());
-//        des.setText(product.getDescription());
-//        price.setText(product.getPrice()+"");
-//        mount.setText(soluong+"");
-//            }
-//        });
         minus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -233,7 +142,6 @@ public class DetailActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
 
     }
 

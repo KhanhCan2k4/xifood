@@ -25,4 +25,16 @@ public class ImageStorageReference {
             Picasso.get().load(uri.toString()).into(imageButton);
         });
     }
+
+    public static void upload(String fileName, String filePath) {
+        Uri uri = Uri.fromFile(new File(filePath));
+        StorageReference imgRef = ref.child(fileName);
+        imgRef.putFile(uri);
+    }
+
+    public static void upload(String fileName, File file) {
+        Uri uri = Uri.fromFile(file);
+        StorageReference imgRef = ref.child(fileName);
+        imgRef.putFile(uri);
+    }
 }

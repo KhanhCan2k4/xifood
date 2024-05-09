@@ -27,6 +27,29 @@ public class SettingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = SettingLayoutBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        //lay nguoi dung tu SharePreference
+        SharePreference.setSharedPreferences(SettingActivity.this); // phai co moi chay nhen ong co
+        String key = "";
+        key = SharePreference.find("USER_ID");
+        key = "0";
+
+
+        if (!key.isEmpty()) {
+            UserAPI.find(key, new UserAPI.FirebaseCallback() {
+                // lay user co key
+                @Override
+                public void onCallback(User user) {
+//                    Log.d("TAG", "onCallback: " + user.getFullName());
+                    binding.username.setText(user.getFullName());
+                }
+            });
+
+            // lay anh tu ImageStoragePreference
+            ImageStorageReference.setImageInto(binding.imageAvatar, "avatars/a2.jpg");
+
+        }
+
         products = dataProduct();
 
         adapter = new RecentsProductsAdapter(this, products);
@@ -89,7 +112,13 @@ public class SettingActivity extends AppCompatActivity {
         });
 
     }
-    public ArrayList<Product> dataProduct(){
+
+    @Override
+    public void onActivityReenter(int resultCode, Intent data) {
+        super.onActivityReenter(resultCode, data);
+    }
+
+    public ArrayList<Product> dataProduct() {
         Product product1 = new Product();
         product1.setImageProduct("");
         product1.setNameProduct("Cà phê sữa tươi");
@@ -114,6 +143,6 @@ public class SettingActivity extends AppCompatActivity {
         product4.setPriceProduct(42000);
         products.add(product4);
 
-        return  products;
+        return products;
     }
 }

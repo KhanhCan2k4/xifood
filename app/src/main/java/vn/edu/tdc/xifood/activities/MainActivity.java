@@ -43,15 +43,40 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         //lay du lieu
-        categories = CategoryData.getCategoryArrayList();
-        listCategoryAdapter = new ListCategoryAdapter(this, categories);
-        LinearLayoutManager manager = new LinearLayoutManager(MainActivity.this);
+        categories = new ArrayList<>();
+        CategoryAPI.all(new CategoryAPI.FirebaseCallbackAll() {
+            @Override
+            public void onCallback(ArrayList<Category> categoriesList) {
 
-        // xet huong
-        manager.setOrientation(LinearLayoutManager.HORIZONTAL);
+                if (categoriesList != null) {
+                    listCategoryAdapter = new ListCategoryAdapter(MainActivity.this, categoriesList);
+                    GridLayoutManager manager = new GridLayoutManager(MainActivity.this, 5);
 
-        binding.listCategory.setLayoutManager(manager);
-        binding.listCategory.setAdapter(listCategoryAdapter);
+                    // xet huong
+                    manager.setOrientation(LinearLayoutManager.VERTICAL);
+
+                    binding.listCategory.setLayoutManager(manager);
+                    binding.listCategory.setAdapter(listCategoryAdapter);
+                    //goi uy quyen cho danh muc
+                    listCategoryAdapter.setItemClick(new ListCategoryAdapter.ItemClickListener() {
+                        @Override
+                        public void onItemClick(ListCategoryAdapter.ViewHolder holder) {
+                            String key = holder.getCategoryKey();
+                            if (!key.isEmpty()) {
+                                Intent intent = new Intent(MainActivity.this, ListProductsActivity.class);
+                                intent.putExtra(CLICKED_CATEGORY_KEY, key);
+                                Log.d(CLICKED_CATEGORY_KEY, key + "");
+
+                                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+
+                                // chuyen
+                                startActivity(intent);
+                            }
+                        }
+                    });
+                }
+            }
+        });
 
         //san pham
 //        products = ListProductsData.getProducts();
@@ -77,9 +102,22 @@ public class MainActivity extends AppCompatActivity {
 
                     intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 
-                    // chuyen
-                    startActivity(intent);
-                }
+                Log.d("No-2", "onCallback: "+ products.size());
+                ListProductsAdapter adapter = new ListProductsAdapter(MainActivity.this, products);
+                GridLayoutManager manager2 = new GridLayoutManager(MainActivity.this, 3);
+                manager2.setOrientation(GridLayoutManager.VERTICAL);
+
+                binding.listProducts.setLayoutManager(manager2);
+                binding.listProducts.setAdapter(adapter);
+                adapter.setItemClickListener(new ListProductsAdapter.ItemClickListener() {
+                    @Override
+                    public void onItemClick(ListProductsAdapter.ViewHolder holder) {
+                        Intent intent = new Intent(MainActivity.this, DetailActivity.class);
+                        intent.putExtra("id", holder.getProductId());
+
+                        startActivity(intent);
+                    }
+                });
             }
         });
 
@@ -132,12 +170,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        adapter.setItemClickListener(new ListProductsAdapter.ItemClickListener() {
-            @Override
-            public void onItemClick(ListProductsAdapter.ViewHolder holder) {
-                Intent intent = new Intent(MainActivity.this, DetailActivity.class);
-                intent.putExtra("id", holder.getProductId());
 
+        // chuyen sang ListSearchActivity
+        binding.txtSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, ListSearchActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(intent);
             }
         });

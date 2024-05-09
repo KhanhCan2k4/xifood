@@ -21,109 +21,67 @@ import java.util.Set;
 
 import vn.edu.tdc.xifood.apis.ToppingAPI;
 import vn.edu.tdc.xifood.databinding.ToppingItemtBinding;
-import vn.edu.tdc.xifood.datamodels.Topping;
+import vn.edu.tdc.xifood.models.Topping;
 
 public class ToppinAdapter extends RecyclerView.Adapter<ToppinAdapter.ViewHolder> {
+private Activity context;
+private ArrayList<Topping> toppings;
+ private AdapterView.OnItemClickListener clickListener;
 
-    private Activity context;
-    private Map<String, Integer> toppingAndTotall;
-    private ArrayList<Topping> toppings;
+    public Activity getContext() {
+        return context;
+    }
 
-    private AdapterView.OnItemClickListener clickListener;
-    int soluong = 0;
+    public void setContext(Activity context) {
+        this.context = context;
+    }
+
+    public ArrayList<Topping> getToppings() {
+        return toppings;
+    }
+
+    public void setToppings(ArrayList<Topping> toppings) {
+        this.toppings = toppings;
+    }
+
+    public AdapterView.OnItemClickListener getClickListener() {
+        return clickListener;
+    }
+
+    public void setClickListener(AdapterView.OnItemClickListener clickListener) {
+        this.clickListener = clickListener;
+    }
+
 
     public ToppinAdapter(Activity context, ArrayList<Topping> toppings) {
         Log.d("soluongTopping", "ToppinAdapter: " + toppings.size());
         this.context = context;
         this.toppings = toppings;
-        this.toppingAndTotall = new HashMap<String, Integer>();
+        this.clickListener = clickListener;
     }
+
+
+
 
     @NonNull
     @Override
     public ToppinAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new ViewHolder(ToppingItemtBinding.inflate(context.getLayoutInflater(), parent, false));
+
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ToppinAdapter.ViewHolder holder, int position) {
-
-        Topping t = new Topping(toppings.get(position));
-        holder.toppingItemtBinding.addTopping.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                soluong++;
-                holder.toppingItemtBinding.totalTopping.setText(soluong + "");
-            }
-        });
-        holder.toppingItemtBinding.minusTopping.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (soluong > 0) {
-                    soluong--;
-                    holder.toppingItemtBinding.totalTopping.setText(soluong + "");
-                } else {
-                    holder.toppingItemtBinding.totalTopping.setText(soluong + "");
-                }
-            }
-        });
-        Log.d("TenCuaTopping", "onBindViewHolder: " + t.getName());
-        holder.toppingItemtBinding.toppingName.setText(t.getName());
-        holder.toppingItemtBinding.toppingPrice.setText(t.getPrice() + "");
-        toppingAndTotall.put(t.getKey(), soluong);
-
-//        ToppingAPI.all(new ToppingAPI.FirebaseCallbackAll() {
-//            @Override
-//            public void onCallback(ArrayList<Topping> t) {
-//                for(int i=0; i<t.size();i++)
-//                {
-//                    toppings.put(t.get(i).getKey(),0);
-//
-//                    holder.toppingItemtBinding.toppingName.setText(t.get(i).getName());
-//                }
-//
-//            }
-//        });
-//        ToppingAPI.all(new ToppingAPI.FirebaseCallbackAll() {
-//            @Override
-//            public void onCallback(ArrayList<Topping> t) {
-//                Log.d("Topping", t.size()+"");
-//                for(int i=0; i<t.size();i++)
-//                {
-//                    holder.toppingItemtBinding.addTopping.setOnClickListener(new View.OnClickListener() {
-//                        @Override
-//                        public void onClick(View v) {
-//                            soluong++;
-//                            holder.toppingItemtBinding.totalTopping.setText(soluong+"");
-//                        }
-//                    });
-//                    holder.toppingItemtBinding.minusTopping.setOnClickListener(new View.OnClickListener() {
-//                        @Override
-//                        public void onClick(View v) {
-//                            if(soluong >0)
-//                            {
-//                                soluong--;
-//                                holder.toppingItemtBinding.totalTopping.setText(soluong+"");
-//                            }
-//                            else {
-//                                holder.toppingItemtBinding.totalTopping.setText(soluong+"");
-//                            }
-//                        }
-//                    });
-//
-//                    holder.toppingItemtBinding.toppingName.setText(t.get(i).getName());
-//                    holder.toppingItemtBinding.toppingPrice.setText(t.get(i).getPrice()+"");
-//                    toppings.put(t.get(i).getKey(),soluong);
-//
-//                }
-//            }
-//
-//        });
-
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+     Topping topping =toppings.get(position);
+    holder.toppingItemtBinding.toppingName.setText(topping.getName());
+    holder.toppingItemtBinding.toppingPrice.setText(topping.getPrice()+" ");
+    holder.toppingItemtBinding.totalTopping.setText(topping.getSoluong()+" ");
     }
 
     @Override
     public int getItemCount() {
+      return toppings.size();
+            }
 
         if (toppings != null) {
             return toppings.size();
@@ -134,8 +92,7 @@ public class ToppinAdapter extends RecyclerView.Adapter<ToppinAdapter.ViewHolder
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        private ToppingItemtBinding toppingItemtBinding;
-
+       private ToppingItemtBinding toppingItemtBinding;
         public ViewHolder(@NonNull ToppingItemtBinding itemView) {
             super(itemView.getRoot());
             toppingItemtBinding = itemView;
@@ -148,101 +105,6 @@ public class ToppinAdapter extends RecyclerView.Adapter<ToppinAdapter.ViewHolder
 
         }
     }
-
-//    public Activity getContext() {
-//        return context;
-//    }
-//
-//    public void setContext(Activity context) {
-//        this.context = context;
-//    }
-//
-//    public Map<String, Integer> getToppings() {
-//        return toppings;
-//    }
-//
-//    public AdapterView.OnItemClickListener getClickListener() {
-//        return clickListener;
-//    }
-//
-//    public void setClickListener(AdapterView.OnItemClickListener clickListener) {
-//        this.clickListener = clickListener;
-//    }
-//
-//
-//    public ToppinAdapter(Activity context, ArrayList<Topping> toppings) {
-//        this.context = context;
-//        this.toppings = toppings;
-//        this.clickListener = clickListener;
-//    }
-//
-//
-//
-//
-//    @NonNull
-//    @Override
-//    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-//        return new ViewHolder(ToppingItemtBinding.inflate(context.getLayoutInflater(), parent, false));
-//
-//    }
-//
-//    @Override
-//    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-//        Topping topping =toppings.get(position);
-//        holder.toppingItemtBinding.toppingName.setText(topping.getName());
-//        holder.toppingItemtBinding.toppingPrice.setText(topping.getPrice()+" ");
-//
-//        holder.toppingItemtBinding.minusTopping.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                topping.setSoluong(topping.getSoluong()-1);
-//                if(topping.getSoluong()<0)
-//                {
-//                    holder.toppingItemtBinding.totalTopping.setText("0");
-//                }
-//                else {
-//                    holder.toppingItemtBinding.totalTopping.setText(topping.getSoluong() + " ");
-//                }
-//            }
-//        });
-//        holder.toppingItemtBinding.addTopping.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if(topping.getSoluong()<0)
-//                {
-//                    topping.setSoluong(0);
-//                }
-//                topping.setSoluong(topping.getSoluong()+1);
-//
-//                holder.toppingItemtBinding.totalTopping.setText(topping.getSoluong() + " ");
-//
-//            }
-//        });
-//
-//
-//    }
-//
-//    @Override
-//    public int getItemCount() {
-//        return toppings.size();
-//    }
-//
-//
-//    public static class ViewHolder extends RecyclerView.ViewHolder {
-//        private ToppingItemtBinding toppingItemtBinding;
-//        public ViewHolder(@NonNull ToppingItemtBinding itemView) {
-//            super(itemView.getRoot());
-//            toppingItemtBinding = itemView;
-//            toppingItemtBinding.getRoot().setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//
-//                }
-//            });
-//
-//        }
-//    }
-//
 
 
 }
