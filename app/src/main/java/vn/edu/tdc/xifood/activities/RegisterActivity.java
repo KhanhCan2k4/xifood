@@ -2,12 +2,10 @@ package vn.edu.tdc.xifood.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
-import android.text.method.PasswordTransformationMethod;
 import android.view.View;
+
 import android.widget.EditText;
 
 import androidx.appcompat.app.AlertDialog;
@@ -19,11 +17,12 @@ import vn.edu.tdc.xifood.R;
 import vn.edu.tdc.xifood.apis.UserPreferences;
 
 public class RegisterActivity extends AppCompatActivity {
-    private EditText usernameEditText, emailEditText, passwordEditText, confirmPasswordEditText;
+    private RegisterLayoutBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.register_layout);
 
         usernameEditText = findViewById(R.id.username);
@@ -42,10 +41,12 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
-        findViewById(R.id.btnSignIn).setOnClickListener(new View.OnClickListener() {
+        binding.btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                navigateToLogin();
+            public void onClick(View view) {
+                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
     }

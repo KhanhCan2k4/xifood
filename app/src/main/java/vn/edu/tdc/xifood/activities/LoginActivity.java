@@ -1,11 +1,9 @@
 package vn.edu.tdc.xifood.activities;
 
-import android.content.DialogInterface;
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
-import android.text.method.PasswordTransformationMethod;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -32,7 +30,6 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.login_layout);
 
         SharePreference.setSharedPreferences(LoginActivity.this);
         //check used to login
@@ -153,7 +150,5 @@ public class LoginActivity extends AppCompatActivity {
         UserPreferences userPrefs = new UserPreferences(this);
         userPrefs.saveGoogleSignIn(googleUsername, googleEmail);
 
-        // Chuyển hướng đến MainActivity
-        navigateToMainActivity();
     }
 }

@@ -1,5 +1,7 @@
 package vn.edu.tdc.xifood.apis;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 
 import com.google.firebase.database.DataSnapshot;
@@ -40,6 +42,7 @@ public class ProductAPI {
         itemRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Log.d("dangtimsanpham", "a nhan nhan nhan ");
                 Product product = null;
                 if (snapshot.exists()) {
                     product = snapshot.getValue(Product.class);

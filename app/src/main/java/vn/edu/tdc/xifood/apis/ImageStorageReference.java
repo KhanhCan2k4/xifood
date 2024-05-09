@@ -1,15 +1,11 @@
 package vn.edu.tdc.xifood.apis;
 
-import android.net.Uri;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
-
-import java.io.File;
 
 public class ImageStorageReference {
     private static StorageReference ref = FirebaseStorage.getInstance().getReference();

@@ -8,29 +8,19 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
-
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Set;
 
-import vn.edu.tdc.xifood.R;
 import vn.edu.tdc.xifood.adapters.Product;
 import vn.edu.tdc.xifood.adapters.RecentsProductsAdapter;
-import vn.edu.tdc.xifood.apis.ImageStorageReference;
-import vn.edu.tdc.xifood.apis.SharePreference;
-import vn.edu.tdc.xifood.apis.UserAPI;
 import vn.edu.tdc.xifood.databinding.SettingLayoutBinding;
-import vn.edu.tdc.xifood.datamodels.User;
 import vn.edu.tdc.xifood.views.Navbar;
 
 public class SettingActivity extends AppCompatActivity {
     private SettingLayoutBinding binding;
     RecentsProductsAdapter adapter;
     private ArrayList<Product> products = new ArrayList<>();
-
-    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +54,7 @@ public class SettingActivity extends AppCompatActivity {
 
         adapter = new RecentsProductsAdapter(this, products);
 
-        Log.d("product", products.size() + "");
+        Log.d("product", products.size()+ "");
 
         //Tạo đối tượng layout Mânger
         GridLayoutManager layoutManager = new GridLayoutManager(this, 2);
@@ -117,7 +107,7 @@ public class SettingActivity extends AppCompatActivity {
 
             @Override
             public void onAccountButtonClick(View view) {
-                //ignore
+               //ignore
             }
         });
 

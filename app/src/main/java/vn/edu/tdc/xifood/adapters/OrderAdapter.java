@@ -68,9 +68,29 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
             holder.binding.btnView.setVisibility(View.INVISIBLE);
             holder.binding.btnBuyBack.setVisibility(View.INVISIBLE);
         } else {
+
             holder.binding.btnView.setText("Xem");
-            holder.binding.btnBuyBack.setText("Mua lại");
+if(order.getStatus() == 1){
+    holder.binding.btnBuyBack.setText("Mua lại");
+}
+else if(order.getStatus() == 2) {
+    holder.binding.btnBuyBack.setText("Huỷ Đơn");
+
+}
+else {
+    holder.binding.btnBuyBack.setText("Huỷ Đơn");
+}
+
         }
+//        if (isAnOrder) {
+//            holder.binding.btnView.setVisibility(View.INVISIBLE);
+//            holder.binding.btnBuyBack.setVisibility(View.INVISIBLE);
+//        } else {
+//            holder.binding.btnView.setText("Xem");
+//
+//            holder.binding.btnBuyBack.setText("Mua lại");
+//        }
+
     }
 
     @Override

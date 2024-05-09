@@ -16,6 +16,7 @@ import vn.edu.tdc.xifood.models.Bill;
 
 public class BillAdapter extends RecyclerView.Adapter<BillAdapter.ViewHolder> {
     private Activity contenxt;
+
     private ArrayList<Bill> bills;
     private AdapterView.OnItemClickListener clickListener;
 
@@ -73,6 +74,8 @@ public class BillAdapter extends RecyclerView.Adapter<BillAdapter.ViewHolder> {
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         private BillItemtBinding biding;
+
+
 
         public ViewHolder(@NonNull BillItemtBinding itemView) {
             super(itemView.getRoot());

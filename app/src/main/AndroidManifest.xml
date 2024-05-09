@@ -37,11 +37,13 @@
             android:name=".staffProcessing.MainStaffActivity"
             android:exported="false" />
         <activity
+
             android:name=".activities.RegisterActivity"
-            android:exported="false"
-            android:windowSoftInputMode="adjustNothing" />
+            android:windowSoftInputMode="adjustNothing"
+            android:exported="false" />
         <activity
             android:name=".activities.LoginActivity"
+            android:windowSoftInputMode="adjustNothing"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -73,7 +75,10 @@
             android:name=".activities.OrderActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustNothing" />
-        <activity android:name=".activities.AccountActivity" />
+        <activity
+            android:name=".activities.AccountActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustNothing" />
         <activity
             android:name=".activities.SettingActivity"
             android:exported="false"
@@ -85,7 +90,8 @@
         <activity
             android:name=".activities.MainActivity"
             android:exported="false"
-            android:windowSoftInputMode="adjustNothing" />
+            android:windowSoftInputMode="adjustNothing">
+        </activity>
     </application>
 
 </manifest>

@@ -14,6 +14,7 @@ import android.view.View;
 import java.util.ArrayList;
 
 import vn.edu.tdc.xifood.adapters.OrderAdapter;
+import vn.edu.tdc.xifood.apis.OrderAPI;
 import vn.edu.tdc.xifood.databinding.OrderLayoutBinding;
 import vn.edu.tdc.xifood.models.Order;
 import vn.edu.tdc.xifood.models.Product;
@@ -69,7 +70,6 @@ public class OrderActivity extends AppCompatActivity {
             public void onView(View view, int id) {
                 Intent intent = new Intent(OrderActivity.this, PurchaseActivity.class);
                 intent.putExtra("id", id);
-
                 startActivity(intent);
             }
 
@@ -86,7 +86,8 @@ public class OrderActivity extends AppCompatActivity {
 
             }
         });
-
+            }
+        });
         binding.navbar.setNavClickListener(new Navbar.OnNavClickListener() {
             @Override
             public void onHomeButtonClick(View view) {

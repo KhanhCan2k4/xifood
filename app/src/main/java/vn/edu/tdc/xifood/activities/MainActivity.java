@@ -1,6 +1,5 @@
 package vn.edu.tdc.xifood.activities;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -12,15 +11,9 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
-import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 import com.bumptech.glide.Glide;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,13 +21,11 @@ import java.util.List;
 import vn.edu.tdc.xifood.R;
 import vn.edu.tdc.xifood.adapters.ListCategoryAdapter;
 import vn.edu.tdc.xifood.adapters.ListProductsAdapter;
-import vn.edu.tdc.xifood.apis.CategoryAPI;
-import vn.edu.tdc.xifood.apis.ProductAPI;
 import vn.edu.tdc.xifood.data.CategoryData;
 import vn.edu.tdc.xifood.data.ListProductsData;
 import vn.edu.tdc.xifood.databinding.MainLayoutBinding;
-import vn.edu.tdc.xifood.datamodels.Category;
-import vn.edu.tdc.xifood.datamodels.Product;
+import vn.edu.tdc.xifood.models.Category;
+import vn.edu.tdc.xifood.models.Product;
 import vn.edu.tdc.xifood.views.Navbar;
 
 public class MainActivity extends AppCompatActivity {
@@ -43,7 +34,6 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<Category> categories;
     private ListCategoryAdapter listCategoryAdapter;
     private ViewFlipper viewFlipper;
-    public static final String CLICKED_CATEGORY_KEY = "key";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,18 +79,28 @@ public class MainActivity extends AppCompatActivity {
         });
 
         //san pham
-        products = new ArrayList<>();
-        ProductAPI.all(new ProductAPI.FirebaseCallbackAll() {
+//        products = ListProductsData.getProducts();
+        products = CategoryData.getProductsByCategoryID(5);
+
+        ListProductsAdapter adapter = new ListProductsAdapter(this, products);
+        GridLayoutManager manager2 = new GridLayoutManager(this, 3);
+        manager.setOrientation(GridLayoutManager.HORIZONTAL);
+
+        binding.listProducts.setLayoutManager(manager2);
+        binding.listProducts.setAdapter(adapter);
+
+
+        //goi uy quyen cho danh muc
+        listCategoryAdapter.setItemClick(new ListCategoryAdapter.ItemClickListener() {
             @Override
-            public void onCallback(ArrayList<Product> productsList) {
-                Log.d("No-1", "onCallback: " + productsList.size());
-                for (Product product: productsList) {
-                    for (Category category: product.getCategories()) {
-                        if ("5".equals(category.getKey())) {
-                            products.add(product);
-                        }
-                    }
-                }
+            public void onItemClick(ListCategoryAdapter.ViewHolder holder) {
+                int id = holder.getId();
+                if (id > 0) {
+                    Intent intent = new Intent(MainActivity.this, ListProductsActivity.class);
+                    intent.putExtra("id", id);
+                    Log.d("id", id + "");
+
+                    intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 
                 Log.d("No-2", "onCallback: "+ products.size());
                 ListProductsAdapter adapter = new ListProductsAdapter(MainActivity.this, products);
@@ -134,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
             public void onDiscountButtonClick(View view) {
                 //chuyen qua danh muc uu dai
                 Intent intent = new Intent(MainActivity.this, ListProductsActivity.class);
-                intent.putExtra(MainActivity.CLICKED_CATEGORY_KEY, "0");
+                intent.putExtra("id", 1);
 
                 intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 
@@ -169,6 +169,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
 
         // chuyen sang ListSearchActivity
         binding.txtSearch.setOnClickListener(new View.OnClickListener() {

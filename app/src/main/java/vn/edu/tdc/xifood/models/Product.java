@@ -78,4 +78,12 @@ public class Product {
         this.amount = 0;
         this.price = price;
     }
+    public Product() {
+        this.id = id;
+        this.name = name;
+        this.description = "";
+        this.image = image;
+        this.amount = 0;
+        this.price = price;
+    }
 }

@@ -1,7 +1,6 @@
 package vn.edu.tdc.xifood.datamodels;
 
 import java.util.ArrayList;
-import java.util.Map;
 
 public class Order {
     public static final int STATUS_WAITING = 0;
@@ -48,7 +47,15 @@ public class Order {
         this.user = user;
     }
 
+    public Order(Order order) {
+        this.key = order.getKey();
+        this.orderedProducts = order.getOrderedProducts();
+        this.date = order.getDate();
+        this.status = order.getStatus();
+        this.user = order.getUser();
+    }
     public Order() {
+
     }
 
     public class OrderedProduct {
@@ -59,6 +66,7 @@ public class Order {
         public Product getProduct() {
             return product;
         }
+      
         public void setProduct(Product product) {
             this.product = product;
         }

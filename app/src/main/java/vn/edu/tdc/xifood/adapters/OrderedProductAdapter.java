@@ -1,18 +1,12 @@
 package vn.edu.tdc.xifood.adapters;
 
 import android.app.Activity;
-import android.util.Log;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Map;
-import java.util.Set;
 
 import vn.edu.tdc.xifood.R;
 import vn.edu.tdc.xifood.databinding.OrderItemLayoutBinding;
@@ -24,6 +18,9 @@ public class OrderedProductAdapter extends RecyclerView.Adapter<OrderedProductAd
     private Activity context;
     private ArrayList<Product> products = new ArrayList<>();
     private OnItemClickListener itemClickListener;
+
+//    public OrderedProductAdapter(Activity context, ArrayList<Order.OrderedProduct> orderedProducts) {
+//    }
 
     public void setOnItemClickListener(OnItemClickListener itemClickListener) {
         this.itemClickListener = itemClickListener;
@@ -46,6 +43,7 @@ public class OrderedProductAdapter extends RecyclerView.Adapter<OrderedProductAd
 
         holder.binding.productName.setText(product.getName());
         holder.binding.productImage.setImageResource(R.drawable.ic_launcher_background);
+
 
         holder.binding.txtAmount.setText(product.getAmount() + "");
 
