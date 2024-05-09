@@ -16,7 +16,6 @@
         android:layout_height="70dp" />
 
     <ScrollView
-        android:paddingHorizontal="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -93,7 +92,7 @@
 
 
                         <TextView
-                            android:id="@+id/productAmount"
+                            android:id="@+id/productMount"
                             android:layout_width="27dp"
                             android:layout_height="match_parent"
                             android:textStyle="bold"
@@ -134,8 +133,7 @@
                 android:id="@+id/Topping"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
                 android:textColor="#FF4F4F"
                 android:text="topping them"
                 android:textSize="16dp"
@@ -152,8 +150,7 @@
                 android:id="@+id/Bill"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
                 android:textColor="#FF4F4F"
                 android:text="Don Hang Cua Ban"
                 android:textSize="16dp"

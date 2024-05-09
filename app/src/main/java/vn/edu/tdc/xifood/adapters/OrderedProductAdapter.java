@@ -1,37 +1,31 @@
 package vn.edu.tdc.xifood.adapters;
 
 import android.app.Activity;
-import android.util.Log;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Map;
-import java.util.Set;
 
 import vn.edu.tdc.xifood.R;
-import vn.edu.tdc.xifood.apis.ImageStorageReference;
-import vn.edu.tdc.xifood.databinding.OrderItemLayoutBinding;
 import vn.edu.tdc.xifood.databinding.OrderedProductItemLayoutBinding;
-import vn.edu.tdc.xifood.datamodels.OrderedProduct;
-import vn.edu.tdc.xifood.models.Order;
+import vn.edu.tdc.xifood.datamodels.Order;
 import vn.edu.tdc.xifood.datamodels.Product;
 
 public class OrderedProductAdapter extends RecyclerView.Adapter<OrderedProductAdapter.MyViewHolder> {
     private Activity context;
-    private ArrayList<OrderedProduct> products = new ArrayList<>();
+    private ArrayList<Order.OrderedProduct> products = new ArrayList<>();
     private OnItemClickListener itemClickListener;
+
+//    public OrderedProductAdapter(Activity context, ArrayList<Order.OrderedProduct> orderedProducts) {
+//    }
 
     public void setOnItemClickListener(OnItemClickListener itemClickListener) {
         this.itemClickListener = itemClickListener;
     }
 
-    public OrderedProductAdapter(Activity context, ArrayList<OrderedProduct> products) {
+    public OrderedProductAdapter(Activity context, ArrayList<Order.OrderedProduct> products) {
         this.context = context;
         this.products = products;
     }
@@ -44,28 +38,29 @@ public class OrderedProductAdapter extends RecyclerView.Adapter<OrderedProductAd
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        OrderedProduct product = products.get(position);
+        Product product = products.get(position).getProduct();
 
-        holder.binding.productName.setText(product.getProduct().getName());
-        ImageStorageReference.setImageInto(holder.binding.productImage, product.getProduct().getImage().get(0));
+        holder.binding.productName.setText(product.getName());
+        holder.binding.productImage.setImageResource(R.drawable.ic_launcher_background);
 
-        holder.binding.txtAmount.setText(product.getAmount() + "");
+        holder.binding.txtAmount.setText("0");
+       // holder.binding.txtAmount.setText(product.getAmount() + "");
 
-        holder.binding.btnDecreaseAmount.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                product.setAmount(product.getAmount() - 1);
-                holder.binding.txtAmount.setText(product.getAmount() + "");
-            }
-        });
-
-        holder.binding.btnIncreaseAmount.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                product.setAmount(product.getAmount() + 1);
-                holder.binding.txtAmount.setText(product.getAmount() + "");
-            }
-        });
+//        holder.binding.btnDecreaseAmount.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                product.setAmount(product.getAmount() - 1);
+//                holder.binding.txtAmount.setText(product.getAmount() + "");
+//            }
+//        });
+//
+//        holder.binding.btnIncreaseAmount.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                product.setAmount(product.getAmount() + 1);
+//                holder.binding.txtAmount.setText(product.getAmount() + "");
+//            }
+//        });
     }
 
     @Override
