@@ -10,9 +10,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-import vn.edu.tdc.xifood.apis.ImageStorageReference;
 import vn.edu.tdc.xifood.databinding.ListCategoriesBinding;
-import vn.edu.tdc.xifood.datamodels.Category;
+import vn.edu.tdc.xifood.models.Category;
 
 public class ListCategoryAdapter extends RecyclerView.Adapter<ListCategoryAdapter.ViewHolder> {
 
@@ -42,6 +41,7 @@ public class ListCategoryAdapter extends RecyclerView.Adapter<ListCategoryAdapte
 
     public ListCategoryAdapter() {
     }
+
     public ListCategoryAdapter(Activity content, ArrayList<Category> categories) {
         this.content = content;
         this.categories = categories;
@@ -56,9 +56,12 @@ public class ListCategoryAdapter extends RecyclerView.Adapter<ListCategoryAdapte
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Category category = categories.get(position);
-        holder.categoryKey = category.getKey();
-        ImageStorageReference.setImageInto(holder.listCategoriesBinding.photoCategory, category.getIcon());
-        holder.listCategoriesBinding.nameCategory.setText(category.getName());
+        if (category != null && holder != null) {
+            holder.categoryKey = category.getKey();
+            Log.d("TAG", "onBindViewHolder: " + category.getIcon());
+            ImageStorageReference.setImageInto(holder.listCategoriesBinding.photoCategory, category.getIcon());
+            holder.listCategoriesBinding.nameCategory.setText(category.getName());
+        }
     }
 
     @Override
@@ -69,16 +72,6 @@ public class ListCategoryAdapter extends RecyclerView.Adapter<ListCategoryAdapte
     public class ViewHolder extends RecyclerView.ViewHolder {
         private ListCategoriesBinding listCategoriesBinding;
         private int id;
-
-        public String getCategoryKey() {
-            return categoryKey;
-        }
-
-        public void setCategoryKey(String categoryKey) {
-            this.categoryKey = categoryKey;
-        }
-
-        private String categoryKey;
 
         public int getId() {
             return id;
@@ -95,9 +88,9 @@ public class ListCategoryAdapter extends RecyclerView.Adapter<ListCategoryAdapte
                 @Override
                 public void onClick(View v) {
 //                    Log.d("adapter", "Click");
-                    if(itemClick != null){
+                    if (itemClick != null) {
                         itemClick.onItemClick(ViewHolder.this);
-                    }else{
+                    } else {
                         Log.d("adapter", "You must create an ItemClickLister before!!");
                     }
                 }
@@ -105,7 +98,7 @@ public class ListCategoryAdapter extends RecyclerView.Adapter<ListCategoryAdapte
         }
     }
 
-    public interface ItemClickListener{
+    public interface ItemClickListener {
         public void onItemClick(ViewHolder holder);
     }
 }

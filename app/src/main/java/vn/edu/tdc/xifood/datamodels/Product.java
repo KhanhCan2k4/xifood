@@ -58,7 +58,5 @@ public class Product {
     }
 
     public Product() {
-        this.name = "";
-        this.price = 0;
     }
 }

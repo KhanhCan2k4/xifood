@@ -13,13 +13,11 @@ import java.util.ArrayList;
 
 import vn.edu.tdc.xifood.adapters.ListCategoryAdapter;
 import vn.edu.tdc.xifood.adapters.ListProductsAdapter;
-import vn.edu.tdc.xifood.apis.CategoryAPI;
-import vn.edu.tdc.xifood.apis.ProductAPI;
 import vn.edu.tdc.xifood.data.CategoryData;
 import vn.edu.tdc.xifood.data.ListProductsData;
 import vn.edu.tdc.xifood.databinding.ListProductsLayoutBinding;
-import vn.edu.tdc.xifood.datamodels.Category;
-import vn.edu.tdc.xifood.datamodels.Product;
+import vn.edu.tdc.xifood.models.Category;
+import vn.edu.tdc.xifood.models.Product;
 import vn.edu.tdc.xifood.views.Navbar;
 
 public class ListProductsActivity extends AppCompatActivity {
@@ -30,7 +28,6 @@ public class ListProductsActivity extends AppCompatActivity {
     private ListCategoryAdapter listCategoryAdapter;
     private ListProductsAdapter adapter;
     private int id;
-    private String key;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,66 +37,51 @@ public class ListProductsActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         //lay du lieu
-//        categories = CategoryData.getCategoryArrayList();
-        categories = new ArrayList<>();
-        key = getIntent().getStringExtra(MainActivity.CLICKED_CATEGORY_KEY);
-        Log.d("CATE", "onCreate: " + key);
-        CategoryAPI.all(new CategoryAPI.FirebaseCallbackAll() {
-            @Override
-            public void onCallback(ArrayList<Category> categoriesList) {
-                for (Category category:categoriesList) {
-                    categories.add(category);
-                }
-                listCategoryAdapter = new ListCategoryAdapter(ListProductsActivity.this, categories);
-                LinearLayoutManager manager = new LinearLayoutManager(ListProductsActivity.this);
+        categories = CategoryData.getCategoryArrayList();
+        listCategoryAdapter = new ListCategoryAdapter(this, categories);
+        LinearLayoutManager manager = new LinearLayoutManager(ListProductsActivity.this);
 
-                //nhan gia tri
+        //nhan gia tri
 //        id = new Intent().getIntExtra("id", id);
 //        id = 2;
-                id = getIntent().getIntExtra("id", id);
+        id = getIntent().getIntExtra("id", id);
 
-                // xet huong
-                manager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        // xet huong
+        manager.setOrientation(LinearLayoutManager.HORIZONTAL);
 
-                binding.listCategory.setLayoutManager(manager);
-                binding.listCategory.setAdapter(listCategoryAdapter);
+        binding.listCategory.setLayoutManager(manager);
+        binding.listCategory.setAdapter(listCategoryAdapter);
 
-                //goi uy quyen cho danh muc
-                listCategoryAdapter.setItemClick(new ListCategoryAdapter.ItemClickListener() {
-                    @Override
-                    public void onItemClick(ListCategoryAdapter.ViewHolder holder) {
-                        String nextKey = holder.getCategoryKey();
-                        if (nextKey != key) {
-                            if (!nextKey.isEmpty()) {
-                                upDate(nextKey);
-                            } else {
-                                //chuyen ve main (khong can truyen du lieu)
-                                Intent intent = new Intent(ListProductsActivity.this, MainActivity.class);
-                                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-
-                                // chuyen
-                                startActivity(intent);
-                            }
-                        }
-                    }
-                });
-            }
-        });
-        CategoryAPI.find(key, new CategoryAPI.FirebaseCallback() {
+        //goi uy quyen cho danh muc
+        listCategoryAdapter.setItemClick(new ListCategoryAdapter.ItemClickListener() {
             @Override
-            public void onCallback(Category category) {
-                binding.categoryName.setText(category.getName());
+            public void onItemClick(ListCategoryAdapter.ViewHolder holder) {
+                int nextId = holder.getId();
+                if (nextId != id) {
+                    if (nextId > 0) {
+                        upDate(nextId);
+                    } else {
+                        //chuyen ve main (khong can truyen du lieu)
+                        Intent intent = new Intent(ListProductsActivity.this, MainActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 
-                products = category.getProducts();
-                adapter = new ListProductsAdapter(ListProductsActivity.this, products);
-                GridLayoutManager manager2 = new GridLayoutManager(ListProductsActivity.this, 3);
-                manager2.setOrientation(GridLayoutManager.VERTICAL);
-
-                binding.listProducts.setLayoutManager(manager2);
-                binding.listProducts.setAdapter(adapter);
+                        // chuyen
+                        startActivity(intent);
+                    }
+                }
             }
         });
 
+        //san pham, doi du lieu trong danh sach san pham theo danh muc
+//        products = ListProductsData.getProducts();
+        products = CategoryData.getProductsByCategoryID(id);
+
+        adapter = new ListProductsAdapter(this, products);
+        GridLayoutManager manager2 = new GridLayoutManager(this, 3);
+        manager.setOrientation(GridLayoutManager.HORIZONTAL);
+
+        binding.listProducts.setLayoutManager(manager2);
+        binding.listProducts.setAdapter(adapter);
 
         binding.navbar.setNavClickListener(new Navbar.OnNavClickListener() {
             @Override
@@ -135,25 +117,35 @@ public class ListProductsActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        adapter.setItemClickListener(new ListProductsAdapter.ItemClickListener() {
+            @Override
+            public void onItemClick(ListProductsAdapter.ViewHolder holder) {
+                Intent intent = new Intent(ListProductsActivity.this, DetailActivity.class);
+                intent.putExtra("id", holder.getProductId());
+
+                startActivity(intent);
+            }
+        });
     }
 
-    private void upDate(String nextKey) {
-        key = nextKey;
-        for (Category category: categories) {
-            if (category.getKey().equals(key)) {
-                binding.categoryName.setText(category.getName());
-                products = category.getProducts();
-                adapter.setProducts(products);
-                adapter.notifyDataSetChanged();
-                break;
-            }
-        }
+    private void upDate(int nextId) {
+        id = nextId;
+
+        binding.categoryName.setText(categories.get(id).getName());
+//        products = ListProductsData.getProducts();
+        products = CategoryData.getProductsByCategoryID(id);
+
+        //xet mang moi, truoc khi cap nhat
+        adapter.setProducts(products);
+        //thong bao cap nhat
+        adapter.notifyDataSetChanged();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        key = getIntent().getStringExtra(MainActivity.CLICKED_CATEGORY_KEY);
-        upDate(key);
+        id = getIntent().getIntExtra("id", id);
+        upDate(id);
     }
 }
