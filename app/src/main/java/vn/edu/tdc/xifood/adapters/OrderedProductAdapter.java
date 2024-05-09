@@ -15,23 +15,21 @@ import java.util.Map;
 import java.util.Set;
 
 import vn.edu.tdc.xifood.R;
-import vn.edu.tdc.xifood.apis.ImageStorageReference;
 import vn.edu.tdc.xifood.databinding.OrderItemLayoutBinding;
 import vn.edu.tdc.xifood.databinding.OrderedProductItemLayoutBinding;
-import vn.edu.tdc.xifood.datamodels.OrderedProduct;
 import vn.edu.tdc.xifood.models.Order;
-import vn.edu.tdc.xifood.datamodels.Product;
+import vn.edu.tdc.xifood.models.Product;
 
 public class OrderedProductAdapter extends RecyclerView.Adapter<OrderedProductAdapter.MyViewHolder> {
     private Activity context;
-    private ArrayList<OrderedProduct> products = new ArrayList<>();
+    private ArrayList<Product> products = new ArrayList<>();
     private OnItemClickListener itemClickListener;
 
     public void setOnItemClickListener(OnItemClickListener itemClickListener) {
         this.itemClickListener = itemClickListener;
     }
 
-    public OrderedProductAdapter(Activity context, ArrayList<OrderedProduct> products) {
+    public OrderedProductAdapter(Activity context, ArrayList<Product> products) {
         this.context = context;
         this.products = products;
     }
@@ -44,10 +42,10 @@ public class OrderedProductAdapter extends RecyclerView.Adapter<OrderedProductAd
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        OrderedProduct product = products.get(position);
+        Product product = products.get(position);
 
-        holder.binding.productName.setText(product.getProduct().getName());
-        ImageStorageReference.setImageInto(holder.binding.productImage, product.getProduct().getImage().get(0));
+        holder.binding.productName.setText(product.getName());
+        holder.binding.productImage.setImageResource(R.drawable.ic_launcher_background);
 
         holder.binding.txtAmount.setText(product.getAmount() + "");
 

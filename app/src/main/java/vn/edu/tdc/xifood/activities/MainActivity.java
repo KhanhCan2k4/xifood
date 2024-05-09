@@ -57,34 +57,34 @@ public class MainActivity extends AppCompatActivity {
         CategoryAPI.all(new CategoryAPI.FirebaseCallbackAll() {
             @Override
             public void onCallback(ArrayList<Category> categoriesList) {
-                for (Category category: categoriesList) {
-                    categories.add(category);
-                }
-                listCategoryAdapter = new ListCategoryAdapter(MainActivity.this, categories);
-                LinearLayoutManager manager = new LinearLayoutManager(MainActivity.this);
 
-                // xet huong
-                manager.setOrientation(LinearLayoutManager.HORIZONTAL);
+                if (categoriesList != null) {
+                    listCategoryAdapter = new ListCategoryAdapter(MainActivity.this, categoriesList);
+                    GridLayoutManager manager = new GridLayoutManager(MainActivity.this, 5);
 
-                binding.listCategory.setLayoutManager(manager);
-                binding.listCategory.setAdapter(listCategoryAdapter);
-                //goi uy quyen cho danh muc
-                listCategoryAdapter.setItemClick(new ListCategoryAdapter.ItemClickListener() {
-                    @Override
-                    public void onItemClick(ListCategoryAdapter.ViewHolder holder) {
-                        String key = holder.getCategoryKey();
-                        if (!key.isEmpty()) {
-                            Intent intent = new Intent(MainActivity.this, ListProductsActivity.class);
-                            intent.putExtra(CLICKED_CATEGORY_KEY, key);
-                            Log.d(CLICKED_CATEGORY_KEY, key + "");
+                    // xet huong
+                    manager.setOrientation(LinearLayoutManager.VERTICAL);
 
-                            intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                    binding.listCategory.setLayoutManager(manager);
+                    binding.listCategory.setAdapter(listCategoryAdapter);
+                    //goi uy quyen cho danh muc
+                    listCategoryAdapter.setItemClick(new ListCategoryAdapter.ItemClickListener() {
+                        @Override
+                        public void onItemClick(ListCategoryAdapter.ViewHolder holder) {
+                            String key = holder.getCategoryKey();
+                            if (!key.isEmpty()) {
+                                Intent intent = new Intent(MainActivity.this, ListProductsActivity.class);
+                                intent.putExtra(CLICKED_CATEGORY_KEY, key);
+                                Log.d(CLICKED_CATEGORY_KEY, key + "");
 
-                            // chuyen
-                            startActivity(intent);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+
+                                // chuyen
+                                startActivity(intent);
+                            }
                         }
-                    }
-                });
+                    });
+                }
             }
         });
 
@@ -113,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onItemClick(ListProductsAdapter.ViewHolder holder) {
                         Intent intent = new Intent(MainActivity.this, DetailActivity.class);
-                        intent.putExtra(DetailActivity.DETAIL_PRODUCT_KEY, holder.getProductKey());
+                        intent.putExtra("id", holder.getProductId());
 
                         startActivity(intent);
                     }
@@ -165,6 +165,16 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, CartActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                startActivity(intent);
+            }
+        });
+
+        // chuyen sang ListSearchActivity
+        binding.txtSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, ListSearchActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(intent);
             }
