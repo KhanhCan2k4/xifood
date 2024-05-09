@@ -15,6 +15,7 @@ import java.util.ArrayList;
 
 import vn.edu.tdc.xifood.adapters.OrderAdapter;
 import vn.edu.tdc.xifood.apis.OrderAPI;
+import vn.edu.tdc.xifood.apis.SharePreference;
 import vn.edu.tdc.xifood.databinding.OrderLayoutBinding;
 import vn.edu.tdc.xifood.datamodels.Order;
 import vn.edu.tdc.xifood.models.Product;
@@ -36,7 +37,16 @@ public class OrderActivity extends AppCompatActivity {
             @Override
             public void onCallback(ArrayList<Order> orders) {
                 if (orders != null) {
-                    orderAdapter = new OrderAdapter(OrderActivity.this, orders);
+                    ArrayList<Order> thisUserOrder = new ArrayList<>();
+
+                    //get this user's order
+                    for (Order o: orders) {
+                        if (o.getUser().getKey().equals(SharePreference.find(SharePreference.USER_TOKEN_KEY))) {
+                            thisUserOrder.add(o);
+                        }
+                    }
+
+                    orderAdapter = new OrderAdapter(OrderActivity.this, thisUserOrder);
                     GridLayoutManager manager = new GridLayoutManager(OrderActivity.this, 3);
                     manager.setOrientation(RecyclerView.HORIZONTAL);
 

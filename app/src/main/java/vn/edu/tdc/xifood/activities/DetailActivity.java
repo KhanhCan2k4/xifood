@@ -65,7 +65,7 @@ public class DetailActivity extends AppCompatActivity {
         binding.productPrice.setText("Đang tải...");
         binding.productDes.setText("Đang tải...");
         ImageStorageReference.setImageInto(binding.productImg, "products/default.png");
-        binding.totalProduct.setText(amount + "");
+        binding.productAmount.setText(amount + "");
         ProductAPI.find(key, new ProductAPI.FirebaseCallback() {
             @Override
             public void onCallback(Product p) {
@@ -97,8 +97,6 @@ public class DetailActivity extends AppCompatActivity {
                 if (toppings != null) {
                     toppinAdapter = new ToppinAdapter(DetailActivity.this, toppings);
                     LinearLayoutManager manager = new LinearLayoutManager(DetailActivity.this);
-                    manager.setOrientation(LinearLayoutManager.VERTICAL);
-                    LinearLayoutManager manager2 = new LinearLayoutManager(DetailActivity.this);
                     manager.setOrientation(LinearLayoutManager.VERTICAL);
 
                     binding.toppingList.setLayoutManager(manager);
@@ -142,7 +140,7 @@ public class DetailActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if (amount < MAX_AMOUNT) {
                     amount++;
-                    binding.totalProduct.setText(amount + "");
+                    binding.productAmount.setText(amount + "");
                 }
             }
         });
@@ -151,7 +149,7 @@ public class DetailActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if (amount > 1) {
                     amount--;
-                    binding.totalProduct.setText(amount + "");
+                    binding.productAmount.setText(amount + "");
                 }
             }
         });
