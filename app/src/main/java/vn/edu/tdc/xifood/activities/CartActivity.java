@@ -10,9 +10,9 @@ import android.view.View;
 
 import java.util.ArrayList;
 
-import vn.edu.tdc.xifood.databinding.ActivityCartLayoutBinding;
 import vn.edu.tdc.xifood.adapters.CartAdapter;
 import vn.edu.tdc.xifood.data.CartData;
+import vn.edu.tdc.xifood.databinding.ActivityCartLayoutBinding;
 import vn.edu.tdc.xifood.models.Cart;
 import vn.edu.tdc.xifood.views.Navbar;
 

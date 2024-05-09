@@ -51,26 +51,55 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        Order order = orders.get(position);
+        Order order = new Order(orders.get(position));
 
-        holder.binding.textOrderCode.setText(String.format("Đơn số #%d", position + 1));
-
+//        Order order = orders.get(position);
+//
+//      holder.binding.textOrderCode.setText(String.format("Đơn số #%d", order.getId()));
+        holder.binding.textOrderCode.setText(String.format("Đơn số #%d", order.getKey()));
+//
+//        GridLayoutManager manager = new GridLayoutManager(context, 3);
+//        manager.setOrientation(GridLayoutManager.VERTICAL);
         GridLayoutManager manager = new GridLayoutManager(context, 3);
         manager.setOrientation(GridLayoutManager.VERTICAL);
-
+//
+//        OrderedProductAdapter productAdapter = new OrderedProductAdapter(context, order.getProducts());
         OrderedProductAdapter productAdapter = new OrderedProductAdapter(context, order.getOrderedProducts());
+
+//        holder.binding.orderList.setLayoutManager(manager);
+//        holder.binding.orderList.setAdapter(productAdapter);
         holder.binding.orderList.setLayoutManager(manager);
         holder.binding.orderList.setAdapter(productAdapter);
-
-        holder.setKey(order.getKey());
-
+//
+//        holder.setId(order.getId());
+        holder.setId(new Integer(order.getKey()));
         if (isAnOrder) {
             holder.binding.btnView.setVisibility(View.INVISIBLE);
             holder.binding.btnBuyBack.setVisibility(View.INVISIBLE);
         } else {
+
             holder.binding.btnView.setText("Xem");
-            holder.binding.btnBuyBack.setText("Mua lại");
+if(order.getStatus() == 1){
+    holder.binding.btnBuyBack.setText("Mua lại");
+}
+else if(order.getStatus() == 2) {
+    holder.binding.btnBuyBack.setText("Huỷ Đơn");
+
+}
+else {
+    holder.binding.btnBuyBack.setText("Huỷ Đơn");
+}
+
         }
+//        if (isAnOrder) {
+//            holder.binding.btnView.setVisibility(View.INVISIBLE);
+//            holder.binding.btnBuyBack.setVisibility(View.INVISIBLE);
+//        } else {
+//            holder.binding.btnView.setText("Xem");
+//
+//            holder.binding.btnBuyBack.setText("Mua lại");
+//        }
+
     }
 
     @Override
@@ -81,14 +110,14 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
         private OrderItemLayoutBinding binding;
-        private String key;
+        private int id;
 
-        public String getKey() {
-            return key;
+        public int getId() {
+            return id;
         }
 
-        public void setKey(String key) {
-            this.key = key;
+        public void setId(int id) {
+            this.id = id;
         }
 
         public MyViewHolder(@NonNull OrderItemLayoutBinding itemView) {
@@ -100,7 +129,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
                 @Override
                 public void onClick(View view) {
                     if (itemClickListener != null) {
-                        itemClickListener.onView(binding.btnView, key);
+                        itemClickListener.onView(binding.btnView, id);
                     }
                 }
             });
@@ -108,17 +137,25 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
                 @Override
                 public void onClick(View view) {
                     if (itemClickListener != null) {
-                        itemClickListener.onBuyback(binding.btnBuyBack, key);
+                        itemClickListener.onBuyback(binding.btnBuyBack, id);
                     }
                 }
             });
+//            binding.btnView.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    if (itemClickListener != null) {
+//                        itemClickListener.onView(binding.btnView);
+//                    }
+//                }
+//            });
         }
     }
 
     public interface OnItemClickListener {
-        public void onView(View view, String key);
-        public void onBuyback(View view, String key);
-        public void onCancel(View view, String key);
+        public void onView(View view, int id);
+        public void onBuyback(View view, int id);
+        public void onCancel(View view, int id);
     }
 }
 
