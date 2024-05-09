@@ -49,7 +49,7 @@ public class PurchaseStaffActivity extends AppCompatActivity {
 
         manager = new GridLayoutManager(this, 1);
         manager.setOrientation(GridLayoutManager.HORIZONTAL);
-//        orderAdapter = new OrderAdapter(this, order, true);
+        orderAdapter = new OrderAdapter(this, order, true);
 
         binding.orderList.setLayoutManager(manager);
         binding.orderList.setAdapter(orderAdapter);

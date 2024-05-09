@@ -60,35 +60,35 @@ public class OrderStaffActivity extends AppCompatActivity {
         orders.add(order2);
         orders.add(order3);
 
-//        orderAdapter = new OrderAdapter(this, orders);
-//        GridLayoutManager manager = new GridLayoutManager(this, 3);
-//        manager.setOrientation(RecyclerView.HORIZONTAL);
-//
-//        binding.orderList.setLayoutManager(manager);
-//        binding.orderList.setAdapter(orderAdapter);
-//
-//        orderAdapter.setOnItemClickListener(new OrderAdapter.OnItemClickListener() {
-//            @Override
-//            public void onView(View view, int id) {
-//                Intent intent = new Intent(OrderStaffActivity.this, PurchaseActivity.class);
-//                intent.putExtra("id", id);
-//
-//                startActivity(intent);
-//            }
-//
-//            @Override
-//            public void onBuyback(View view, int id) {
-//                Intent intent = new Intent(OrderStaffActivity.this, PurchaseActivity.class);
-//                intent.putExtra("id", id);
-//
-//                startActivity(intent);
-//            }
-//
-//            @Override
-//            public void onCancel(View view, int id) {
-//
-//            }
-//        });
+        orderAdapter = new OrderAdapter(this, orders);
+        GridLayoutManager manager = new GridLayoutManager(this, 3);
+        manager.setOrientation(RecyclerView.HORIZONTAL);
+
+        binding.orderList.setLayoutManager(manager);
+        binding.orderList.setAdapter(orderAdapter);
+
+        orderAdapter.setOnItemClickListener(new OrderAdapter.OnItemClickListener() {
+            @Override
+            public void onView(View view, int id) {
+                Intent intent = new Intent(OrderStaffActivity.this, PurchaseActivity.class);
+                intent.putExtra("id", id);
+
+                startActivity(intent);
+            }
+
+            @Override
+            public void onBuyback(View view, int id) {
+                Intent intent = new Intent(OrderStaffActivity.this, PurchaseActivity.class);
+                intent.putExtra("id", id);
+
+                startActivity(intent);
+            }
+
+            @Override
+            public void onCancel(View view, int id) {
+
+            }
+        });
 
         binding.navbar.setNavClickListener(new Navbar.OnNavClickListener() {
             @Override
