@@ -13,13 +13,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 import vn.edu.tdc.xifood.databinding.ToppingItemtBinding;
-import vn.edu.tdc.xifood.datamodels.Topping;
+import vn.edu.tdc.xifood.models.Topping;
 
 public class ToppinAdapter extends RecyclerView.Adapter<ToppinAdapter.ViewHolder> {
 
-    private Activity context;
-    private ArrayList<Topping> toppings;
-    private ItemClick itemClick;
+private Activity context;
+private ArrayList<Topping> toppings;
+ private AdapterView.OnItemClickListener clickListener;
+
     public Activity getContext() {
         return context;
     }
@@ -36,85 +37,60 @@ public class ToppinAdapter extends RecyclerView.Adapter<ToppinAdapter.ViewHolder
         this.toppings = toppings;
     }
 
-    public ItemClick getItemClick() {
-        return itemClick;
+    public AdapterView.OnItemClickListener getClickListener() {
+        return clickListener;
     }
 
-    public void setItemClick(ItemClick itemClick) {
-        this.itemClick = itemClick;
+    public void setClickListener(AdapterView.OnItemClickListener clickListener) {
+        this.clickListener = clickListener;
     }
+
 
     public ToppinAdapter(Activity context, ArrayList<Topping> toppings) {
         this.context = context;
         this.toppings = toppings;
+        this.clickListener = clickListener;
     }
+
+
+
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new ViewHolder(ToppingItemtBinding.inflate(context.getLayoutInflater(), parent, false));
+
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Topping topping = toppings.get(position);
-        holder.toppingItemtBinding.toppingName.setText(topping.getName());
-        holder.toppingItemtBinding.toppingPrice.setText(topping.getPrice() + " ");
-        holder.toppingItemtBinding.totalTopping.setText(0 + "");
-        holder.setPosition(position);
-
-        if (itemClick != null) {
-            holder.toppingItemtBinding.addTopping.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    itemClick.onIncreaseAmount(holder);
-                }
-            });
-
-            holder.toppingItemtBinding.minusTopping.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    itemClick.onDecreaseAmount(holder);
-                }
-            });
-        }
+     Topping topping =toppings.get(position);
+    holder.toppingItemtBinding.toppingName.setText(topping.getName());
+    holder.toppingItemtBinding.toppingPrice.setText(topping.getPrice()+" ");
+    holder.toppingItemtBinding.totalTopping.setText(topping.getSoluong()+" ");
     }
 
     @Override
     public int getItemCount() {
-        return toppings.size();
-    }
+      return toppings.size();
+            }
 
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        private ToppingItemtBinding toppingItemtBinding;
-
-        public ToppingItemtBinding getToppingItemtBinding() {
-            return toppingItemtBinding;
-        }
-
-        public void setToppingItemtBinding(ToppingItemtBinding toppingItemtBinding) {
-            this.toppingItemtBinding = toppingItemtBinding;
-        }
-
-        private int position;
-
-        public int getThisPosition() {
-            return position;
-        }
-
-        public void setPosition(int position) {
-            this.position = position;
-        }
-
+       private ToppingItemtBinding toppingItemtBinding;
         public ViewHolder(@NonNull ToppingItemtBinding itemView) {
             super(itemView.getRoot());
             toppingItemtBinding = itemView;
+            toppingItemtBinding.getRoot().setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                }
+            });
+
         }
     }
 
-    public interface ItemClick {
-        public void onIncreaseAmount(ViewHolder holder);
-        public void onDecreaseAmount(ViewHolder holder);
-    }
+
+
 }
