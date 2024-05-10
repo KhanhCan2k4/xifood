@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 public class SharePreference {
-    private static String sharePreferenceName = "MY_PREFERENCE";
+    private static final String sharePreferenceName = "MY_PREFERENCE";
     public static final String USER_TOKEN_KEY = "USER_TOKEN_KEY";
     public static final String USER_NAME = "USER_NAME";
     public static final String USER_GENDER= "USER_GENDER";

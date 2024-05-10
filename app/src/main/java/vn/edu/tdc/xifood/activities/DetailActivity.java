@@ -90,7 +90,7 @@ public class DetailActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
                     uids.add(snapshot.getValue(String.class));
-                    Toast.makeText(DetailActivity.this, "" + uids.toString(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(DetailActivity.this, uids.toString(), Toast.LENGTH_SHORT).show();
                 }
             }
 

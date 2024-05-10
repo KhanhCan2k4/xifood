@@ -14,8 +14,8 @@ import vn.edu.tdc.xifood.models.Category;
 import vn.edu.tdc.xifood.models.Topping;
 
 public class ToppingAPI {
-    private static String tblName = "toppings";
-    private static DatabaseReference toppingRef = FirebaseDatabase.getInstance().getReference(tblName);
+    private static final String tblName = "toppings";
+    private static final DatabaseReference toppingRef = FirebaseDatabase.getInstance().getReference(tblName);
     public static void  all(FirebaseCallbackAll callback) {
         toppingRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -61,11 +61,11 @@ public class ToppingAPI {
     }
 
     public static void update(Topping topping) {
-        DatabaseReference itemRef = toppingRef.child(topping.getKey() + "");
+        DatabaseReference itemRef = toppingRef.child(topping.getKey());
         itemRef.setValue(topping);
     }
     public static void destroy(Topping topping) {
-        DatabaseReference itemRef = toppingRef.child(topping.getKey() + "");
+        DatabaseReference itemRef = toppingRef.child(topping.getKey());
         itemRef.removeValue();
     }
 

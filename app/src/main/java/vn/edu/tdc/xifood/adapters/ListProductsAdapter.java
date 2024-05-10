@@ -15,7 +15,7 @@ import vn.edu.tdc.xifood.databinding.ListProductBinding;
 import vn.edu.tdc.xifood.datamodels.Product;
 
 public class ListProductsAdapter extends RecyclerView.Adapter<ListProductsAdapter.ViewHolder> {
-    private Activity context;
+    private final Activity context;
     private ArrayList<Product> products;
     
 
@@ -75,7 +75,7 @@ public class ListProductsAdapter extends RecyclerView.Adapter<ListProductsAdapte
             ProductId = productId;
         }
 
-        private ListProductBinding listProductBinding;
+        private final ListProductBinding listProductBinding;
         public ViewHolder(@NonNull ListProductBinding itemView) {
             super(itemView.getRoot());
             listProductBinding = itemView;
@@ -95,6 +95,6 @@ public class ListProductsAdapter extends RecyclerView.Adapter<ListProductsAdapte
     }
 
     public interface ItemClickListener{
-        public void onItemClick(ViewHolder holder);
+        void onItemClick(ViewHolder holder);
     }
 }

@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
                         if (!key.isEmpty()) {
                             Intent intent = new Intent(MainActivity.this, ListProductsActivity.class);
                             intent.putExtra(CLICKED_CATEGORY_KEY, key);
-                            Log.d(CLICKED_CATEGORY_KEY, key + "");
+                            Log.d(CLICKED_CATEGORY_KEY, key);
 
                             intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 

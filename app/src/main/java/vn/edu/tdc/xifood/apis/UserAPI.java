@@ -19,9 +19,9 @@ import java.util.Map;
 import vn.edu.tdc.xifood.datamodels.User;
 
 public class UserAPI {
-    private static String tblName = "users";
+    private static final String tblName = "users";
     public static final int STAFF_PERMISSION = 12345;
-    private static DatabaseReference userRef = FirebaseDatabase.getInstance().getReference(tblName);
+    private static final DatabaseReference userRef = FirebaseDatabase.getInstance().getReference(tblName);
 
     public static void  all(FirebaseCallbackAll callback) {
         userRef.addValueEventListener(new ValueEventListener() {
@@ -44,7 +44,7 @@ public class UserAPI {
     }
 
     public static void find(String key, FirebaseCallback callback) {
-        DatabaseReference itemRef = userRef.child("" + key);
+        DatabaseReference itemRef = userRef.child(key);
         itemRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -72,7 +72,7 @@ public class UserAPI {
         itemRef.setValue(user);
     }
     public static void destroy(User user) {
-        DatabaseReference itemRef = userRef.child(user.getKey() + "");
+        DatabaseReference itemRef = userRef.child(user.getKey());
         itemRef.removeValue();
     }
 

@@ -9,7 +9,7 @@ public class UserPreferences {
     private static final String KEY_GOOGLE_USERNAME = "google_username";
     private static final String KEY_GOOGLE_EMAIL = "google_email";
 
-    private SharedPreferences preferences;
+    private final SharedPreferences preferences;
 
     public UserPreferences(Context context) {
         preferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);

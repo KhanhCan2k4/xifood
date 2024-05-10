@@ -13,8 +13,8 @@ import java.util.ArrayList;
 import vn.edu.tdc.xifood.databinding.ListItemRecentsSettingBinding;
 
 public class RecentsProductsAdapter extends RecyclerView.Adapter<RecentsProductsAdapter.MyViewHolder> {
-    private Activity context;
-    private ArrayList<Product> list;
+    private final Activity context;
+    private final ArrayList<Product> list;
     private ItemClickListener itemClickListener;
     public void setOnItemClickListener(ItemClickListener itemClickListener) {
         this.itemClickListener = itemClickListener;
@@ -49,7 +49,7 @@ public class RecentsProductsAdapter extends RecyclerView.Adapter<RecentsProducts
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         private LinearLayout itemlayout;
-        private ListItemRecentsSettingBinding binding;
+        private final ListItemRecentsSettingBinding binding;
 
         public MyViewHolder(@NonNull ListItemRecentsSettingBinding itemView) {
             super(itemView.getRoot());
@@ -66,7 +66,7 @@ public class RecentsProductsAdapter extends RecyclerView.Adapter<RecentsProducts
     }
     // Dinh nghia interface de uy quyen cho phia nguoi dung
     public interface ItemClickListener {
-        public void onItemClick(MyViewHolder viewHolder);
+        void onItemClick(MyViewHolder viewHolder);
     }
 
 }

@@ -13,8 +13,8 @@ import java.util.ArrayList;
 import vn.edu.tdc.xifood.datamodels.Category;
 
 public class CategoryAPI {
-    private static String tblName = "categories";
-    private static DatabaseReference productRef = FirebaseDatabase.getInstance().getReference(tblName);
+    private static final String tblName = "categories";
+    private static final DatabaseReference productRef = FirebaseDatabase.getInstance().getReference(tblName);
     public static void  all(FirebaseCallbackAll callback) {
         productRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -60,11 +60,11 @@ public class CategoryAPI {
     }
 
     public static void update(Category category) {
-        DatabaseReference itemRef = productRef.child(category.getKey() + "");
+        DatabaseReference itemRef = productRef.child(category.getKey());
         itemRef.setValue(category);
     }
     public static void destroy(Category category) {
-        DatabaseReference itemRef = productRef.child(category.getKey() + "");
+        DatabaseReference itemRef = productRef.child(category.getKey());
         itemRef.removeValue();
     }
 

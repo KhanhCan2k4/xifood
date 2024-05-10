@@ -36,7 +36,7 @@ public class NewProductAdapter extends RecyclerView.Adapter<NewProductAdapter.Vi
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        private NewProductsBinding newProductsBinding;
+        private final NewProductsBinding newProductsBinding;
         public ViewHolder(@NonNull NewProductsBinding itemView) {
             super(itemView.getRoot());
             newProductsBinding = itemView;

@@ -1,6 +1,7 @@
 package vn.edu.tdc.xifood.models;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Map;
 
 public class Order {
@@ -8,7 +9,7 @@ public class Order {
     private int id;
     private Map<Integer, Integer> amounts;
 
-    private ArrayList<Product> products;
+    private final ArrayList<Product> products;
 
     public int getId() {
         return id;
@@ -32,9 +33,7 @@ public class Order {
 
     public void setProducts(Product... products) {
         this.products.clear();
-        for (Product product: products) {
-            this.products.add(product);
-        }
+        Collections.addAll(this.products, products);
     }
 
     public Order(int id) {

@@ -77,7 +77,7 @@ private ArrayList<Topping> toppings;
 
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-       private ToppingItemtBinding toppingItemtBinding;
+       private final ToppingItemtBinding toppingItemtBinding;
         public ViewHolder(@NonNull ToppingItemtBinding itemView) {
             super(itemView.getRoot());
             toppingItemtBinding = itemView;

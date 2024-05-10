@@ -13,8 +13,8 @@ import java.util.ArrayList;
 import vn.edu.tdc.xifood.datamodels.Product;
 
 public class ProductAPI {
-    private static String tblName = "products";
-    private static DatabaseReference productRef = FirebaseDatabase.getInstance().getReference(tblName);
+    private static final String tblName = "products";
+    private static final DatabaseReference productRef = FirebaseDatabase.getInstance().getReference(tblName);
     public static void all(FirebaseCallbackAll callback) {
         productRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -60,11 +60,11 @@ public class ProductAPI {
     }
 
     public static void update(Product product) {
-        DatabaseReference itemRef = productRef.child(product.getKey() + "");
+        DatabaseReference itemRef = productRef.child(product.getKey());
         itemRef.setValue(product);
     }
     public static void destroy(Product product) {
-        DatabaseReference itemRef = productRef.child(product.getKey() + "");
+        DatabaseReference itemRef = productRef.child(product.getKey());
         itemRef.removeValue();
     }
 

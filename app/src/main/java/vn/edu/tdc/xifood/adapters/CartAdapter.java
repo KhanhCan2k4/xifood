@@ -56,7 +56,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
         holder.cartBinding.hinhSanPham.setImageResource(c.getHinhAnh());
         holder.cartBinding.noteSanPham.setText(c.getGhiChu());
         holder.cartBinding.soLuongSanPham.setText(c.getSoLuong()+"");
-        holder.cartBinding.sttSanPham.setText(c.getThuTuSanPham()+"");
+        holder.cartBinding.sttSanPham.setText(c.getThuTuSanPham());
 
     }
 
@@ -66,7 +66,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        private CartItemtBinding cartBinding;
+        private final CartItemtBinding cartBinding;
 
         public ViewHolder(@NonNull CartItemtBinding itemView) {
             super(itemView.getRoot());

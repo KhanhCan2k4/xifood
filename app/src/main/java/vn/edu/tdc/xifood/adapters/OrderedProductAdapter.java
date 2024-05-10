@@ -21,7 +21,7 @@ import vn.edu.tdc.xifood.models.Order;
 import vn.edu.tdc.xifood.models.Product;
 
 public class OrderedProductAdapter extends RecyclerView.Adapter<OrderedProductAdapter.MyViewHolder> {
-    private Activity context;
+    private final Activity context;
     private ArrayList<Product> products = new ArrayList<>();
     private OnItemClickListener itemClickListener;
 
@@ -73,7 +73,7 @@ public class OrderedProductAdapter extends RecyclerView.Adapter<OrderedProductAd
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
-        private OrderedProductItemLayoutBinding binding;
+        private final OrderedProductItemLayoutBinding binding;
 
         public MyViewHolder(@NonNull OrderedProductItemLayoutBinding itemView) {
             super(itemView.getRoot());
@@ -83,9 +83,9 @@ public class OrderedProductAdapter extends RecyclerView.Adapter<OrderedProductAd
     }
 
     public interface OnItemClickListener {
-        public void onItemClick(MyViewHolder viewHolder);
-        public void onIncreaseAmount(MyViewHolder viewHolder);
-        public void onDecreaseAmount(MyViewHolder viewHolder);
+        void onItemClick(MyViewHolder viewHolder);
+        void onIncreaseAmount(MyViewHolder viewHolder);
+        void onDecreaseAmount(MyViewHolder viewHolder);
     }
 }
 

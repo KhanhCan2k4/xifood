@@ -12,7 +12,7 @@ import com.squareup.picasso.Picasso;
 import java.io.File;
 
 public class ImageStorageReference {
-    private static StorageReference ref = FirebaseStorage.getInstance().getReference();
+    private static final StorageReference ref = FirebaseStorage.getInstance().getReference();
 
     public static void setImageInto(ImageView imageView, String url) {
         StorageReference imgRef = ref.child(url);

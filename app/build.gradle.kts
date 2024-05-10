@@ -47,4 +47,6 @@ dependencies {
     implementation(platform("com.google.firebase:firebase-bom:32.8.0"))
     implementation("com.google.firebase:firebase-storage:20.3.0")
     implementation("com.squareup.picasso:picasso:2.71828")
+    implementation("com.google.android.gms:play-services-auth:20.0.0")
+    implementation("org.springframework.security:spring-security-crypto:5.7.2")
 }

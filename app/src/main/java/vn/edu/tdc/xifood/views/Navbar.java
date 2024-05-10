@@ -24,7 +24,7 @@ public class Navbar extends LinearLayout {
         this.navClickListener = navClickListener;
     }
 
-    private OnClickListener onClickListener = new OnClickListener() {
+    private final OnClickListener onClickListener = new OnClickListener() {
         @Override
         public void onClick(View view) {
             if (prevView != null) {
@@ -88,9 +88,9 @@ public class Navbar extends LinearLayout {
     }
 
     public interface OnNavClickListener {
-        public void onHomeButtonClick(View view);
-        public void onDiscountButtonClick(View view);
-        public void onOrderButtonClick(View view);
-        public void onAccountButtonClick(View view);
+        void onHomeButtonClick(View view);
+        void onDiscountButtonClick(View view);
+        void onOrderButtonClick(View view);
+        void onAccountButtonClick(View view);
     }
 }

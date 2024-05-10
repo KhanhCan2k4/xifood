@@ -11,10 +11,15 @@ import androidx.core.content.ContextCompat;
 import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.method.PasswordTransformationMethod;
+import android.util.Log;
 import android.view.View;
+
+import org.springframework.security.crypto.bcrypt.BCrypt;
 
 import vn.edu.tdc.xifood.apis.ImageStorageReference;
 import vn.edu.tdc.xifood.apis.SharePreference;
@@ -44,8 +49,14 @@ public class AccountActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         //update user
-        updatde();
+        update();
 
+        //setup hide password
+        binding.oldPassword.setTransformationMethod(new PasswordTransformationMethod());
+        binding.newPassword.setTransformationMethod(new PasswordTransformationMethod());
+        binding.confirmNewPassword.setTransformationMethod(new PasswordTransformationMethod());
+
+        //edit button
         binding.editBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -54,11 +65,37 @@ public class AccountActivity extends AppCompatActivity {
                     isEditable = true;
                     setEnableEdit(true);
                 } else {
-                    isEditable = false;
-                    //gan lai du lieu tu edit text sang data
-                    setUserInEditText();
-                    //vo hieu hoa chinh sua
-                    setEnableEdit(false);
+                    if(binding.newPassword.isEnabled()){
+                        String newPassword = binding.newPassword.getText().toString();
+                        String confirmNewPassword = binding.confirmNewPassword.getText().toString();
+                        if(!newPassword.equals(confirmNewPassword)){
+                            AlertDialog.Builder builder1 = new AlertDialog.Builder(AccountActivity.this);
+                            builder1.setMessage("Mật Khẩu xác nhận không khớp với mật khẩu vừa nhập !!!");
+                            builder1.setCancelable(true);
+
+                            builder1.setPositiveButton(
+                                    "Close",
+                                    new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int id) {
+                                            dialog.cancel();
+                                        }
+                                    });
+                            AlertDialog alert = builder1.create();
+                            alert.show();
+                        }else{
+                            isEditable = false;
+                            //gan lai du lieu tu edit text sang data
+                            setUserInEditText();
+                            //vo hieu hoa chinh sua
+                            setEnableEdit(false);
+                        }
+                    }else{
+                        isEditable = false;
+                        //gan lai du lieu tu edit text sang data
+                        setUserInEditText();
+                        //vo hieu hoa chinh sua
+                        setEnableEdit(false);
+                    }
                 }
             }
         });
@@ -129,6 +166,11 @@ public class AccountActivity extends AppCompatActivity {
 
                                     Intent intent = new Intent(AccountActivity.this, SettingActivity.class);
                                     intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                                    //clear password
+                                    binding.oldPassword.setText("");
+                                    binding.newPassword.setText("");
+                                    binding.confirmNewPassword.setText("");
+
                                     // chuyen
                                     startActivity(intent);
                                     dialog.cancel();
@@ -148,9 +190,15 @@ public class AccountActivity extends AppCompatActivity {
                                     binding.editBtn.setSelected(false);
                                     isEditable = false;
                                     setEnableEdit(false);
-                                    updatde();
+                                    update();
                                     Intent intent = new Intent(AccountActivity.this, SettingActivity.class);
                                     intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+
+                                    //clear password
+                                    binding.oldPassword.setText("");
+                                    binding.newPassword.setText("");
+                                    binding.confirmNewPassword.setText("");
+
                                     // chuyen
                                     startActivity(intent);
                                     dialog.cancel();
@@ -165,6 +213,7 @@ public class AccountActivity extends AppCompatActivity {
 
                     //update into local
                     SharePreference.setSharedPreferences(AccountActivity.this);
+
                     SharePreference.store(SharePreference.USER_TOKEN_KEY, user.getKey());
                     SharePreference.store(SharePreference.USER_NAME, user.getFullName());
                     SharePreference.store(SharePreference.USER_EMAIL, user.getEmail());
@@ -174,6 +223,11 @@ public class AccountActivity extends AppCompatActivity {
                     SharePreference.store(SharePreference.USER_PHONE, user.getPhoneNumber());
                     SharePreference.store(SharePreference.USER_PASS, user.getPassword());
 
+                    //clear password
+                    binding.oldPassword.setText("");
+                    binding.newPassword.setText("");
+                    binding.confirmNewPassword.setText("");
+
                     Intent intent = new Intent(AccountActivity.this, SettingActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 
@@ -182,7 +236,34 @@ public class AccountActivity extends AppCompatActivity {
                 }
             }
         });
-    }
+        //button xác nhận mk cũ mới cho phép thay đổi mật khẩu mới
+        binding.btnconfirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String password = binding.oldPassword.getText().toString();
+                String storehash = SharePreference.find(SharePreference.USER_PASS);
+                if(checkPassword(password, storehash)){
+                    binding.newPassword.setEnabled(true);
+                    binding.confirmNewPassword.setEnabled(true);
+                }else{
+                    AlertDialog.Builder builder1 = new AlertDialog.Builder(AccountActivity.this);
+                    builder1.setMessage("Mật Khẩu không khớp đúng !!!");
+                    builder1.setCancelable(true);
+
+                    builder1.setPositiveButton(
+                            "Close",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    dialog.cancel();
+                                }
+                            });
+                    AlertDialog alert = builder1.create();
+                    alert.show();
+                }
+            }
+        });
+
+    }//end onCreate()
 
     private void chooseImage() {
         Intent intent = new Intent();
@@ -225,7 +306,7 @@ public class AccountActivity extends AppCompatActivity {
 
     private void setUserInEditText() {
         user.setKey(SharePreference.find(SharePreference.USER_TOKEN_KEY));
-        user.setPassword(SharePreference.find(SharePreference.USER_PASS));
+        user.setPassword(binding.newPassword.getText().toString());
         user.setFullName(binding.nameUser.getText().toString());
         switch (binding.genderUser.getSelectedItemPosition()) {
             case 0:
@@ -241,35 +322,42 @@ public class AccountActivity extends AppCompatActivity {
         user.setDayOfBirth(binding.dayBornUser.getText().toString());
         user.setEmail(binding.emailUser.getText().toString());
         user.setPhoneNumber(binding.phoneNumberUser.getText().toString());
+
     }
 
-    private void updatde() {
+    private void update() {
+
+
         user = new User();
+        //lay user tu local
         user.setKey(SharePreference.find(SharePreference.USER_TOKEN_KEY));
         user.setFullName(SharePreference.find(SharePreference.USER_NAME));
         user.setEmail(SharePreference.find(SharePreference.USER_EMAIL));
         user.setAvatar(SharePreference.find(SharePreference.USER_AVATAR));
         user.setDayOfBirth(SharePreference.find(SharePreference.USER_DOB));
         user.setGender(SharePreference.find(SharePreference.USER_GENDER));
+        user.setPhoneNumber(SharePreference.find(SharePreference.USER_PHONE));
         user.setPassword(SharePreference.find(SharePreference.USER_PASS));
         user.setPermistion(SharePreference.findPermission());
 
-        binding.nameUser.setText(user.getFullName());
         if (user.getGender().equalsIgnoreCase(GENDER_MALE)) {
             binding.genderUser.setSelection(0);
-        } else  if (user.getGender().equalsIgnoreCase(GENDER_FEMALE)) {
+        } else if (user.getGender().equalsIgnoreCase(GENDER_FEMALE)) {
             binding.genderUser.setSelection(1);
         } else {
             binding.genderUser.setSelection(2);
         }
-        binding.dayBornUser.setText(user.getDayOfBirth());
-        binding.emailUser.setText(user.getEmail());
-        binding.phoneNumberUser.setText(user.getPhoneNumber());
+
         try {
             ImageStorageReference.setImageInto(binding.imageAvatar, user.getAvatar());
         } catch (Exception e) {
             ImageStorageReference.setImageInto(binding.imageAvatar, "avatars/default.jpg");
         }
+
+        binding.nameUser.setText(user.getFullName());
+        binding.dayBornUser.setText(user.getDayOfBirth());
+        binding.emailUser.setText(user.getEmail());
+        binding.phoneNumberUser.setText(user.getPhoneNumber());
     }
 
     private void setEnableEdit(boolean isEditable) {
@@ -278,11 +366,18 @@ public class AccountActivity extends AppCompatActivity {
         binding.dayBornUser.setEnabled(isEditable);
         binding.emailUser.setEnabled(isEditable);
         binding.phoneNumberUser.setEnabled(isEditable);
+        binding.oldPassword.setEnabled(isEditable);
+        binding.newPassword.setEnabled(false);
+        binding.confirmNewPassword.setEnabled(false);
+    }
+
+    public boolean checkPassword(String inputPassword, String storedHash) {
+        return BCrypt.checkpw(inputPassword, storedHash);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        updatde();
+        update();
     }
 }

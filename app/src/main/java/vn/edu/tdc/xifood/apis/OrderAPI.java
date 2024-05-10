@@ -14,8 +14,8 @@ import vn.edu.tdc.xifood.models.Category;
 import vn.edu.tdc.xifood.models.Order;
 
 public class OrderAPI {
-    private static String tblName = "orders";
-    private static DatabaseReference orderRef = FirebaseDatabase.getInstance().getReference(tblName);
+    private static final String tblName = "orders";
+    private static final DatabaseReference orderRef = FirebaseDatabase.getInstance().getReference(tblName);
     public static void  all(FirebaseCallbackAll callback) {
         orderRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -61,11 +61,11 @@ public class OrderAPI {
     }
 
     public static void update(Order order) {
-        DatabaseReference itemRef = orderRef.child(order.getKey() + "");
+        DatabaseReference itemRef = orderRef.child(order.getKey());
         itemRef.setValue(order);
     }
     public static void destroy(Order order) {
-        DatabaseReference itemRef = orderRef.child(order.getKey() + "");
+        DatabaseReference itemRef = orderRef.child(order.getKey());
         itemRef.removeValue();
     }
 
