@@ -78,13 +78,33 @@ public class MainActivity extends AppCompatActivity {
                             intent.putExtra(CLICKED_CATEGORY_KEY, key);
                             Log.d(CLICKED_CATEGORY_KEY, key);
 
-                            intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                if (categoriesList != null) {
+                    listCategoryAdapter = new ListCategoryAdapter(MainActivity.this, categoriesList);
+                    GridLayoutManager manager = new GridLayoutManager(MainActivity.this, 5);
 
-                            // chuyen
-                            startActivity(intent);
+                    // xet huong
+                    manager.setOrientation(LinearLayoutManager.VERTICAL);
+
+                    binding.listCategory.setLayoutManager(manager);
+                    binding.listCategory.setAdapter(listCategoryAdapter);
+                    //goi uy quyen cho danh muc
+                    listCategoryAdapter.setItemClick(new ListCategoryAdapter.ItemClickListener() {
+                        @Override
+                        public void onItemClick(ListCategoryAdapter.ViewHolder holder) {
+                            String key = holder.getCategoryKey();
+                            if (!key.isEmpty()) {
+                                Intent intent = new Intent(MainActivity.this, ListProductsActivity.class);
+                                intent.putExtra(CLICKED_CATEGORY_KEY, key);
+                                Log.d(CLICKED_CATEGORY_KEY, key + "");
+
+                                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+
+                                // chuyen
+                                startActivity(intent);
+                            }
                         }
-                    }
-                });
+                    });
+                }
             }
         });
 
@@ -165,6 +185,16 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, CartActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                startActivity(intent);
+            }
+        });
+
+        // chuyen sang ListSearchActivity
+        binding.txtSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, ListSearchActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(intent);
             }

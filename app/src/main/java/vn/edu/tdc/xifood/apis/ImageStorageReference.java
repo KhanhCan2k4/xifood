@@ -41,9 +41,4 @@ public class ImageStorageReference {
         StorageReference imgRef = ref.child(fileName);
         imgRef.putFile(uri);
     }
-
-    public static void upload(String fileName, Uri uri) {
-        StorageReference imgRef = ref.child(fileName);
-        imgRef.putFile(uri);
-    }
 }

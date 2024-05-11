@@ -13,9 +13,9 @@ import java.util.ArrayList;
 import vn.edu.tdc.xifood.datamodels.Product;
 
 public class ProductAPI {
-    private static final String tblName = "products";
-    private static final DatabaseReference productRef = FirebaseDatabase.getInstance().getReference(tblName);
-    public static void all(FirebaseCallbackAll callback) {
+    private static String tblName = "products";
+    private static DatabaseReference productRef = FirebaseDatabase.getInstance().getReference(tblName);
+    public static void  all(FirebaseCallbackAll callback) {
         productRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {

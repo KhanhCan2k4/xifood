@@ -11,7 +11,6 @@ public class User {
     private String email;
     private String password;
     private String phoneNumber;
-    private int permistion;
 
     public String getKey() {
         return key;
@@ -76,37 +75,13 @@ public class User {
         this.phoneNumber = phoneNumber;
     }
 
-    public int getPermistion() {
-        return permistion;
-    }
-
-    public void setPermistion(int permistion) {
-        this.permistion = permistion;
-    }
-
     public User(String fullName, String email, String password) {
         this.fullName = fullName;
         this.email = email;
         this.password = password;
-        this.dayOfBirth = "";
-        this.bio = "";
-        this.key = "";
-        this.avatar = "avatars/default.jpg";
-        this.phoneNumber = "";
-        this.gender = "Unknown";
-        this.permistion = 0;
     }
 
     public User() {
-        this.fullName = "";
-        this.email = "";
-        this.password = "";
-        this.dayOfBirth = "";
-        this.bio = "";
-        this.key = "";
-        this.avatar = "avatars/default.jpg";
-        this.phoneNumber = "";
-        this.gender = "Unknown";
-        this.permistion = 0;
+
     }
 }
