@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 public class SharePreference {
-    private static String sharePreferenceName = "MY_PREFERENCE";
+    private static final String sharePreferenceName = "MY_PREFERENCE";
     public static final String USER_TOKEN_KEY = "USER_TOKEN_KEY";
     private static SharedPreferences sharedPreferences = null;
 
@@ -25,5 +25,17 @@ public class SharePreference {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.remove(key);
         editor.apply();
+    }
+
+    public static void init() {
+        SharePreference.store(SharePreference.USER_TOKEN_KEY, "");
+        SharePreference.store(SharePreference.USER_NAME, "");
+        SharePreference.store(SharePreference.USER_EMAIL, "");
+        SharePreference.store(SharePreference.USER_GENDER, "");
+        SharePreference.store(SharePreference.USER_DOB, "");
+        SharePreference.store(SharePreference.USER_AVATAR, "");
+        SharePreference.store(SharePreference.USER_PHONE, "");
+        SharePreference.store(SharePreference.USER_PASS, "");
+
     }
 }

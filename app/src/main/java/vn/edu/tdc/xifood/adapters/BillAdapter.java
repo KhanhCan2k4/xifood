@@ -72,7 +72,7 @@ public class BillAdapter extends RecyclerView.Adapter<BillAdapter.ViewHolder> {
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        private BillItemtBinding biding;
+        private final BillItemtBinding biding;
 
         public ViewHolder(@NonNull BillItemtBinding itemView) {
             super(itemView.getRoot());

@@ -71,7 +71,7 @@ public class ListCategoryAdapter extends RecyclerView.Adapter<ListCategoryAdapte
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        private ListCategoriesBinding listCategoriesBinding;
+        private final ListCategoriesBinding listCategoriesBinding;
         private int id;
 
         public String getCategoryKey() {
@@ -108,7 +108,6 @@ public class ListCategoryAdapter extends RecyclerView.Adapter<ListCategoryAdapte
             });
         }
     }
-
     public interface ItemClickListener {
         public void onItemClick(ViewHolder holder);
     }

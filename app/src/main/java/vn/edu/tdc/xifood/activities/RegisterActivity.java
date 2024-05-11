@@ -71,6 +71,61 @@ public class RegisterActivity extends AppCompatActivity {
             showAlert("LỖI", "Mật khẩu nhập lại không chính xác");
             return;
         }
+        UserAPI.all(new UserAPI.FirebaseCallbackAll() {
+            @Override
+            public void onCallback(ArrayList<User> users) {
+                if (users != null) {
+                    for (User u : users) {
+                        if (u.getEmail().equalsIgnoreCase(email)) {
+                            //email already exist
+                            showAlert("THÔNG BÁO", "Email đã tồn tại");
+                            registerButton.setText("Đăng ký");
+                            registerButton.setEnabled(true);
+                            return;
+                        }
+                    }
+                }
+
+                // Mã hóa mật khẩu trước khi lưu vào SharedPreferences
+                String hashedPassword = hashPassword(password);
+
+                User user = new User();
+                user.setFullName(username);
+                user.setPassword(hashedPassword);
+                user.setAvatar("avatars/default.jpg");
+                user.setGender(AccountActivity.GENDER_DEFAULT);
+                user.setEmail(email);
+                user.setBio("");
+                user.setDayOfBirth("");
+
+                UserAPI.store(user)
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void unused) {
+                            //khoi tao san cac key cua local
+                            SharePreference.init();
+                            //Save into local
+                            SharePreference.store(SharePreference.USER_TOKEN_KEY, user.getKey());
+                            SharePreference.store(SharePreference.USER_NAME, user.getFullName());
+                            SharePreference.store(SharePreference.USER_EMAIL, user.getEmail());
+                            SharePreference.store(SharePreference.USER_PASS, user.getPassword());
+                            SharePreference.store(SharePreference.USER_GENDER, AccountActivity.GENDER_DEFAULT);
+
+                            Toast.makeText(RegisterActivity.this, "Xin chào" + username, Toast.LENGTH_LONG).show();
+                            showAlertAndNavigate("THÔNG BÁO", "Đăng kí thành công");
+                        }
+                    })
+                    .addOnCanceledListener(new OnCanceledListener() {
+                        @Override
+                        public void onCanceled() {
+                            showAlert("THÔNG BÁO", "Đăng ký thất bại :< Vui lòng thử lại");
+                            registerButton.setEnabled(true);
+                            registerButton.setText("Đăng ký");
+                        }
+                    });
+            }
+        });
+    }
 
         // Mã hóa mật khẩu trước khi lưu vào SharedPreferences
         String hashedPassword = hashPassword(password);

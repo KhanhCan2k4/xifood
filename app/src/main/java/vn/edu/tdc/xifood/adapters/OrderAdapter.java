@@ -15,7 +15,7 @@ import vn.edu.tdc.xifood.databinding.OrderItemLayoutBinding;
 import vn.edu.tdc.xifood.models.Order;
 
 public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder> {
-    private Activity context;
+    private final Activity context;
     private ArrayList<Order> orders = new ArrayList<>();
     private OnItemClickListener itemClickListener;
     private boolean isAnOrder = false;
@@ -80,7 +80,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
-        private OrderItemLayoutBinding binding;
+        private final OrderItemLayoutBinding binding;
         private int id;
 
         public int getId() {
@@ -124,9 +124,9 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
     }
 
     public interface OnItemClickListener {
-        public void onView(View view, int id);
-        public void onBuyback(View view, int id);
-        public void onCancel(View view, int id);
+        void onView(View view, int id);
+        void onBuyback(View view, int id);
+        void onCancel(View view, int id);
     }
 }
 

@@ -60,11 +60,11 @@ public class ProductAPI {
     }
 
     public static void update(Product product) {
-        DatabaseReference itemRef = productRef.child(product.getKey() + "");
+        DatabaseReference itemRef = productRef.child(product.getKey());
         itemRef.setValue(product);
     }
     public static void destroy(Product product) {
-        DatabaseReference itemRef = productRef.child(product.getKey() + "");
+        DatabaseReference itemRef = productRef.child(product.getKey());
         itemRef.removeValue();
     }
 

@@ -57,6 +57,26 @@ public class MainActivity extends AppCompatActivity {
         CategoryAPI.all(new CategoryAPI.FirebaseCallbackAll() {
             @Override
             public void onCallback(ArrayList<Category> categoriesList) {
+                for (Category category: categoriesList) {
+                    categories.add(category);
+                }
+                listCategoryAdapter = new ListCategoryAdapter(MainActivity.this, categories);
+                LinearLayoutManager manager = new LinearLayoutManager(MainActivity.this);
+
+                // xet huong
+                manager.setOrientation(LinearLayoutManager.HORIZONTAL);
+
+                binding.listCategory.setLayoutManager(manager);
+                binding.listCategory.setAdapter(listCategoryAdapter);
+                //goi uy quyen cho danh muc
+                listCategoryAdapter.setItemClick(new ListCategoryAdapter.ItemClickListener() {
+                    @Override
+                    public void onItemClick(ListCategoryAdapter.ViewHolder holder) {
+                        String key = holder.getCategoryKey();
+                        if (!key.isEmpty()) {
+                            Intent intent = new Intent(MainActivity.this, ListProductsActivity.class);
+                            intent.putExtra(CLICKED_CATEGORY_KEY, key);
+                            Log.d(CLICKED_CATEGORY_KEY, key);
 
                 if (categoriesList != null) {
                     listCategoryAdapter = new ListCategoryAdapter(MainActivity.this, categoriesList);

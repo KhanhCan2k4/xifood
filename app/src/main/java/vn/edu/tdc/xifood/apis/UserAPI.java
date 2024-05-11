@@ -39,7 +39,7 @@ public class UserAPI {
     }
 
     public static void find(String key, FirebaseCallback callback) {
-        DatabaseReference itemRef = userRef.child("" + key);
+        DatabaseReference itemRef = userRef.child(key);
         itemRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -61,13 +61,13 @@ public class UserAPI {
         user.setKey(itemRef.getKey());
         itemRef.setValue(user);
     }
-
     public static void update(User user) {
         DatabaseReference itemRef = userRef.child(user.getKey() + "");
         itemRef.setValue(user);
     }
+
     public static void destroy(User user) {
-        DatabaseReference itemRef = userRef.child(user.getKey() + "");
+        DatabaseReference itemRef = userRef.child(user.getKey());
         itemRef.removeValue();
     }
 

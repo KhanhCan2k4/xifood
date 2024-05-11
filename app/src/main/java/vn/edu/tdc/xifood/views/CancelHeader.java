@@ -78,6 +78,6 @@ public class CancelHeader extends LinearLayout {
     }
 
     public interface OnCancelListener {
-        public void onCancel(View view);
+        void onCancel(View view);
     }
 }

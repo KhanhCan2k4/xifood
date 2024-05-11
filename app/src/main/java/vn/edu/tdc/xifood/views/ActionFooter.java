@@ -14,7 +14,7 @@ import androidx.annotation.Nullable;
 import vn.edu.tdc.xifood.R;
 
 public class ActionFooter extends LinearLayout {
-    private OnActionListener actionListener = null;
+    private final OnActionListener actionListener = null;
 
     public ActionFooter(Context context) {
         super(context);
@@ -64,6 +64,6 @@ public class ActionFooter extends LinearLayout {
     }
 
     public interface OnActionListener {
-        public void onAction(View view);
+        void onAction(View view);
     }
 }
