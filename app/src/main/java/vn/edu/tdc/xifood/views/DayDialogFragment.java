@@ -11,8 +11,8 @@ import java.util.Calendar;
 
 public class DayDialogFragment extends DialogFragment
     implements DatePickerDialog.OnDateSetListener {
-    @Override
-    public Dialog onCreatDialog(Bundle savedInstanceState) {
+
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
         // Use the current date as the default date in the picker.
         final Calendar c = Calendar.getInstance();
         int year = c.get(Calendar.YEAR);
@@ -22,8 +22,8 @@ public class DayDialogFragment extends DialogFragment
         // Create a new instance of DatePickerDialog and return it.
         return new DatePickerDialog(requireContext(), this, year, month, day);
     }
+    @Override
+    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
 
-    public void onDateSet(DatePicker view, int year, int month, int day) {
-        // Do something with the date the user picks.
     }
 }

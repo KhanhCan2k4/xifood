@@ -115,8 +115,6 @@ public class RegisterActivity extends AppCompatActivity {
                             return;
                         }
                     }
-
-
                 }
 
                 // Mã hóa mật khẩu trước khi lưu vào SharedPreferences
@@ -135,6 +133,8 @@ public class RegisterActivity extends AppCompatActivity {
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void unused) {
+                            //khoi tao san cac key cua local
+                            SharePreference.init();
                             //Save into local
                             SharePreference.store(SharePreference.USER_TOKEN_KEY, user.getKey());
                             SharePreference.store(SharePreference.USER_NAME, user.getFullName());

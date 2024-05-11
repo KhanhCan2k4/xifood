@@ -43,4 +43,16 @@ public class SharePreference {
         editor.remove(key);
         editor.apply();
     }
+
+    public static void init() {
+        SharePreference.store(SharePreference.USER_TOKEN_KEY, "");
+        SharePreference.store(SharePreference.USER_NAME, "");
+        SharePreference.store(SharePreference.USER_EMAIL, "");
+        SharePreference.store(SharePreference.USER_GENDER, "");
+        SharePreference.store(SharePreference.USER_DOB, "");
+        SharePreference.store(SharePreference.USER_AVATAR, "");
+        SharePreference.store(SharePreference.USER_PHONE, "");
+        SharePreference.store(SharePreference.USER_PASS, "");
+
+    }
 }

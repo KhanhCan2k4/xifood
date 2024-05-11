@@ -7,6 +7,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
 
 import android.Manifest;
 import android.content.DialogInterface;
@@ -26,6 +27,7 @@ import vn.edu.tdc.xifood.apis.SharePreference;
 import vn.edu.tdc.xifood.apis.UserAPI;
 import vn.edu.tdc.xifood.datamodels.User;
 import vn.edu.tdc.xifood.databinding.AccountLayoutBinding;
+import vn.edu.tdc.xifood.views.DayDialogFragment;
 
 public class AccountActivity extends AppCompatActivity {
 
@@ -68,6 +70,7 @@ public class AccountActivity extends AppCompatActivity {
                     if(binding.newPassword.isEnabled()){
                         String newPassword = binding.newPassword.getText().toString();
                         String confirmNewPassword = binding.confirmNewPassword.getText().toString();
+                        //nếu như mật khẩu xác nhận không khớp với mật khẩu mới
                         if(!newPassword.equals(confirmNewPassword)){
                             AlertDialog.Builder builder1 = new AlertDialog.Builder(AccountActivity.this);
                             builder1.setMessage("Mật Khẩu xác nhận không khớp với mật khẩu vừa nhập !!!");
@@ -263,6 +266,13 @@ public class AccountActivity extends AppCompatActivity {
             }
         });
 
+        binding.calendarButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new DayDialogFragment().show(getSupportFragmentManager(), "datePicker");
+            }
+        });
+
     }//end onCreate()
 
     private void chooseImage() {
@@ -306,7 +316,6 @@ public class AccountActivity extends AppCompatActivity {
 
     private void setUserInEditText() {
         user.setKey(SharePreference.find(SharePreference.USER_TOKEN_KEY));
-        user.setPassword(binding.newPassword.getText().toString());
         user.setFullName(binding.nameUser.getText().toString());
         switch (binding.genderUser.getSelectedItemPosition()) {
             case 0:
@@ -322,13 +331,13 @@ public class AccountActivity extends AppCompatActivity {
         user.setDayOfBirth(binding.dayBornUser.getText().toString());
         user.setEmail(binding.emailUser.getText().toString());
         user.setPhoneNumber(binding.phoneNumberUser.getText().toString());
-
+        saveNewPassword(user);
     }
 
     private void update() {
 
-
         user = new User();
+
         //lay user tu local
         user.setKey(SharePreference.find(SharePreference.USER_TOKEN_KEY));
         user.setFullName(SharePreference.find(SharePreference.USER_NAME));
@@ -369,10 +378,21 @@ public class AccountActivity extends AppCompatActivity {
         binding.oldPassword.setEnabled(isEditable);
         binding.newPassword.setEnabled(false);
         binding.confirmNewPassword.setEnabled(false);
+        binding.calendarButton.setEnabled(isEditable);
     }
 
     public boolean checkPassword(String inputPassword, String storedHash) {
         return BCrypt.checkpw(inputPassword, storedHash);
+    }
+    private String hashPassword(String password) {
+        return BCrypt.hashpw(password, BCrypt.gensalt());
+    }
+    public void saveNewPassword(User user){
+        String password = binding.newPassword.getText().toString().trim();
+        String hashedPassword = hashPassword(password);
+        user.setPassword(hashedPassword);
+
+//        UserAPI.store(user);
     }
 
     @Override

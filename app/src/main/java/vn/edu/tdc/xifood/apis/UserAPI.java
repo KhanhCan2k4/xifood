@@ -66,11 +66,11 @@ public class UserAPI {
         user.setKey(itemRef.getKey());
         return itemRef.setValue(user);
     }
-
     public static void update(User user) {
         DatabaseReference itemRef = userRef.child(user.getKey());
         itemRef.setValue(user);
     }
+
     public static void destroy(User user) {
         DatabaseReference itemRef = userRef.child(user.getKey());
         itemRef.removeValue();
