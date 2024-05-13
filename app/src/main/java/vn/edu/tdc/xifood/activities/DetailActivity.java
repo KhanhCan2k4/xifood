@@ -36,6 +36,8 @@ public class DetailActivity extends AppCompatActivity {
     private BillAdapter billAdapter;
     private int id;
     ArrayList<String> uids;
+    public static final String DETAIL_PRODUCT_KEY = "DETAIL_PRODUCT_KEY";
+    public static final int MAX_AMOUNT = 5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

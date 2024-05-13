@@ -76,35 +76,15 @@ public class MainActivity extends AppCompatActivity {
                         if (!key.isEmpty()) {
                             Intent intent = new Intent(MainActivity.this, ListProductsActivity.class);
                             intent.putExtra(CLICKED_CATEGORY_KEY, key);
-                            Log.d(CLICKED_CATEGORY_KEY, key);
+                            Log.d(CLICKED_CATEGORY_KEY, key + "");
 
-                if (categoriesList != null) {
-                    listCategoryAdapter = new ListCategoryAdapter(MainActivity.this, categoriesList);
-                    GridLayoutManager manager = new GridLayoutManager(MainActivity.this, 5);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 
-                    // xet huong
-                    manager.setOrientation(LinearLayoutManager.VERTICAL);
-
-                    binding.listCategory.setLayoutManager(manager);
-                    binding.listCategory.setAdapter(listCategoryAdapter);
-                    //goi uy quyen cho danh muc
-                    listCategoryAdapter.setItemClick(new ListCategoryAdapter.ItemClickListener() {
-                        @Override
-                        public void onItemClick(ListCategoryAdapter.ViewHolder holder) {
-                            String key = holder.getCategoryKey();
-                            if (!key.isEmpty()) {
-                                Intent intent = new Intent(MainActivity.this, ListProductsActivity.class);
-                                intent.putExtra(CLICKED_CATEGORY_KEY, key);
-                                Log.d(CLICKED_CATEGORY_KEY, key + "");
-
-                                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-
-                                // chuyen
-                                startActivity(intent);
-                            }
+                            // chuyen
+                            startActivity(intent);
                         }
-                    });
-                }
+                    }
+                });
             }
         });
 
@@ -133,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onItemClick(ListProductsAdapter.ViewHolder holder) {
                         Intent intent = new Intent(MainActivity.this, DetailActivity.class);
-                        intent.putExtra("id", holder.getProductId());
+                        intent.putExtra(DetailActivity.DETAIL_PRODUCT_KEY, holder.getProductKey());
 
                         startActivity(intent);
                     }
@@ -190,16 +170,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // chuyen sang ListSearchActivity
-        binding.txtSearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, ListSearchActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                startActivity(intent);
-            }
-        });
-
     }
 
     // gọi action để chạy ViewFlipper
@@ -213,7 +183,7 @@ public class MainActivity extends AppCompatActivity {
             ImageView imageView = new ImageView(getApplicationContext());
             Glide.with(getApplicationContext()).load(bannerViewFlipper.get(i)).into(imageView);
             imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-           viewFlipper.addView(imageView);
+            viewFlipper.addView(imageView);
         }
         viewFlipper.setFlipInterval(3000);
         viewFlipper.setAutoStart(true);

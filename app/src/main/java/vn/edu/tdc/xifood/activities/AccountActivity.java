@@ -12,27 +12,22 @@ import androidx.fragment.app.Fragment;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
+
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.method.PasswordTransformationMethod;
-import android.util.Log;
 import android.view.View;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import com.bumptech.glide.Glide;
 import com.google.firebase.FirebaseApp;
 
-import vn.edu.tdc.xifood.R;
 import vn.edu.tdc.xifood.apis.ImageStorageReference;
+import vn.edu.tdc.xifood.apis.SharePreference;
 import vn.edu.tdc.xifood.apis.UserAPI;
-import vn.edu.tdc.xifood.models.User;
 import vn.edu.tdc.xifood.databinding.AccountLayoutBinding;
+import vn.edu.tdc.xifood.datamodels.User;
 import vn.edu.tdc.xifood.views.DayDialogFragment;
 
 public class AccountActivity extends AppCompatActivity {
@@ -42,7 +37,9 @@ public class AccountActivity extends AppCompatActivity {
     private Boolean isEditable = false;
     private Uri image;
     ActivityResultLauncher<Intent> activityResultLauncher;
-
+    public static final String GENDER_DEFAULT = "de";
+    public static final String GENDER_FEMALE = "fe";
+    public static final String GENDER_MALE = "me";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,7 +47,6 @@ public class AccountActivity extends AppCompatActivity {
                 getLayoutInflater()
         );
         setContentView(binding.getRoot());
-        user = dataUser();
 
         //update user
         update();
@@ -252,13 +248,14 @@ public class AccountActivity extends AppCompatActivity {
             }
         });
 
+        /* calendar button
         binding.calendarButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 new DayDialogFragment().show(getSupportFragmentManager(), "datePicker");
             }
         });
-
+        */
     }//end onCreate()
 
 
@@ -269,19 +266,6 @@ public class AccountActivity extends AppCompatActivity {
 //        activityResultLauncher.launch(intent);
         startActivity(intent);
 
-    }
-
-    public User dataUser() {
-        User user1 = new User();
-        user1.setId(1);
-        user1.setAvatar("");
-        user1.setName("Dylan");
-        user1.setBio("2019 kết hôn với Khoai lang Thang 2022 kết hôn với Quân Ap, 2023 kết hôn với Mono");
-//        user1.setGender("Bisexcent");
-        user1.setDayBorn("28/01/2004");
-        user1.setEmail("vandupluss@gmail.com");
-        user1.setPhoneNumber("085850234");
-        return user1;
     }
 
     private void setUserInEditText() {
@@ -317,7 +301,8 @@ public class AccountActivity extends AppCompatActivity {
         user.setGender(SharePreference.find(SharePreference.USER_GENDER));
         user.setPhoneNumber(SharePreference.find(SharePreference.USER_PHONE));
         user.setPassword(SharePreference.find(SharePreference.USER_PASS));
-        user.setPermistion(SharePreference.findPermission());
+        //permission cua user dau mat roi
+//        user.setPermistion(SharePreference.findPermission());
 
         if (user.getGender().equalsIgnoreCase(GENDER_MALE)) {
             binding.genderUser.setSelection(0);
@@ -349,7 +334,8 @@ public class AccountActivity extends AppCompatActivity {
         binding.oldPassword.setEnabled(isEditable);
         binding.newPassword.setEnabled(false);
         binding.confirmNewPassword.setEnabled(false);
-        binding.calendarButton.setEnabled(isEditable);
+        //calendar button
+//        binding.calendarButton.setEnabled(isEditable);
     }
 
     public boolean checkPassword(String inputPassword, String storedHash) {

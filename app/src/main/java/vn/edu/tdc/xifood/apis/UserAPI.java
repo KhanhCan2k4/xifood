@@ -4,6 +4,7 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -56,10 +57,11 @@ public class UserAPI {
             }
         });
     }
-    public static void store(User user) {
+
+    public static Task<Void> store(User user) {
         DatabaseReference itemRef = userRef.push();
         user.setKey(itemRef.getKey());
-        itemRef.setValue(user);
+        return itemRef.setValue(user);
     }
     public static void update(User user) {
         DatabaseReference itemRef = userRef.child(user.getKey() + "");
