@@ -46,7 +46,25 @@ public class CancelHeader extends LinearLayout {
                 if(cancelListener != null) {
                     cancelListener.onCancel(btnCancel);
                 } else {
-                    //ignore
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+
+                    builder.setTitle("Warning");
+                    builder.setCancelable(false);
+                    builder.setMessage("cancelListener is null");
+                    builder.setCancelable(true);
+
+                    builder.setPositiveButton(
+                            "Yes",
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    dialogInterface.cancel();
+                                }
+                            }
+                    );
+
+                    AlertDialog alertDialog = builder.create();
+                    alertDialog.show();
                 }
             }
         });

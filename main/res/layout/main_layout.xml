@@ -25,6 +25,7 @@
             android:background="@drawable/search_header">
 
             <ImageButton
+                android:id="@+id/search"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_marginLeft="15dp"
@@ -36,6 +37,7 @@
             </ImageButton>
 
             <EditText
+                android:id="@+id/txtSearch"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@null"
@@ -55,13 +57,14 @@
 
     </LinearLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_marginTop="10dp"
-        android:id="@+id/list_category"
+
+    <ViewFlipper
+        android:id="@+id/bannerViewFlipper"
         android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
         android:layout_height="0dp"
-        android:layout_weight="0.75">
-    </androidx.recyclerview.widget.RecyclerView>
+        android:layout_weight="1.25">
+    </ViewFlipper>
 
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -70,24 +73,25 @@
         android:layout_weight="5"
         android:orientation="vertical">
 
-        <ViewFlipper
-            android:id="@+id/bannerViewFlipper"
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_marginTop="20dp"
+            android:id="@+id/list_category"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="2">
-        </ViewFlipper>
+            android:layout_weight=".75">
+        </androidx.recyclerview.widget.RecyclerView>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1.5"
+            android:layout_weight="1"
             android:orientation="vertical">
 
-            <!--        <ImageButton-->
-            <!--            android:layout_width="50dp"-->
-            <!--            android:layout_height="50dp"-->
-            <!--            android:background="@drawable/order_icon">-->
-            <!--        </ImageButton>-->
+<!--                    <ImageButton-->
+<!--                        android:layout_width="50dp"-->
+<!--                        android:layout_height="50dp"-->
+<!--                        android:background="@drawable/milk_tea">-->
+<!--                    </ImageButton>-->
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -96,15 +100,15 @@
                 android:layout_marginLeft="40dp">
 
                 <ImageButton
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:background="@drawable/order_icon">
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:background="@drawable/milk_tea">
                 </ImageButton>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="15sp"
+                    android:textSize="25sp"
                     android:layout_gravity="center"
                     android:textColor="@color/black"
                     android:text="XFOOD||">
@@ -116,6 +120,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:textSize="15sp"
+                android:textStyle="bold"
                 android:textColor="@color/black"
                 android:text="Giảm giá 30% đối với các tài khoản đăng kí lần đầu">
             </TextView>
@@ -132,18 +137,20 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Món mới phải thử"
+            android:text="MÓN MỚI PHẢI THỬ"
+            android:textStyle="bold"
             android:layout_marginLeft="20dp"
             android:textColor="@color/black"
-            android:textSize="15sp">
+            android:textSize="20sp">
         </TextView>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/listProducts"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="3">
+            android:layout_weight="1">
         </androidx.recyclerview.widget.RecyclerView>
+
 
 
     </LinearLayout>

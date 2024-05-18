@@ -10,7 +10,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-import vn.edu.tdc.xifood.datamodels.Topping;
+import vn.edu.tdc.xifood.models.Category;
+import vn.edu.tdc.xifood.models.Topping;
 
 public class ToppingAPI {
     private static String tblName = "toppings";

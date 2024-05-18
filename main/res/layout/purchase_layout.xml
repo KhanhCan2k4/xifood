@@ -1,276 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
     <vn.edu.tdc.xifood.views.CancelHeader
         android:id="@+id/cancelHeader"
         android:layout_width="match_parent"
-        android:layout_height="100dp" />
+        android:layout_height="100dp"/>
 
     <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:fadeScrollbars="false"
         android:scrollbarSize="2dp"
         android:scrollbarThumbVertical="@color/black"
-        android:scrollbars="vertical">
+        android:scrollbars="vertical"
+        android:fadeScrollbars="false"
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:layout_height="0dp">
 
-
-        <LinearLayout
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/orderList"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:orientation="vertical">
-
-
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/orderList"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="50dp"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="30dp"
-                android:textColor="#FF4F4F"
-                android:text="Thông tin đơn hàng"
-                android:textSize="18dp"
-                android:textStyle="bold" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-
-
-                android:orientation="horizontal">
-
-                <ImageButton
-
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_gravity="center_vertical"
-                    android:backgroundTint="#FF9999"
-                    android:background="@drawable/dot" />
-
-                <TextView
-                    android:id="@+id/diaChi"
-                    android:layout_width="0dp"
-                    android:layout_height="45dp"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="9"
-                    android:ellipsize="end"
-                    android:gravity="center"
-
-                    android:maxLines="1"
-                    android:text="53 Võ Văn Ngân, Linh Chiểu, Thành Phố Thủ Đức, Thành phố Hồ Chí Minh" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:orientation="horizontal">
-
-                <ImageButton
-                    android:layout_width="30dp"
-                    android:layout_height="20dp"
-                    android:backgroundTint="#FF9999"
-                    android:layout_gravity="center_vertical"
-                    android:background="@drawable/vocher" />
-
-                <Spinner
-                    android:id="@+id/vocherList"
-
-                    android:layout_width="170dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    />
-
-                <TextView
-                    android:id="@+id/phanTramGiamGia"
-                    android:layout_width="200dp"
-
-                    android:layout_height="wrap_content"
-                    android:textAlignment="center"
-                    android:layout_gravity="center"
-
-                    android:layout_marginRight="5dp"
-                    android:text="voucher giam gia 200%" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_margin="5dp"
-                android:orientation="horizontal">
-
-                <ImageButton
-                    android:layout_width="40dp"
-                    android:layout_height="30dp"
-                    android:layout_marginLeft="-5dp"
-                    android:backgroundTint="#FF9999"
-                    android:layout_marginTop="5dp"
-                    android:layout_gravity="center_vertical"
-                    android:background="@drawable/payment" />
-
-
-                <Spinner
-                    android:id="@+id/phuongThucThanhToan"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="-5dp"
-
-                    android:layout_weight="9" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:orientation="horizontal">
-
-                <ImageButton
-                    android:layout_width="30dp"
-                    android:backgroundTint="#FF9999"
-                    android:layout_height="30dp"
-                    android:layout_gravity="center_vertical"
-                    android:background="@drawable/note" />
-
-                <EditText
-                    android:id="@+id/ghiChu"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:textSize="15dp"
-                    android:hint="Nhập ghi chú" />
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="50dp"
-
-                android:textColor="#FF4F4F"
-                android:text="Tóm tắt đơn hàng"
-                android:textSize="18dp"
-                android:textStyle="bold" />
-
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:layout_weight="5"
-                    android:text="Giá trị đơn hàng" />
-
-                <TextView
-                    android:id="@+id/giaDonHang"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="5dp"
-                    android:layout_weight="5"
-                    android:gravity="right"
-                    android:text="80000" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:layout_weight="5"
-                    android:text="Vận chuyển" />
-
-                <TextView
-                    android:id="@+id/phiVanChuyen"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="5dp"
-                    android:layout_weight="5"
-                    android:gravity="right"
-                    android:text="20000" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:layout_weight="5"
-                    android:text="Giảm giá vocher" />
-
-                <TextView
-                    android:id="@+id/giaGia"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="5dp"
-                    android:layout_weight="5"
-                    android:gravity="right"
-                    android:text="-200" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:layout_marginBottom="50dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:layout_weight="5"
-                    android:text="tổng đơn hàng"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/tongDonHang"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="5dp"
-                    android:layout_weight="5"
-                    android:gravity="right"
-                    android:text="120000"
-                    android:textStyle="bold" />
-            </LinearLayout>
-
-        </LinearLayout>
+            android:layout_height="wrap_content"/>
 
     </ScrollView>
 
     <vn.edu.tdc.xifood.views.ActionFooter
         android:layout_width="match_parent"
-        android:layout_height="100dp" />
+        android:layout_height="100dp"/>
 
 
 </LinearLayout>
