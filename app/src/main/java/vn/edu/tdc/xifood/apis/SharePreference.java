@@ -44,4 +44,11 @@ public class SharePreference {
         editor.remove(key);
         editor.apply();
     }
+
+    // Hàm xóa dữ liệu người dùng
+    public static void clearAll() {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.clear();
+        editor.apply();
+    }
 }

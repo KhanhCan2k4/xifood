@@ -40,7 +40,11 @@ public class Order {
         }
         orderedProducts.add(orderedProduct);
     }
-
+    public void removeOrderedProduct(OrderedProduct product) {
+        if (orderedProducts != null) {
+            orderedProducts.remove(product);
+        }
+    }
     public String getDate() {
         return date;
     }
