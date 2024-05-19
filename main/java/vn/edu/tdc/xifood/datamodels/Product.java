@@ -1,9 +1,10 @@
 package vn.edu.tdc.xifood.datamodels;
 
 import java.text.DecimalFormat;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Product {
+public class Product implements Serializable {
     private String key;
     private String name;
     private String description;

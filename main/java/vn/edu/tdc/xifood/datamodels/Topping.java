@@ -10,6 +10,16 @@ public class Topping {
     private long price;
     private ArrayList<Category> categories;
 
+    private boolean selected;
+
+    public boolean isSelected() {
+        return selected;
+    }
+
+    public void setSelected(boolean selected) {
+        this.selected = selected;
+    }
+
     public String getKey() {
         return key;
     }
@@ -38,12 +48,14 @@ public class Topping {
         this.categories = categories;
     }
 
-    public Topping(String name, long price) {
+    public Topping(String name, long price, boolean selected) {
         this.name = name;
         this.price = price;
+        this.selected = selected;
     }
     public Topping() {
         this.name = "";
         this.price = 0;
+        this.selected = false;
     }
 }
