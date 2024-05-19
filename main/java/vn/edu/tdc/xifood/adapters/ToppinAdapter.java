@@ -1,83 +1,66 @@
 package vn.edu.tdc.xifood.adapters;
 
-
-import android.app.Activity;
+import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-
 import java.util.ArrayList;
+import java.util.Map;
 
-import vn.edu.tdc.xifood.databinding.ToppingItemtBinding;
+import vn.edu.tdc.xifood.R;
 import vn.edu.tdc.xifood.datamodels.Topping;
 
 public class ToppinAdapter extends RecyclerView.Adapter<ToppinAdapter.ViewHolder> {
 
-    private Activity context;
+    private Context context;
     private ArrayList<Topping> toppings;
-    private ItemClick itemClick;
-    public Activity getContext() {
-        return context;
+    private Map<Topping, Integer> toppingsWithAmount;
+
+    public interface OnToppingCheckedChangeListener {
+        void onCheckedChanged(Topping topping, boolean isChecked);
     }
 
-    public void setContext(Activity context) {
-        this.context = context;
-    }
+    private OnToppingCheckedChangeListener listener;
 
-    public ArrayList<Topping> getToppings() {
-        return toppings;
-    }
-
-    public void setToppings(ArrayList<Topping> toppings) {
-        this.toppings = toppings;
-    }
-
-    public ItemClick getItemClick() {
-        return itemClick;
-    }
-
-    public void setItemClick(ItemClick itemClick) {
-        this.itemClick = itemClick;
-    }
-
-    public ToppinAdapter(Activity context, ArrayList<Topping> toppings) {
+    public ToppinAdapter(Context context, ArrayList<Topping> toppings, Map<Topping, Integer> toppingsWithAmount, OnToppingCheckedChangeListener listener) {
         this.context = context;
         this.toppings = toppings;
+        this.toppingsWithAmount = toppingsWithAmount;
+        this.listener = listener;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ViewHolder(ToppingItemtBinding.inflate(context.getLayoutInflater(), parent, false));
+        View view = LayoutInflater.from(context).inflate(R.layout.topping_itemt, parent, false);
+        return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Topping topping = toppings.get(position);
-        holder.toppingItemtBinding.toppingName.setText(topping.getName());
-        holder.toppingItemtBinding.toppingPrice.setText(topping.getPrice() + " ");
-        holder.toppingItemtBinding.totalTopping.setText(0 + "");
-        holder.setPosition(position);
+        holder.nameTopping.setText(topping.getName());
+        holder.priceTopping.setText(topping.getPrice()+"");
+        holder.checkbox.setOnCheckedChangeListener(null); // Disable listener to prevent triggering previous listener
 
-        if (itemClick != null) {
-            holder.toppingItemtBinding.addTopping.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    itemClick.onIncreaseAmount(holder);
-                }
-            });
+        // Set checked status based on toppingsWithAmount map
+        holder.checkbox.setChecked(toppingsWithAmount.containsKey(topping) && toppingsWithAmount.get(topping) > 0);
 
-            holder.toppingItemtBinding.minusTopping.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    itemClick.onDecreaseAmount(holder);
-                }
-            });
-        }
+        // Set listener for checkbox
+        holder.checkbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                // Notify listener about checkbox state change
+                listener.onCheckedChanged(topping, isChecked);
+            }
+        });
     }
 
     @Override
@@ -85,36 +68,16 @@ public class ToppinAdapter extends RecyclerView.Adapter<ToppinAdapter.ViewHolder
         return toppings.size();
     }
 
-
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        private ToppingItemtBinding toppingItemtBinding;
+        CheckBox checkbox;
+        TextView nameTopping;
+        TextView priceTopping;
 
-        public ToppingItemtBinding getToppingItemtBinding() {
-            return toppingItemtBinding;
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
+            checkbox = itemView.findViewById(R.id.toggle);
+            nameTopping = itemView.findViewById(R.id.toppingName);
+            priceTopping = itemView.findViewById(R.id.toppingAmount);
         }
-
-        public void setToppingItemtBinding(ToppingItemtBinding toppingItemtBinding) {
-            this.toppingItemtBinding = toppingItemtBinding;
-        }
-
-        private int position;
-
-        public int getThisPosition() {
-            return position;
-        }
-
-        public void setPosition(int position) {
-            this.position = position;
-        }
-
-        public ViewHolder(@NonNull ToppingItemtBinding itemView) {
-            super(itemView.getRoot());
-            toppingItemtBinding = itemView;
-        }
-    }
-
-    public interface ItemClick {
-        public void onIncreaseAmount(ViewHolder holder);
-        public void onDecreaseAmount(ViewHolder holder);
     }
 }

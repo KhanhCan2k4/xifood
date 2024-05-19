@@ -35,7 +35,7 @@ public class CartStaffActivity extends AppCompatActivity {
 
         carts = CartData.getCarts();
 
-        adapter = new CartAdapter(this, carts);
+//        adapter = new CartAdapter(this, carts);
         Log.d("Cart", carts.size() + "");
         LinearLayoutManager manager = new LinearLayoutManager(CartStaffActivity.this);
         manager.setOrientation(LinearLayoutManager.VERTICAL);
