@@ -66,27 +66,30 @@ public class CartAPI {
         find(new FirebaseCallback() {
             @Override
             public void onCallback(Order oldOder) {
-                if (oldOder == null) { //new cart
+                if (oldOder == null || SharePreference.find(SharePreference.CART_KEY).isEmpty()) { //new cart
                     //first time to have a cart --> create new one
                     DatabaseReference itemRef = cartRef.push();
                     String cartKey = itemRef.getKey();
 
                     //save into local
                     SharePreference.store(SharePreference.CART_KEY, cartKey);
-                    Log.d("TAG", "onCallback: " + SharePreference.find(SharePreference.CART_KEY));
+                    Log.d("TAG", "onCallback: SharePreference.CART_KEY" + SharePreference.find(SharePreference.CART_KEY));
 
                     //save new order into cart
                     itemRef.setValue(order)
-                        .addOnSuccessListener(onSuccessListener)
-                        .addOnCanceledListener(onCanceledListener);
+                            .addOnSuccessListener(onSuccessListener)
+                            .addOnCanceledListener(onCanceledListener);
                 } else {
+                    Log.d("TAG", "onCallback: old order" + oldOder);
                     //save new order into order list
-                    oldOder.addOrderedProduct(order.getOrderedProducts().get(0));
-                    Log.d("TAG", "onCallback: " + SharePreference.find(SharePreference.CART_KEY));
+                    if (!order.getOrderedProducts().isEmpty()) {
+                        oldOder.addOrderedProduct(order.getOrderedProducts().get(0));
+                    }
+                    Log.d("TAG", "onCallback: SharePreference.CART_KEY " + SharePreference.find(SharePreference.CART_KEY));
                     DatabaseReference itemRef = cartRef.child(SharePreference.find(SharePreference.CART_KEY));
                     itemRef.setValue(oldOder)
-                        .addOnSuccessListener(onSuccessListener)
-                        .addOnCanceledListener(onCanceledListener);
+                            .addOnSuccessListener(onSuccessListener)
+                            .addOnCanceledListener(onCanceledListener);
                 }
             }
         });
@@ -97,9 +100,9 @@ public class CartAPI {
         itemRef.setValue(order);
     }
 
-    public static void destroy(Order order) {
-        DatabaseReference itemRef = cartRef.child(order.getKey() + "");
-        itemRef.removeValue();
+    public static Task destroy() {
+        DatabaseReference itemRef = cartRef.child(SharePreference.find(SharePreference.CART_KEY));
+        return itemRef.removeValue();
     }
 
     //interfaces

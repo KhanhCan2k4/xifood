@@ -53,7 +53,13 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         Order order = orders.get(position);
 
-        holder.binding.textOrderCode.setText(String.format("Đơn số #%d", position + 1));
+        String title = "";
+        if (order.getTable().isEmpty()) {
+            title = String.format("Đơn online #%d", position +1);
+        } else {
+            title = String.format("Đơn tại %s", order.getTable());
+        }
+        holder.binding.textOrderCode.setText(title);
 
         GridLayoutManager manager = new GridLayoutManager(context, 3);
         manager.setOrientation(GridLayoutManager.VERTICAL);

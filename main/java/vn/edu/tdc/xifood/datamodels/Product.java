@@ -1,5 +1,6 @@
 package vn.edu.tdc.xifood.datamodels;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class Product {
@@ -60,5 +61,9 @@ public class Product {
     public Product() {
         this.name = "";
         this.price = 0;
+    }
+
+    public static String getPriceInFormat(Object price) {
+        return new DecimalFormat("#,###,###VND").format(price);
     }
 }

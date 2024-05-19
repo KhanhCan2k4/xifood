@@ -30,6 +30,7 @@ import vn.edu.tdc.xifood.apis.OrderAPI;
 import vn.edu.tdc.xifood.apis.ProductAPI;
 import vn.edu.tdc.xifood.apis.SharePreference;
 import vn.edu.tdc.xifood.apis.ToppingAPI;
+import vn.edu.tdc.xifood.apis.UserAPI;
 import vn.edu.tdc.xifood.databinding.ProductDetailsLayoutBinding;
 import vn.edu.tdc.xifood.datamodels.Order;
 import vn.edu.tdc.xifood.datamodels.OrderedProduct;
@@ -209,6 +210,9 @@ public class DetailActivity extends AppCompatActivity {
             }
         });
 
+        if (SharePreference.findPermission() ==  UserAPI.STAFF_PERMISSION) {
+            binding.buyNow.setVisibility(View.GONE);
+        }
         binding.buyNow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -265,6 +269,7 @@ public class DetailActivity extends AppCompatActivity {
                             }
                         });
             }
+
         });
     }
 
