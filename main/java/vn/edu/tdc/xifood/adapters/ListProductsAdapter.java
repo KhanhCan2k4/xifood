@@ -38,7 +38,7 @@ public class ListProductsAdapter extends RecyclerView.Adapter<ListProductsAdapte
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Product product = products.get(position);
+        vn.edu.tdc.xifood.datamodels.Product product = products.get(position);
         holder.listProductBinding.productImage.setImageResource(R.drawable.milk_tea);
         holder.listProductBinding.productName.setText(product.getName());
         holder.listProductBinding.priceProduct.setText(product.getPrice() + "VND");

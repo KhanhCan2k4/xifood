@@ -1,10 +1,8 @@
 package vn.edu.tdc.xifood.datamodels;
 
-import java.text.DecimalFormat;
-import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Product implements Serializable {
+public class Product {
     private String key;
     private String name;
     private String description;
@@ -62,9 +60,5 @@ public class Product implements Serializable {
     public Product() {
         this.name = "";
         this.price = 0;
-    }
-
-    public static String getPriceInFormat(Object price) {
-        return new DecimalFormat("#,###,###VND").format(price);
     }
 }

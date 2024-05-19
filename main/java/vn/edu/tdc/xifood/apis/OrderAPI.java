@@ -2,7 +2,6 @@ package vn.edu.tdc.xifood.apis;
 
 import androidx.annotation.NonNull;
 
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -11,7 +10,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-import vn.edu.tdc.xifood.datamodels.Order;
+import vn.edu.tdc.xifood.models.Category;
+import vn.edu.tdc.xifood.models.Order;
 
 public class OrderAPI {
     private static String tblName = "orders";
@@ -36,8 +36,8 @@ public class OrderAPI {
         });
     }
 
-    public static void find(String key, FirebaseCallback callback) {
-        DatabaseReference itemRef = orderRef.child(key);
+    public static void find(int id, FirebaseCallback callback) {
+        DatabaseReference itemRef = orderRef.child("" + id);
         itemRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -54,10 +54,10 @@ public class OrderAPI {
             }
         });
     }
-    public static Task store(Order order) {
+    public static void store(Order order) {
         DatabaseReference itemRef = orderRef.push();
         order.setKey(itemRef.getKey());
-        return itemRef.setValue(order);
+        itemRef.setValue(order);
     }
 
     public static void update(Order order) {

@@ -7,7 +7,6 @@ import android.text.TextUtils;
 import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -19,27 +18,16 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 
-import org.springframework.security.crypto.bcrypt.BCrypt;
-
-import java.util.ArrayList;
-import java.util.regex.Pattern;
-
 import vn.edu.tdc.xifood.R;
 import vn.edu.tdc.xifood.activities.MainActivity;
 import vn.edu.tdc.xifood.activities.RegisterActivity;
 import vn.edu.tdc.xifood.apis.SharePreference;
-import vn.edu.tdc.xifood.apis.UserAPI;
-import vn.edu.tdc.xifood.apis.UserPreferences;
-import vn.edu.tdc.xifood.datamodels.User;
-import vn.edu.tdc.xifood.staffProcessing.MainStaffActivity;
+import vn.edu.tdc.xifood.data.UserPreferences;
 
 public class LoginActivity extends AppCompatActivity {
     private EditText usernameEditText, passwordEditText;
     private GoogleSignInClient mGoogleSignInClient;
     private static final int RC_SIGN_IN = 9001;
-    public static final Pattern VALID_EMAIL_ADDRESS_REGEX =
-            Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,22 +35,21 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.login_layout);
 
         SharePreference.setSharedPreferences(LoginActivity.this);
-        //check used to login -> navigate to main
+        //check used to login
         if (!SharePreference.find(SharePreference.USER_TOKEN_KEY).isEmpty()) {
-//            Log.d("TAG", "onCreate: used to login");
-            String userName = SharePreference.find(SharePreference.USER_NAME);
-            Toast.makeText(LoginActivity.this, "Xin chào " + userName, Toast.LENGTH_LONG).show();
-
-            //check permisstion
+            Log.d("TAG", "onCreate: used to login");
             navigateToMainActivity();
         }
 
         usernameEditText = findViewById(R.id.username);
         passwordEditText = findViewById(R.id.password);
+
         passwordEditText.setTransformationMethod(new PasswordTransformationMethod());
 
         findViewById(R.id.btnRegister).setOnClickListener(v -> navigateToRegister());
+
         findViewById(R.id.btnSignIn).setOnClickListener(v -> login());
+
         findViewById(R.id.loginWithGoogle).setOnClickListener(v -> signInWithGoogle());
     }
 
@@ -73,78 +60,30 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void login() {
-        String email = usernameEditText.getText().toString().trim();
+        String username = usernameEditText.getText().toString().trim();
         String password = passwordEditText.getText().toString().trim();
 
-        Button btnLogin = findViewById(R.id.btnSignIn);
-        btnLogin.setText("Đang tải...");
-        btnLogin.setEnabled(false);
-
-        //check valid email
-        if (!VALID_EMAIL_ADDRESS_REGEX.matcher(email).matches()) {
-            showAlert("THÔNG BÁO", "Email không hợp lệ");
-            btnLogin.setText("Đăng nhập");
-            btnLogin.setEnabled(true);
+        if (TextUtils.isEmpty(username) || TextUtils.isEmpty(password)) {
+            showAlert("LỖI", "Vui lòng điền đầy đủ thông tin");
             return;
         }
 
-        //check less then 6 characters password
-        if (password.length() < 6 || password.length() > 15) {
-            showAlert("THÔNG BÁO", "Mật khẩu chỉ từ 6 đến 15 kí tự");
-            btnLogin.setText("Đăng nhập");
-            btnLogin.setEnabled(true);
-            return;
+        // Kiểm tra thông tin đăng nhập
+        UserPreferences userPrefs = new UserPreferences(this);
+        if (userPrefs.checkLogin(username, password)) {
+            // Đăng nhập thành công
+            Log.d("TAG", "login: success" );
+            SharePreference.setSharedPreferences(LoginActivity.this);
+            SharePreference.store(SharePreference.USER_TOKEN_KEY, username.hashCode() + "");
+            navigateToMainActivity();
+        } else {
+            // Đăng nhập thất bại
+            showAlert("LỖI", "Đăng nhập không thành công. Vui lòng kiểm tra lại thông tin đăng nhập.");
         }
-
-        //accept login
-        UserAPI.all(new UserAPI.FirebaseCallbackAll() {
-            @Override
-            public void onCallback(ArrayList<User> users) {
-                for (User user : users) {
-                    if (user.getEmail().equals(email) &&
-                            checkPassword(password, user.getPassword())) {
-                        //existing users with true data
-                        SharePreference.setSharedPreferences(LoginActivity.this);
-                        SharePreference.store(SharePreference.USER_TOKEN_KEY, user.getKey());
-                        SharePreference.store(SharePreference.USER_NAME, user.getFullName());
-                        SharePreference.store(SharePreference.USER_EMAIL, user.getEmail());
-                        SharePreference.store(SharePreference.USER_GENDER, user.getGender());
-                        SharePreference.store(SharePreference.USER_DOB, user.getDayOfBirth());
-                        SharePreference.store(SharePreference.USER_AVATAR, user.getAvatar());
-                        SharePreference.store(SharePreference.USER_PHONE, user.getPhoneNumber());
-                        SharePreference.store(SharePreference.USER_PASS, user.getPassword());
-                        SharePreference.store(SharePreference.USER_PERMISSION, user.getPermistion());
-
-                        //check permisstion
-//                        Log.d("TAG", "login: success");
-                        if (user.getPermistion() == UserAPI.STAFF_PERMISSION) { //is staff
-                            navigateToMainActivityForStaff();
-                        } else { //is normal user
-                            navigateToMainActivity();
-                        }
-                    }
-                }
-
-                //login failed
-                btnLogin.setText("Đăng nhập");
-                btnLogin.setEnabled(true);
-                showAlert("THÔNG BÁO", "Đăng nhập không thành công. Vui lòng kiểm tra lại thông tin đăng nhập.");
-            }
-        });
-    }
-
-    public boolean checkPassword(String inputPassword, String storedHash) {
-        return BCrypt.checkpw(inputPassword, storedHash);
     }
 
     private void navigateToMainActivity() {
         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-        startActivity(intent);
-        finish();
-    }
-
-    private void navigateToMainActivityForStaff() {
-        Intent intent = new Intent(LoginActivity.this, MainStaffActivity.class);
         startActivity(intent);
         finish();
     }
@@ -204,6 +143,7 @@ public class LoginActivity extends AppCompatActivity {
                     showAlert("LỖI", "Đăng nhập không thành công");
                 });
     }
+
 
     private void onGoogleSignInSuccess(GoogleSignInAccount account) {
         String googleUsername = account.getDisplayName(); // Lấy tên hiển thị của người dùng Google
