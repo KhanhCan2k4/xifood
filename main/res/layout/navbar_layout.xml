@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/navbar_bg"
+    android:gravity="center"
+    android:orientation="horizontal"
+    android:paddingHorizontal="10dp">
+
+    <ImageButton
+        android:id="@+id/btnHome"
+        style="@style/NavButtonStyle"
+        android:background="@drawable/home_icon" />
+
+    <ImageButton
+        android:id="@+id/btnDiscount"
+        style="@style/NavButtonStyle"
+        android:background="@drawable/discount_icon" />
+
+    <ImageButton
+        android:id="@+id/btnOrder"
+        android:background="@drawable/order_icon"
+        style="@style/NavButtonStyle"/>
+
+    <ImageButton
+        android:id="@+id/btnAccount"
+        style="@style/NavButtonStyle"
+        android:background="@drawable/account_icon" />
+
+</LinearLayout>
