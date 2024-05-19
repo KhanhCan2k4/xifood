@@ -64,19 +64,30 @@ public class CartAPI {
     public static void store(String userId, Order order, OnSuccessListener<Void> onSuccessListener, OnCanceledListener onCanceledListener) {
         find(userId, new FirebaseCallback() {
             @Override
-            public void onCallback(Order oldOrder) {
-                DatabaseReference itemRef;
-                if (oldOrder == null) { //new cart
+            public void onCallback(Order oldOder) {
+                if (oldOder == null || SharePreference.find(SharePreference.CART_KEY).isEmpty()) { //new cart
                     //first time to have a cart --> create new one
-                    itemRef = cartRef.child(userId);
+                    DatabaseReference itemRef = cartRef.push();
+                    String cartKey = itemRef.getKey();
+
+                    //save into local
+                    SharePreference.store(SharePreference.CART_KEY, cartKey);
+                    Log.d("TAG", "onCallback: SharePreference.CART_KEY" + SharePreference.find(SharePreference.CART_KEY));
+
+                    //save new order into cart
                     itemRef.setValue(order)
                             .addOnSuccessListener(onSuccessListener)
                             .addOnCanceledListener(onCanceledListener);
                 } else {
+                    Log.d("TAG", "onCallback: old order" + oldOder);
                     //save new order into order list
-                    oldOrder.addOrderedProduct(order.getOrderedProducts().get(0));
-                    itemRef = cartRef.child(userId);
-                    itemRef.setValue(oldOrder)
+                    if (!order.getOrderedProducts().isEmpty()) {
+                        oldOder.addOrderedProduct(order.getOrderedProducts().get(0));
+                    }
+                    Log.d("TAG", "onCallback: SharePreference.CART_KEY " + SharePreference.find(SharePreference.CART_KEY));
+                    DatabaseReference itemRef = cartRef.child(SharePreference.find(SharePreference.CART_KEY));
+                    itemRef.setValue(oldOder)
+
                             .addOnSuccessListener(onSuccessListener)
                             .addOnCanceledListener(onCanceledListener);
                 }

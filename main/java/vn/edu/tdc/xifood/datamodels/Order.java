@@ -12,6 +12,14 @@ public class Order {
     private String date;
     private int status;
     private User user;
+    private String table = "";
+
+    public String getTable() {
+        return table;
+    }
+    public void setTable(String table) {
+        this.table = table;
+    }
 
     public String getKey() {
         return key;

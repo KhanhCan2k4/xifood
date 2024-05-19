@@ -183,7 +183,7 @@ public class DetailActivity extends AppCompatActivity {
             }
         });
 
-        if (SharePreference.findPermission() == UserAPI.STAFF_PERMISSION) {
+        if (SharePreference.findPermission() ==  UserAPI.STAFF_PERMISSION) {
             binding.buyNow.setVisibility(View.GONE);
         }
         binding.buyNow.setOnClickListener(new View.OnClickListener() {
@@ -243,6 +243,7 @@ public class DetailActivity extends AppCompatActivity {
                             }
                         });
             }
+
         });
     }
 
