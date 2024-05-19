@@ -122,7 +122,7 @@ android:src="@drawable/edit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/noteSanPham"
-                android:text="it da nhieu duong"/>
+                android:text="It da nhieu duong"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -144,11 +144,11 @@ android:src="@drawable/edit"
         android:layout_height="wrap_content"
         android:layout_weight="6"/>
     <CheckBox
-        android:layout_margin="5dp"
+        android:layout_margin="15dp"
         android:id="@+id/checkChonMua"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="chon mua" />
+        android:text="Chọn mua" />
 </LinearLayout>
 
 </LinearLayout>

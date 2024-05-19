@@ -2,40 +2,29 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="30dp"
+    android:layout_height="wrap_content"
     android:orientation="horizontal">
+
     <TextView
         android:id="@+id/toppingName"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
         android:layout_weight="6"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:text="Chân châu đen"
         android:gravity="center_vertical|start"
+        android:text="Chân châu đen"
         android:textAlignment="textStart" />
+
     <TextView
-        android:id="@+id/toppingPrice"
-        android:layout_weight="3"
+        android:id="@+id/toppingAmount"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:text="5000 vnd"
+        android:layout_weight="3"
         android:gravity="center"/>
-    <Button
-        android:id="@+id/addTopping"
-        android:layout_width="20dp"
-        android:layout_height="30dp"
-        android:background="@drawable/mid"
 
-        />
-    <TextView
-        android:id="@+id/totalTopping"
-        android:layout_marginHorizontal="3dp"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:text="00"
-        android:gravity="center"/>
-    <Button
-        android:id="@+id/minusTopping"
-        android:layout_width="20dp"
+    <CheckBox
+        android:id="@+id/toggle"
+        android:layout_width="30dp"
         android:layout_height="30dp"
-        android:background="@drawable/add"/>
+        android:padding="10dp"/>
+
 </LinearLayout>

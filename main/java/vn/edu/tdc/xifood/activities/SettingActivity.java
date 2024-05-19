@@ -4,11 +4,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import org.json.JSONObject;
 
@@ -41,12 +44,37 @@ public class SettingActivity extends AppCompatActivity {
         //lay nguoi dung tu SharePreference
         SharePreference.setSharedPreferences(SettingActivity.this); // phai co moi chay nhen ong co
 
+        //Logout
+        // Trong phương thức onCreate của bạn
+        binding.logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new AlertDialog.Builder(SettingActivity.this)
+                        .setTitle("Đăng Xuất")
+                        .setMessage("Bạn có chắc chắn muốn đăng xuất không?")
+                        .setPositiveButton("Đăng Xuất", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // Xóa tất cả dữ liệu người dùng
+                                SharePreference.clearAll();
+                                // Chuyển hướng người dùng
+                                Intent intent = new Intent(SettingActivity.this, LoginActivity.class);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                startActivity(intent);
+                            }
+                        })
+                        .setNegativeButton("Hủy", null)
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
+            }
+        });
+
+
         binding.username.setText(SharePreference.find(SharePreference.USER_NAME));
         try {
             ImageStorageReference.setImageInto(binding.imageAvatar,
-                   "avatars/default.jpg");
+                    "avatars/default.jpg");
             ImageStorageReference.setImageInto(binding.imageAvatar,
-                SharePreference.find(SharePreference.USER_AVATAR));
+                    SharePreference.find(SharePreference.USER_AVATAR));
         } catch (Exception e) {
             //ignore
         }
@@ -126,7 +154,7 @@ public class SettingActivity extends AppCompatActivity {
             ImageStorageReference.setImageInto(binding.imageAvatar,
                     "avatars/default.jpg");
             ImageStorageReference.setImageInto(binding.imageAvatar,
-                SharePreference.find(SharePreference.USER_AVATAR));
+                    SharePreference.find(SharePreference.USER_AVATAR));
         } catch (Exception e) {
             //ignore
         }
