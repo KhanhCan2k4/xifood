@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 import vn.edu.tdc.xifood.databinding.OrderItemLayoutBinding;
-import vn.edu.tdc.xifood.datamodels.Order;
+import vn.edu.tdc.xifood.models.Order;
 
 public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder> {
     private Activity context;
@@ -53,22 +53,16 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         Order order = orders.get(position);
 
-        String title = "";
-        if (order.getTable().isEmpty()) {
-            title = String.format("Đơn online #%d", position +1);
-        } else {
-            title = String.format("Đơn tại %s", order.getTable());
-        }
-        holder.binding.textOrderCode.setText(title);
+        holder.binding.textOrderCode.setText(String.format("Đơn số #%d", order.getId()));
 
         GridLayoutManager manager = new GridLayoutManager(context, 3);
         manager.setOrientation(GridLayoutManager.VERTICAL);
 
-        OrderedProductAdapter productAdapter = new OrderedProductAdapter(context, order.getOrderedProducts());
+        OrderedProductAdapter productAdapter = new OrderedProductAdapter(context, order.getProducts());
         holder.binding.orderList.setLayoutManager(manager);
         holder.binding.orderList.setAdapter(productAdapter);
 
-        holder.setKey(order.getKey());
+        holder.setId(order.getId());
 
         if (isAnOrder) {
             holder.binding.btnView.setVisibility(View.INVISIBLE);
@@ -87,14 +81,14 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
         private OrderItemLayoutBinding binding;
-        private String key;
+        private int id;
 
-        public String getKey() {
-            return key;
+        public int getId() {
+            return id;
         }
 
-        public void setKey(String key) {
-            this.key = key;
+        public void setId(int id) {
+            this.id = id;
         }
 
         public MyViewHolder(@NonNull OrderItemLayoutBinding itemView) {
@@ -106,7 +100,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
                 @Override
                 public void onClick(View view) {
                     if (itemClickListener != null) {
-                        itemClickListener.onView(binding.btnView, key);
+                        itemClickListener.onView(binding.btnView, id);
                     }
                 }
             });
@@ -114,17 +108,25 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
                 @Override
                 public void onClick(View view) {
                     if (itemClickListener != null) {
-                        itemClickListener.onBuyback(binding.btnBuyBack, key);
+                        itemClickListener.onBuyback(binding.btnBuyBack, id);
                     }
                 }
             });
+//            binding.btnView.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    if (itemClickListener != null) {
+//                        itemClickListener.onView(binding.btnView);
+//                    }
+//                }
+//            });
         }
     }
 
     public interface OnItemClickListener {
-        public void onView(View view, String key);
-        public void onBuyback(View view, String key);
-        public void onCancel(View view, String key);
+        public void onView(View view, int id);
+        public void onBuyback(View view, int id);
+        public void onCancel(View view, int id);
     }
 }
 

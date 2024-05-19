@@ -30,8 +30,6 @@ import vn.edu.tdc.xifood.adapters.ListCategoryAdapter;
 import vn.edu.tdc.xifood.adapters.ListProductsAdapter;
 import vn.edu.tdc.xifood.apis.CategoryAPI;
 import vn.edu.tdc.xifood.apis.ProductAPI;
-import vn.edu.tdc.xifood.apis.SharePreference;
-import vn.edu.tdc.xifood.apis.UserAPI;
 import vn.edu.tdc.xifood.data.CategoryData;
 import vn.edu.tdc.xifood.data.ListProductsData;
 import vn.edu.tdc.xifood.databinding.MainLayoutBinding;
@@ -59,34 +57,34 @@ public class MainActivity extends AppCompatActivity {
         CategoryAPI.all(new CategoryAPI.FirebaseCallbackAll() {
             @Override
             public void onCallback(ArrayList<Category> categoriesList) {
-                for (Category category : categoriesList) {
-                    categories.add(category);
-                }
-                listCategoryAdapter = new ListCategoryAdapter(MainActivity.this, categories);
-                LinearLayoutManager manager = new LinearLayoutManager(MainActivity.this);
 
-                // xet huong
-                manager.setOrientation(LinearLayoutManager.HORIZONTAL);
+                if (categoriesList != null) {
+                    listCategoryAdapter = new ListCategoryAdapter(MainActivity.this, categoriesList);
+                    GridLayoutManager manager = new GridLayoutManager(MainActivity.this, 5);
 
-                binding.listCategory.setLayoutManager(manager);
-                binding.listCategory.setAdapter(listCategoryAdapter);
-                //goi uy quyen cho danh muc
-                listCategoryAdapter.setItemClick(new ListCategoryAdapter.ItemClickListener() {
-                    @Override
-                    public void onItemClick(ListCategoryAdapter.ViewHolder holder) {
-                        String key = holder.getCategoryKey();
-                        if (!key.isEmpty()) {
-                            Intent intent = new Intent(MainActivity.this, ListProductsActivity.class);
-                            intent.putExtra(CLICKED_CATEGORY_KEY, key);
-                            Log.d(CLICKED_CATEGORY_KEY, key + "");
+                    // xet huong
+                    manager.setOrientation(LinearLayoutManager.VERTICAL);
 
-                            intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                    binding.listCategory.setLayoutManager(manager);
+                    binding.listCategory.setAdapter(listCategoryAdapter);
+                    //goi uy quyen cho danh muc
+                    listCategoryAdapter.setItemClick(new ListCategoryAdapter.ItemClickListener() {
+                        @Override
+                        public void onItemClick(ListCategoryAdapter.ViewHolder holder) {
+                            String key = holder.getCategoryKey();
+                            if (!key.isEmpty()) {
+                                Intent intent = new Intent(MainActivity.this, ListProductsActivity.class);
+                                intent.putExtra(CLICKED_CATEGORY_KEY, key);
+                                Log.d(CLICKED_CATEGORY_KEY, key + "");
 
-                            // chuyen
-                            startActivity(intent);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+
+                                // chuyen
+                                startActivity(intent);
+                            }
                         }
-                    }
-                });
+                    });
+                }
             }
         });
 
@@ -96,15 +94,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onCallback(ArrayList<Product> productsList) {
                 Log.d("No-1", "onCallback: " + productsList.size());
-                for (Product product : productsList) {
-                    for (Category category : product.getCategories()) {
+                for (Product product: productsList) {
+                    for (Category category: product.getCategories()) {
                         if ("5".equals(category.getKey())) {
                             products.add(product);
                         }
                     }
                 }
 
-                Log.d("No-2", "onCallback: " + products.size());
+                Log.d("No-2", "onCallback: "+ products.size());
                 ListProductsAdapter adapter = new ListProductsAdapter(MainActivity.this, products);
                 GridLayoutManager manager2 = new GridLayoutManager(MainActivity.this, 3);
                 manager2.setOrientation(GridLayoutManager.VERTICAL);
@@ -115,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onItemClick(ListProductsAdapter.ViewHolder holder) {
                         Intent intent = new Intent(MainActivity.this, DetailActivity.class);
-                        intent.putExtra(DetailActivity.DETAIL_PRODUCT_KEY, holder.getProductKey());
+                        intent.putExtra("id", holder.getProductId());
 
                         startActivity(intent);
                     }
@@ -146,9 +144,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onOrderButtonClick(View view) {
-                Intent intent;
-                intent = new Intent(MainActivity.this, OrderActivity.class);
-
+                Intent intent = new Intent(MainActivity.this, OrderActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 
                 // chuyen
@@ -168,14 +164,17 @@ public class MainActivity extends AppCompatActivity {
         binding.btnCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent;
+                Intent intent = new Intent(MainActivity.this, CartActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                startActivity(intent);
+            }
+        });
 
-                if (SharePreference.findPermission() == UserAPI.STAFF_PERMISSION) {
-                    intent = new Intent(MainActivity.this, StaffOrderActivity.class);
-                } else {
-                    intent = new Intent(MainActivity.this, CartActivity.class);
-                }
-
+        // chuyen sang ListSearchActivity
+        binding.txtSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, ListSearchActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(intent);
             }
@@ -184,7 +183,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // gọi action để chạy ViewFlipper
-    private void ActionViewFlipper() {
+    private void ActionViewFlipper(){
         List<String> bannerViewFlipper = new ArrayList<>();
         bannerViewFlipper.add("https://th.bing.com/th?id=OIP.0QBVEpjVjCxaioYJQBZHOgHaDk&w=350&h=168&c=8&rs=1&qlt=90&o=6&dpr=1.3&pid=3.1&rm=2");
         bannerViewFlipper.add("https://th.bing.com/th?id=OIP.82a09uRdBq-0iIvzxpVT3QHaDL&w=350&h=150&c=8&rs=1&qlt=90&o=6&dpr=1.3&pid=3.1&rm=2");
@@ -194,7 +193,7 @@ public class MainActivity extends AppCompatActivity {
             ImageView imageView = new ImageView(getApplicationContext());
             Glide.with(getApplicationContext()).load(bannerViewFlipper.get(i)).into(imageView);
             imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-            viewFlipper.addView(imageView);
+           viewFlipper.addView(imageView);
         }
         viewFlipper.setFlipInterval(3000);
         viewFlipper.setAutoStart(true);

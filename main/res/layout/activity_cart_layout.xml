@@ -14,17 +14,6 @@
         android:layout_height="0dp"
         android:layout_weight="1" />
 
-    <TextView
-        android:id="@+id/emptyCartMessage"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Giỏ hàng trống"
-        android:gravity="center"
-        android:visibility="gone"
-        android:textSize="18sp"
-        android:textColor="@android:color/black"
-        android:padding="16dp" />
-
     <vn.edu.tdc.xifood.views.Navbar
         android:id="@+id/navbar"
         android:layout_width="match_parent"
