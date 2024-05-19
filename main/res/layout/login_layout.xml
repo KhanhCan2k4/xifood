@@ -4,17 +4,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@drawable/linear_login"
     android:layout_height="match_parent">
 
     <ImageView
         android:id="@+id/imgview"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@drawable/linear_login"
+        android:background="@drawable/bannerlogin"
         android:clipToOutline="true"
-        android:src="@drawable/banner_login"
-        android:scaleType="fitXY"
+        android:src="@drawable/banner2"
         app:layout_constraintBottom_toTopOf="@+id/guideline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,6 +23,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginHorizontal="10dp"
+        android:background="@drawable/login_layout"
         android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@+id/guideline3"
         app:layout_constraintEnd_toEndOf="parent"
@@ -37,21 +36,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="20dp"
-            android:text=""
+            android:text="Welcome to xifood"
             android:textSize="40sp"
-            app:layout_constraintBottom_toTopOf="@+id/guideline4"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Chào mừng bạn đến với XiFood"
-            android:fontFamily="sans-serif-condensed-light"
-            android:textSize="25sp"
-            android:textFontWeight="500"
-            android:textColor="#fff"
             app:layout_constraintBottom_toTopOf="@+id/guideline4"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -60,31 +46,18 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/cardViewUser"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="wrap_content"
             app:cardCornerRadius="10dp"
             app:cardElevation="3dp"
             android:layout_marginHorizontal="3dp"
             android:layout_marginTop="15dp">
-            <LinearLayout
+            <EditText
+                android:id="@+id/username"
                 android:layout_width="match_parent"
-                android:orientation="horizontal"
-                android:layout_height="match_parent">
-                <ImageView
-                    android:layout_width="0dp"
-                    android:src="@drawable/email_icon"
-                    android:scaleType="center"
-                    android:layout_weight="2"
-                    android:layout_height="match_parent"/>
-                <EditText
-                    android:id="@+id/username"
-                    android:layout_width="0dp"
-                    android:layout_weight="10"
-                    android:layout_height="match_parent"
-                    android:hint="Email"
-                    android:inputType="textEmailAddress"
-                    />
-            </LinearLayout>
-
+                android:layout_height="wrap_content"
+                android:hint="Username"
+                android:background="@drawable/custom_edit_text_login"
+                />
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
@@ -95,24 +68,13 @@
             app:cardElevation="3dp"
             android:layout_marginHorizontal="3dp"
             android:layout_marginTop="20dp">
-            <LinearLayout
+            <EditText
+                android:id="@+id/password"
                 android:layout_width="match_parent"
-                android:orientation="horizontal"
-                android:layout_height="match_parent">
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_weight="2"
-                    android:src="@drawable/password_icon"
-                    android:scaleType="center"
-                    android:layout_height="match_parent"/>
-                <EditText
-                    android:id="@+id/password"
-                    android:layout_width="0dp"
-                    android:layout_height="60dp"
-                    android:layout_weight="10"
-                    android:hint="Mật khẩu"
-                    />
-            </LinearLayout>
+                android:layout_height="wrap_content"
+                android:hint="Password"
+                android:background="@drawable/custom_edit_text_login"
+                />
         </androidx.cardview.widget.CardView>
         <androidx.cardview.widget.CardView
             android:layout_width="50dp"
@@ -133,15 +95,15 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnSignIn"
-            android:elevation="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Đăng nhập"
-            android:textColor="@color/cardview_dark_background"
-            android:textSize="20sp"
+            android:text="Sign in"
+            android:textColor="@color/white"
+            android:textSize="24sp"
             android:layout_marginTop="20dp"
-            android:background="@drawable/cusstom_button_login"
+            android:background="@drawable/custom_button_login"
             />
+
     </LinearLayout>
 
     <ImageView
@@ -162,9 +124,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="17dp"
         android:background="@drawable/custom_switch_page_login"
-        android:text="Tạo tài khoản mới"
+        android:text="Create your account"
         android:textAlignment="center"
-        android:textSize="18dp"
+        android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

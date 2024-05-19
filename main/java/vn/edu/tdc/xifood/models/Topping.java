@@ -5,7 +5,6 @@ public class Topping {
     private String name = "";
     private double price = 0;
     private int soluong = 0;
-    public OnToppingClickListener toppingClickListener;
 
     public String getKey() {
         return key;
@@ -47,22 +46,5 @@ public class Topping {
 
     public Topping() {
 
-    }
-
-    // Hàm ủy quyền onClickListener cho Topping
-    public void setOnToppingClickListener(OnToppingClickListener listener) {
-        this.toppingClickListener = listener;
-    }
-
-    // Hàm trigger khi Topping được nhấn
-    public void triggerClick() {
-        if (toppingClickListener != null) {
-            toppingClickListener.onToppingClick(this);
-        }
-    }
-
-    // Interface cho việc xử lý sự kiện khi Topping được nhấn
-    public interface OnToppingClickListener {
-        void onToppingClick(Topping topping);
     }
 }
