@@ -137,6 +137,7 @@ public class RegisterActivity extends AppCompatActivity {
                             @Override
                             public void onSuccess(Void unused) {
                                 //Save into local
+                                SharePreference.init();
                                 SharePreference.store(SharePreference.USER_TOKEN_KEY, user.getKey());
                                 SharePreference.store(SharePreference.USER_NAME, user.getFullName());
                                 SharePreference.store(SharePreference.USER_EMAIL, user.getEmail());
