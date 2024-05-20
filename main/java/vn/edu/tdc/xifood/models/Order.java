@@ -2,6 +2,8 @@ package vn.edu.tdc.xifood.models;
 
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Objects;
+import java.util.UUID;
 
 public class Order {
     private String key;
@@ -41,4 +43,18 @@ public class Order {
         this.id = id;
         this.products = new ArrayList<>();
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Order order = (Order) o;
+        return key.equals(order.key);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(key);
+    }
+
 }

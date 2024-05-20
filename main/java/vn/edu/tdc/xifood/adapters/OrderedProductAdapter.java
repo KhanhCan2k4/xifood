@@ -14,10 +14,8 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
 
-import vn.edu.tdc.xifood.R;
+import vn.edu.tdc.xfood.databinding.OrderedProductItemLayoutBinding;
 import vn.edu.tdc.xifood.apis.ImageStorageReference;
-import vn.edu.tdc.xifood.databinding.OrderItemLayoutBinding;
-import vn.edu.tdc.xifood.databinding.OrderedProductItemLayoutBinding;
 import vn.edu.tdc.xifood.datamodels.OrderedProduct;
 import vn.edu.tdc.xifood.models.Order;
 import vn.edu.tdc.xifood.datamodels.Product;

@@ -2,6 +2,7 @@ package vn.edu.tdc.xifood.apis;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 
 public class SharePreference {
     private static String sharePreferenceName = "MY_PREFERENCE";
@@ -20,8 +21,13 @@ public class SharePreference {
         sharedPreferences = context.getSharedPreferences(sharePreferenceName, Context.MODE_PRIVATE);
     }
 
+
     public static String find(String key) {
+        if (sharedPreferences == null) {
+            throw new IllegalStateException("SharedPreferences not initialized");
+        }
         return sharedPreferences.getString(key, "");
+//        return sharedPreferences.getString(key, "");
     }
     public static int findPermission() {
         return sharedPreferences.getInt(USER_PERMISSION, 0);
@@ -42,13 +48,6 @@ public class SharePreference {
     public static void destroy(String key) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.remove(key);
-        editor.apply();
-    }
-
-    // Hàm xóa dữ liệu người dùng
-    public static void clearAll() {
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.clear();
         editor.apply();
     }
 }

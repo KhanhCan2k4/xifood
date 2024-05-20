@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-import vn.edu.tdc.xifood.databinding.BillItemtBinding;
+import vn.edu.tdc.xfood.databinding.BillItemtBinding;
 import vn.edu.tdc.xifood.models.Bill;
 
 public class BillAdapter extends RecyclerView.Adapter<BillAdapter.ViewHolder> {

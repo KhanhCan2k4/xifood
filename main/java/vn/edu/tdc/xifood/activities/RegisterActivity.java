@@ -21,7 +21,7 @@ import org.springframework.security.crypto.bcrypt.BCrypt;
 
 import java.util.ArrayList;
 
-import vn.edu.tdc.xifood.R;
+import vn.edu.tdc.xfood.R;
 import vn.edu.tdc.xifood.apis.SharePreference;
 import vn.edu.tdc.xifood.apis.UserAPI;
 import vn.edu.tdc.xifood.datamodels.User;

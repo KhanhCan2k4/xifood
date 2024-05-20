@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
-import vn.edu.tdc.xifood.R;
+import vn.edu.tdc.xfood.R;
 
 public class CancelHeader extends LinearLayout {
     private OnCancelListener cancelListener = null;

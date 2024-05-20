@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-import vn.edu.tdc.xifood.databinding.ListItemRecentsSettingBinding;
+import vn.edu.tdc.xfood.databinding.ListItemRecentsSettingBinding;
 
 public class RecentsProductsAdapter extends RecyclerView.Adapter<RecentsProductsAdapter.MyViewHolder> {
     private Activity context;

@@ -10,8 +10,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-import vn.edu.tdc.xifood.R;
-import vn.edu.tdc.xifood.databinding.ListProductBinding;
+import vn.edu.tdc.xfood.R;
+import vn.edu.tdc.xfood.databinding.ListProductBinding;
 import vn.edu.tdc.xifood.datamodels.Product;
 
 public class ListProductsAdapter extends RecyclerView.Adapter<ListProductsAdapter.ViewHolder> {

@@ -10,14 +10,13 @@ import android.view.View;
 
 import java.util.ArrayList;
 
-import vn.edu.tdc.xifood.R;
+import vn.edu.tdc.xfood.databinding.OrderLayoutBinding;
 import vn.edu.tdc.xifood.activities.ListProductsActivity;
 import vn.edu.tdc.xifood.activities.MainActivity;
 import vn.edu.tdc.xifood.activities.OrderActivity;
 import vn.edu.tdc.xifood.activities.PurchaseActivity;
 import vn.edu.tdc.xifood.activities.SettingActivity;
 import vn.edu.tdc.xifood.adapters.OrderAdapter;
-import vn.edu.tdc.xifood.databinding.OrderLayoutBinding;
 import vn.edu.tdc.xifood.models.Order;
 import vn.edu.tdc.xifood.models.Product;
 import vn.edu.tdc.xifood.views.Navbar;

@@ -10,7 +10,7 @@ import android.widget.LinearLayout;
 
 import androidx.annotation.Nullable;
 
-import vn.edu.tdc.xifood.R;
+import vn.edu.tdc.xfood.R;
 
 public class Navbar extends LinearLayout {
     private View prevView = null;
