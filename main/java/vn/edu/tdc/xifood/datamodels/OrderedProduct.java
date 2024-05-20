@@ -7,11 +7,12 @@ public class OrderedProduct {
     private Product product;
     private Map<String, Long> toppings;
     private int amount;
-    private Order order; // Thêm trường order vào OrderedProduct
+
 
     public Product getProduct() {
         return product;
     }
+
     public void setProduct(Product product) {
         this.product = product;
     }
@@ -27,15 +28,9 @@ public class OrderedProduct {
     public int getAmount() {
         return amount;
     }
+
     public void setAmount(int amount) {
         this.amount = amount;
-    }
-
-    public Order getOrder() {
-        return order;
-    }
-    public void setOrder(Order order) {
-        this.order = order;
     }
 
     public OrderedProduct(Product product, int amount) {

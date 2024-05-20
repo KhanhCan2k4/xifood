@@ -1,5 +1,6 @@
 package vn.edu.tdc.xifood.activities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -7,10 +8,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import com.google.android.gms.tasks.OnCanceledListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -18,6 +22,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import vn.edu.tdc.xfood.databinding.ProductDetailsLayoutBinding;
+import vn.edu.tdc.xifood.adapters.BillAdapter;
 import vn.edu.tdc.xifood.adapters.ToppinAdapter;
 import vn.edu.tdc.xifood.apis.CartAPI;
 import vn.edu.tdc.xifood.apis.ImageStorageReference;
@@ -25,12 +31,11 @@ import vn.edu.tdc.xifood.apis.OrderAPI;
 import vn.edu.tdc.xifood.apis.ProductAPI;
 import vn.edu.tdc.xifood.apis.SharePreference;
 import vn.edu.tdc.xifood.apis.ToppingAPI;
-import vn.edu.tdc.xifood.apis.UserAPI;
-import vn.edu.tdc.xifood.databinding.ProductDetailsLayoutBinding;
 import vn.edu.tdc.xifood.datamodels.Order;
 import vn.edu.tdc.xifood.datamodels.OrderedProduct;
 import vn.edu.tdc.xifood.datamodels.Product;
 import vn.edu.tdc.xifood.datamodels.User;
+import vn.edu.tdc.xifood.models.Bill;
 import vn.edu.tdc.xifood.datamodels.Topping;
 import vn.edu.tdc.xifood.views.CancelHeader;
 
@@ -54,7 +59,7 @@ public class DetailActivity extends AppCompatActivity {
         Intent intent = getIntent();
 
         key = intent.getStringExtra(DETAIL_PRODUCT_KEY);
-        toppingsWithAmount = new HashMap<>();
+        toppingsWithAmount = new HashMap<Topping, Integer>();
 
         binding.productName.setText("Đang tải...");
         binding.productPrice.setText("Đang tải...");
@@ -74,6 +79,9 @@ public class DetailActivity extends AppCompatActivity {
             }
         });
 
+        binding = ProductDetailsLayoutBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+
         binding.cancelHeader.setTitle("# Thông tin sản phẩm #");
         binding.cancelHeader.setCancelListener(new CancelHeader.OnCancelListener() {
             @Override
@@ -82,20 +90,12 @@ public class DetailActivity extends AppCompatActivity {
             }
         });
 
+        //get toppingsWithAmount
         ToppingAPI.all(new ToppingAPI.FirebaseCallbackAll() {
             @Override
-            public void onCallback(ArrayList<Topping> toppings) {
+            public void onCallback(ArrayList<vn.edu.tdc.xifood.datamodels.Topping> toppings) {
                 if (toppings != null) {
-                    toppinAdapter = new ToppinAdapter(DetailActivity.this, toppings, toppingsWithAmount, new ToppinAdapter.OnToppingCheckedChangeListener() {
-                        @Override
-                        public void onCheckedChanged(Topping topping, boolean isChecked) {
-                            if (isChecked) {
-                                toppingsWithAmount.put(topping, 1);
-                            } else {
-                                toppingsWithAmount.remove(topping);
-                            }
-                        }
-                    });
+                    toppinAdapter = new ToppinAdapter(DetailActivity.this, toppings);
                     LinearLayoutManager manager = new LinearLayoutManager(DetailActivity.this);
                     manager.setOrientation(LinearLayoutManager.VERTICAL);
 
@@ -105,10 +105,36 @@ public class DetailActivity extends AppCompatActivity {
                     for (Topping t : toppings) {
                         toppingsWithAmount.put(t, 0);
                     }
+
+                    toppinAdapter.setItemClick(new ToppinAdapter.ItemClick() {
+                        @Override
+                        public void onIncreaseAmount(ToppinAdapter.ViewHolder holder) {
+                            Topping thisTopping = toppings.get(holder.getThisPosition());
+                            int amount = toppingsWithAmount.get(thisTopping);
+                            if (amount < MAX_AMOUNT) {
+                                amount++;
+                                toppingsWithAmount.put(thisTopping, amount);
+                                holder.getToppingItemtBinding().totalTopping.setText(amount + "");
+                            }
+                        }
+
+                        @Override
+                        public void onDecreaseAmount(ToppinAdapter.ViewHolder holder) {
+                            Topping thisTopping = toppings.get(holder.getThisPosition());
+                            int amount = toppingsWithAmount.get(thisTopping);
+                            if (amount > 0) {
+                                amount--;
+                                toppingsWithAmount.put(thisTopping, amount);
+                                holder.getToppingItemtBinding().totalTopping.setText(amount + "");
+                            }
+                        }
+                    });
+
                 }
             }
         });
 
+        //increase or decrease amount
         binding.addProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -128,6 +154,7 @@ public class DetailActivity extends AppCompatActivity {
             }
         });
 
+        //create order
         binding.addToCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -137,14 +164,12 @@ public class DetailActivity extends AppCompatActivity {
                 Order order = new Order();
                 ArrayList<OrderedProduct> products = new ArrayList<>();
                 OrderedProduct orderedProduct = new OrderedProduct(product, amount);
-                Map                <String, Long> orderedToppings = new HashMap<>();
-                for (Map.Entry<Topping, Integer> entry : toppingsWithAmount.entrySet()) {
-                    Topping topping = entry.getKey();
-                    int toppingAmount = entry.getValue();
-                    if (toppingAmount > 0 && toppingAmount <= MAX_AMOUNT) {
-                        orderedToppings.put(topping.getName(), (long) (toppingAmount * topping.getPrice()));
+                Map<String, Long> orderedToppings = new HashMap<>();
+                toppingsWithAmount.forEach((topping, amount) -> {
+                    if (amount > 0 & amount <= MAX_AMOUNT) {
+                        orderedToppings.put(topping.getName(), amount * topping.getPrice());
                     }
-                }
+                });
                 orderedProduct.setToppings(orderedToppings);
                 products.add(orderedProduct);
 
@@ -179,13 +204,11 @@ public class DetailActivity extends AppCompatActivity {
                         showAlert("THÔNG BÁO", "Đã xảy ra lỗi, vui lòng thử lại sau :<");
                     }
                 };
-                CartAPI.store(SharePreference.find(SharePreference.USER_TOKEN_KEY), order, onSuccessListener, onCanceledListener);
+                //store into server
+                CartAPI.store(order, onSuccessListener, onCanceledListener);
             }
         });
 
-        if (SharePreference.findPermission() ==  UserAPI.STAFF_PERMISSION) {
-            binding.buyNow.setVisibility(View.GONE);
-        }
         binding.buyNow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -196,13 +219,11 @@ public class DetailActivity extends AppCompatActivity {
                 ArrayList<OrderedProduct> products = new ArrayList<>();
                 OrderedProduct orderedProduct = new OrderedProduct(product, amount);
                 Map<String, Long> orderedToppings = new HashMap<>();
-                for (Map.Entry<Topping, Integer> entry : toppingsWithAmount.entrySet()) {
-                    Topping topping = entry.getKey();
-                    int toppingAmount = entry.getValue();
-                    if (toppingAmount > 0 && toppingAmount <= MAX_AMOUNT) {
-                        orderedToppings.put(topping.getName(), (long) (toppingAmount * topping.getPrice()));
+                toppingsWithAmount.forEach((topping, amount) -> {
+                    if (amount > 0 & amount <= MAX_AMOUNT) {
+                        orderedToppings.put(topping.getName(), amount * topping.getPrice());
                     }
-                }
+                });
                 orderedProduct.setToppings(orderedToppings);
                 products.add(orderedProduct);
 
@@ -221,6 +242,7 @@ public class DetailActivity extends AppCompatActivity {
                 order.setUser(user);
                 order.setStatus(Order.STATUS_WAITING);
 
+                //store into server
                 OrderAPI.store(order)
                         .addOnSuccessListener(new OnSuccessListener() {
                             @Override
@@ -243,7 +265,6 @@ public class DetailActivity extends AppCompatActivity {
                             }
                         });
             }
-
         });
     }
 
@@ -259,5 +280,5 @@ public class DetailActivity extends AppCompatActivity {
                 })
                 .show();
     }
-}
 
+}

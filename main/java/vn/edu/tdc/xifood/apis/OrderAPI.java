@@ -1,7 +1,10 @@
 package vn.edu.tdc.xifood.apis;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -12,17 +15,19 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 import vn.edu.tdc.xifood.datamodels.Order;
+import vn.edu.tdc.xifood.datamodels.OrderedProduct;
 
 public class OrderAPI {
     private static String tblName = "orders";
     private static DatabaseReference orderRef = FirebaseDatabase.getInstance().getReference(tblName);
-    public static void  all(FirebaseCallbackAll callback) {
+
+    public static void all(FirebaseCallbackAll callback) {
         orderRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 ArrayList<Order> orders = new ArrayList<>();
                 if (snapshot.exists()) {
-                    for (DataSnapshot shot: snapshot.getChildren()) {
+                    for (DataSnapshot shot : snapshot.getChildren()) {
                         orders.add(shot.getValue(Order.class));
                     }
                 }
@@ -38,14 +43,18 @@ public class OrderAPI {
 
     public static void find(String key, FirebaseCallback callback) {
         DatabaseReference itemRef = orderRef.child(key);
-        itemRef.addValueEventListener(new ValueEventListener() {
+        itemRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Order order = null;
+//                Order order = null;
                 if (snapshot.exists()) {
-                    order = snapshot.getValue(Order.class);
+                    Order order = snapshot.getValue(Order.class);
+//                    order = snapshot.getValue(Order.class);
+                    order.setKey(snapshot.getKey());
+                    callback.onCallback(order);
+                } else {
+                    callback.onCallback(null);
                 }
-                callback.onCallback(order);
             }
 
             @Override
@@ -54,6 +63,7 @@ public class OrderAPI {
             }
         });
     }
+
     public static Task store(Order order) {
         DatabaseReference itemRef = orderRef.push();
         order.setKey(itemRef.getKey());
@@ -64,15 +74,54 @@ public class OrderAPI {
         DatabaseReference itemRef = orderRef.child(order.getKey() + "");
         itemRef.setValue(order);
     }
-    public static void destroy(Order order) {
+
+    public static void destroy(Order order, FirebaseCallback callback) {
         DatabaseReference itemRef = orderRef.child(order.getKey() + "");
-        itemRef.removeValue();
+        itemRef.removeValue().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                callback.onCallback(order);
+            } else {
+                callback.onCallback(null);
+            }
+        });
+    }
+
+
+    // de them don hang vao firebase
+    public static void store(Order order, FirebaseCallback callback) {
+        // Thêm đơn hàng mới vào Firebase
+        String key = orderRef.push().getKey();
+        if (key != null) {
+            order.setKey(key);
+            orderRef.child(key).setValue(order).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if (task.isSuccessful()) {
+                        callback.onCallback(order);
+                    } else {
+                        callback.onCallback(null);
+                    }
+                }
+            });
+        } else {
+            callback.onCallback(null);
+        }
+    }
+
+    // tao key moi cho san pham vua mua lai
+//    public static String generateKey() {
+//        return FirebaseDatabase.getInstance().getReference("orders").push().getKey();
+//    }
+
+    public static String generateKey() {
+        return orderRef.push().getKey();
     }
 
     //interfaces
     public interface FirebaseCallbackAll {
         void onCallback(ArrayList<Order> orders);
     }
+
     public interface FirebaseCallback {
         void onCallback(Order order);
     }

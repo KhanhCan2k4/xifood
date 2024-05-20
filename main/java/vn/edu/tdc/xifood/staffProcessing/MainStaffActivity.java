@@ -10,7 +10,8 @@ import android.view.View;
 
 import java.util.ArrayList;
 
-import vn.edu.tdc.xifood.R;
+import vn.edu.tdc.xfood.R;
+import vn.edu.tdc.xfood.databinding.ListProductsLayoutBinding;
 import vn.edu.tdc.xifood.activities.DetailActivity;
 import vn.edu.tdc.xifood.activities.ListProductsActivity;
 import vn.edu.tdc.xifood.activities.MainActivity;
@@ -19,7 +20,6 @@ import vn.edu.tdc.xifood.activities.SettingActivity;
 import vn.edu.tdc.xifood.adapters.ListCategoryAdapter;
 import vn.edu.tdc.xifood.adapters.ListProductsAdapter;
 import vn.edu.tdc.xifood.data.CategoryData;
-import vn.edu.tdc.xifood.databinding.ListProductsLayoutBinding;
 import vn.edu.tdc.xifood.datamodels.Category;
 import vn.edu.tdc.xifood.datamodels.Product;
 import vn.edu.tdc.xifood.views.Navbar;

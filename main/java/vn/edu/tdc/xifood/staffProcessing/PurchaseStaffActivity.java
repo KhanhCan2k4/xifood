@@ -7,9 +7,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import vn.edu.tdc.xifood.R;
+import vn.edu.tdc.xfood.databinding.PurchaseLayoutBinding;
 import vn.edu.tdc.xifood.adapters.OrderAdapter;
-import vn.edu.tdc.xifood.databinding.PurchaseLayoutBinding;
 import vn.edu.tdc.xifood.models.Order;
 import vn.edu.tdc.xifood.models.Product;
 import vn.edu.tdc.xifood.views.CancelHeader;

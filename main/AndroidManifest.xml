@@ -19,29 +19,29 @@
         android:theme="@style/Theme.XiFood"
         tools:targetApi="31">
         <activity
-            android:name=".activities.StaffOrderActivity"
+            android:name="vn.edu.tdc.xifood.activities.DanhGiaActivity"
             android:exported="false" />
         <activity
-            android:name=".staffProcessing.OrderStaffActivity"
+            android:name="vn.edu.tdc.xifood.staffProcessing.OrderStaffActivity"
             android:exported="false" />
         <activity
-            android:name=".staffProcessing.PurchaseStaffActivity"
+            android:name="vn.edu.tdc.xifood.staffProcessing.PurchaseStaffActivity"
             android:exported="false" />
         <activity
-            android:name=".staffProcessing.CartStaffActivity"
+            android:name="vn.edu.tdc.xifood.staffProcessing.CartStaffActivity"
             android:exported="false" />
         <activity
-            android:name=".staffProcessing.AccountStaffActivity"
+            android:name="vn.edu.tdc.xifood.staffProcessing.AccountStaffActivity"
             android:exported="false" />
         <activity
-            android:name=".staffProcessing.MainStaffActivity"
+            android:name="vn.edu.tdc.xifood.staffProcessing.MainStaffActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.RegisterActivity"
+            android:name="vn.edu.tdc.xifood.activities.RegisterActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustNothing" />
         <activity
-            android:name=".activities.LoginActivity"
+            android:name="vn.edu.tdc.xifood.activities.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -50,44 +50,40 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.OrderProcessingActivity"
+            android:name="vn.edu.tdc.xifood.activities.OrderProcessingActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustNothing" />
         <activity
-            android:name=".activities.DetailActivity"
+            android:name="vn.edu.tdc.xifood.activities.DetailActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustNothing" />
         <activity
-            android:name=".activities.PurchaseActivity"
+            android:name="vn.edu.tdc.xifood.activities.PurchaseActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustNothing" />
         <activity
-            android:name=".activities.PayingActivity"
+            android:name="vn.edu.tdc.xifood.activities.PayingActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustNothing" />
         <activity
-            android:name=".activities.CartActivity"
+            android:name="vn.edu.tdc.xifood.activities.CartActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustNothing" />
         <activity
-            android:name=".activities.OrderActivity"
+            android:name="vn.edu.tdc.xifood.activities.OrderActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustNothing" />
-        <activity android:name=".activities.AccountActivity" />
+        <activity android:name="vn.edu.tdc.xifood.activities.AccountActivity" />
         <activity
-            android:name=".activities.SettingActivity"
-            android:exported="false"
-            android:windowSoftInputMode="adjustNothing" />
-        <activity
-            android:name=".activities.ListProductsActivity"
+            android:name="vn.edu.tdc.xifood.activities.SettingActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustNothing" />
         <activity
-            android:name=".activities.MainActivity"
+            android:name="vn.edu.tdc.xifood.activities.ListProductsActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustNothing" />
         <activity
-            android:name=".activities.DetailUpdateProductActivity"
+            android:name="vn.edu.tdc.xifood.activities.MainActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustNothing" />
     </application>

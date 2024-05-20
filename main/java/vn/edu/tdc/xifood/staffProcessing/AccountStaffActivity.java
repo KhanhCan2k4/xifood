@@ -8,10 +8,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import vn.edu.tdc.xifood.R;
+import vn.edu.tdc.xfood.databinding.AccountLayoutBinding;
 import vn.edu.tdc.xifood.activities.AccountActivity;
 import vn.edu.tdc.xifood.activities.SettingActivity;
-import vn.edu.tdc.xifood.databinding.AccountLayoutBinding;
 import vn.edu.tdc.xifood.models.User;
 
 public class AccountStaffActivity extends AppCompatActivity {
@@ -22,7 +21,7 @@ public class AccountStaffActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = vn.edu.tdc.xifood.databinding.AccountLayoutBinding.inflate(
+        binding = AccountLayoutBinding.inflate(
                 getLayoutInflater()
         );
         setContentView(binding.getRoot());

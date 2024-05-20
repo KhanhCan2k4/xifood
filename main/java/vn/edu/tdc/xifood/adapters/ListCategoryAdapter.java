@@ -10,8 +10,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
+import vn.edu.tdc.xfood.databinding.ListCategoriesBinding;
 import vn.edu.tdc.xifood.apis.ImageStorageReference;
-import vn.edu.tdc.xifood.databinding.ListCategoriesBinding;
 import vn.edu.tdc.xifood.datamodels.Category;
 
 public class ListCategoryAdapter extends RecyclerView.Adapter<ListCategoryAdapter.ViewHolder> {

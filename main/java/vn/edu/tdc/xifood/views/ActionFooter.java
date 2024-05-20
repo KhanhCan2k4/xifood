@@ -11,10 +11,20 @@ import android.widget.LinearLayout;
 
 import androidx.annotation.Nullable;
 
-import vn.edu.tdc.xifood.R;
+import vn.edu.tdc.xfood.R;
 
 public class ActionFooter extends LinearLayout {
     private OnActionListener actionListener = null;
+
+    private Button button = findViewById(R.id.btnAction);
+
+    public void setTextButton(String textButton) {
+        button.setText(textButton);
+    }
+
+    public void setActionListener(OnActionListener actionListener) {
+        this.actionListener = actionListener;
+    }
 
     public ActionFooter(Context context) {
         super(context);

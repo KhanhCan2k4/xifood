@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -25,18 +26,15 @@
             android:layout_margin="5dp"
             android:orientation="vertical">
 
-
-
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/orderList"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="50dp"/>
+                android:layout_height="wrap_content" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="10dp"
                 android:textColor="#FF4F4F"
                 android:text="Thông tin đơn hàng"
                 android:textSize="18dp"
@@ -156,8 +154,6 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="50dp"
-
                 android:textColor="#FF4F4F"
                 android:text="Tóm tắt đơn hàng"
                 android:textSize="18dp"
@@ -264,13 +260,56 @@
                     android:textStyle="bold" />
             </LinearLayout>
 
+            <LinearLayout
+                android:id="@+id/review"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <RatingBar
+                    android:id="@+id/rating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:numStars="5"
+                    android:stepSize="1.0"/>
+
+                <!-- Display selected images -->
+                <ImageView
+                    android:id="@+id/imageReview"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:background="@color/black"
+                    android:scaleType="centerCrop" />
+
+                <!-- Image Upload -->
+                <Button
+                    android:id="@+id/btnAddImage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Chọn Ảnh"/>
+
+                <!-- Review Content -->
+                <EditText
+                    android:id="@+id/txtReview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Nhập nội dung đánh giá"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"/>
+
+                <Button
+                    android:id="@+id/danhGia"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="italic|bold"
+                    android:text="Đánh giá"/>
+            </LinearLayout>
+
+
         </LinearLayout>
 
     </ScrollView>
 
-    <vn.edu.tdc.xifood.views.ActionFooter
-        android:layout_width="match_parent"
-        android:layout_height="100dp" />
 
 
 </LinearLayout>

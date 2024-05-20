@@ -9,9 +9,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import vn.edu.tdc.xfood.databinding.PurchaseLayoutBinding;
 import vn.edu.tdc.xifood.adapters.OrderAdapter;
 import vn.edu.tdc.xifood.apis.OrderAPI;
-import vn.edu.tdc.xifood.databinding.PurchaseLayoutBinding;
 import vn.edu.tdc.xifood.datamodels.Order;
 import vn.edu.tdc.xifood.models.Product;
 import vn.edu.tdc.xifood.views.CancelHeader;

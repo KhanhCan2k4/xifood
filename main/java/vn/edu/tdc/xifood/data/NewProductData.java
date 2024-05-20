@@ -2,7 +2,7 @@ package vn.edu.tdc.xifood.data;
 
 import java.util.ArrayList;
 
-import vn.edu.tdc.xifood.R;
+import vn.edu.tdc.xfood.R;
 import vn.edu.tdc.xifood.models.NewProduct;
 
 public class NewProductData {
