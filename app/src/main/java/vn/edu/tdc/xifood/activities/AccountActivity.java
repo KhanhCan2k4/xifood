@@ -248,6 +248,15 @@ public class AccountActivity extends AppCompatActivity {
             }
         });
 
+        binding.btnChangePhoneNumber.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AccountActivity.this, SendOTPActivity.class);
+                intent.putExtra("phone", SharePreference.find(SharePreference.USER_PHONE));
+                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                startActivity(intent);
+            }
+        });
         /* calendar button
         binding.calendarButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -326,7 +335,7 @@ public class AccountActivity extends AppCompatActivity {
 
     private void setEnableEdit(boolean isEditable) {
         binding.nameUser.setEnabled(isEditable);
-        binding.bioUser.setEnabled(isEditable);
+//        binding.bioUser.setEnabled(isEditable);
         binding.genderUser.setEnabled(isEditable);
         binding.dayBornUser.setEnabled(isEditable);
         binding.emailUser.setEnabled(isEditable);

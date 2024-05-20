@@ -8,11 +8,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import vn.edu.tdc.xifood.R;
-import vn.edu.tdc.xifood.activities.AccountActivity;
-import vn.edu.tdc.xifood.activities.SettingActivity;
 import vn.edu.tdc.xifood.databinding.AccountLayoutBinding;
-import vn.edu.tdc.xifood.models.User;
+import vn.edu.tdc.xifood.datamodels.User;
 
 public class AccountStaffActivity extends AppCompatActivity {
     private AccountLayoutBinding binding;
@@ -26,7 +23,7 @@ public class AccountStaffActivity extends AppCompatActivity {
                 getLayoutInflater()
         );
         setContentView(binding.getRoot());
-        user = dataUser();
+//        user = dataUser();
 
         setUser(user);
 //        binding.imageUser.setImageResource(user.getImage());
@@ -111,7 +108,7 @@ public class AccountStaffActivity extends AppCompatActivity {
             }
         });
     }
-
+    /*
     public User dataUser(){
         User user1 = new User();
         user1.setId(1);
@@ -124,26 +121,26 @@ public class AccountStaffActivity extends AppCompatActivity {
         user1.setPhoneNumber("085850234");
         return user1;
     }
-
+    */
     private void setUserInEditText(){
-        user.setName(binding.nameUser.getText().toString());
-        user.setBio(binding.bioUser.getText().toString());
+        user.setFullName(binding.nameUser.getText().toString());
+//        user.setBio(binding.bioUser.getText().toString());
 //        user.setGender(binding.genderUser.getText().toString());
-        user.setDayBorn(binding.dayBornUser.getText().toString());
+        user.setDayOfBirth(binding.dayBornUser.getText().toString());
         user.setEmail(binding.emailUser.getText().toString());
         user.setPhoneNumber(binding.phoneNumberUser.getText().toString());
     }
     private void setUser(User user){
-        binding.nameUser.setText(user.getName());
-        binding.bioUser.setText(user.getBio());
+        binding.nameUser.setText(user.getFullName());
+//        binding.bioUser.setText(user.getBio());
 //        binding.genderUser.setText(user.getGender());
-        binding.dayBornUser.setText(user.getDayBorn());
+        binding.dayBornUser.setText(user.getDayOfBirth());
         binding.emailUser.setText(user.getEmail());
         binding.phoneNumberUser.setText(user.getPhoneNumber());
     }
     private void setEnableEdit(boolean isEditable){
         binding.nameUser.setEnabled(isEditable);
-        binding.bioUser.setEnabled(isEditable);
+//        binding.bioUser.setEnabled(isEditable);
         binding.genderUser.setEnabled(isEditable);
         binding.dayBornUser.setEnabled(isEditable);
         binding.emailUser.setEnabled(isEditable);
