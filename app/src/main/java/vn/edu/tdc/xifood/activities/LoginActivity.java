@@ -54,11 +54,7 @@ public class LoginActivity extends AppCompatActivity {
             Toast.makeText(LoginActivity.this, "Xin chào " + userName, Toast.LENGTH_LONG).show();
 
             //check permisstion
-            if (SharePreference.findPermission() == UserAPI.STAFF_PERMISSION) { //is staff
-                navigateToMainActivityForStaff();
-            } else { //is normal user
-                navigateToMainActivity();
-            }
+            navigateToMainActivity();
         }
 
         usernameEditText = findViewById(R.id.username);

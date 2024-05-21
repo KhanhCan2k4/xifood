@@ -136,7 +136,7 @@ public class DetailActivity extends AppCompatActivity {
 
                 Order order = new Order();
                 ArrayList<OrderedProduct> products = new ArrayList<>();
-                OrderedProduct orderedProduct = new OrderedProduct(product, amount);
+                OrderedProduct orderedProduct = new OrderedProduct(product, amount, false);
                 Map                <String, Long> orderedToppings = new HashMap<>();
                 for (Map.Entry<Topping, Integer> entry : toppingsWithAmount.entrySet()) {
                     Topping topping = entry.getKey();
@@ -179,11 +179,12 @@ public class DetailActivity extends AppCompatActivity {
                         showAlert("THÔNG BÁO", "Đã xảy ra lỗi, vui lòng thử lại sau :<");
                     }
                 };
-                CartAPI.store(SharePreference.find(SharePreference.USER_TOKEN_KEY), order, onSuccessListener, onCanceledListener);
+
+                CartAPI.storeM(SharePreference.find(SharePreference.USER_TOKEN_KEY), order, onSuccessListener, onCanceledListener);
             }
         });
 
-        if (SharePreference.findPermission() == UserAPI.STAFF_PERMISSION) {
+        if (SharePreference.findPermission() ==  UserAPI.STAFF_PERMISSION) {
             binding.buyNow.setVisibility(View.GONE);
         }
         binding.buyNow.setOnClickListener(new View.OnClickListener() {
@@ -194,7 +195,7 @@ public class DetailActivity extends AppCompatActivity {
 
                 Order order = new Order();
                 ArrayList<OrderedProduct> products = new ArrayList<>();
-                OrderedProduct orderedProduct = new OrderedProduct(product, amount);
+                OrderedProduct orderedProduct = new OrderedProduct(product, amount, false);
                 Map<String, Long> orderedToppings = new HashMap<>();
                 for (Map.Entry<Topping, Integer> entry : toppingsWithAmount.entrySet()) {
                     Topping topping = entry.getKey();
@@ -243,6 +244,7 @@ public class DetailActivity extends AppCompatActivity {
                             }
                         });
             }
+
         });
     }
 

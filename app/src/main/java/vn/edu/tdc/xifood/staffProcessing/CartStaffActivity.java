@@ -46,34 +46,5 @@ public class CartStaffActivity extends AppCompatActivity {
 //        LinearLayoutManager manager = new LinearLayoutManager(MainActivity.this);
 //        manager.setOrientation(LinearLayoutManager.VERTICAL);
 
-        binding.navbar.setNavClickListener(new Navbar.OnNavClickListener() {
-            @Override
-            public void onHomeButtonClick(View view) {
-                Intent intent = new Intent(CartStaffActivity.this, MainStaffActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                startActivity(intent);
-            }
-
-            @Override
-            public void onDiscountButtonClick(View view) {
-                Intent intent = new Intent(CartStaffActivity.this, MainStaffActivity.class);
-                intent.putExtra("id", 1);
-                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                startActivity(intent);
-            }
-
-            @Override
-            public void onOrderButtonClick(View view) {
-                Intent intent = new Intent(CartStaffActivity.this, OrderStaffActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                startActivity(intent);
-            }
-
-            @Override
-            public void onAccountButtonClick(View view) {
-                //ignore
-            }
-        });
-
     }
 }

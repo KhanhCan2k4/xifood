@@ -12,12 +12,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnCanceledListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
-import vn.edu.tdc.xifood.activities.CartActivity;
-import vn.edu.tdc.xifood.activities.DetailActivity;
 import vn.edu.tdc.xifood.activities.DetailUpdateProductActivity;
 import vn.edu.tdc.xifood.apis.CartAPI;
 import vn.edu.tdc.xifood.apis.ImageStorageReference;
@@ -29,12 +30,26 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
     private Activity context;
     private ArrayList<OrderedProduct> orderedProducts;
     private String userId;
+    private long totalBill = 0;
     final int REQUEST_CODE_UPDATE_PRODUCT = 1;
+    private OnTotalBillUpdateListener totalBillUpdateListener;
+    private HashMap<String, Boolean> checkedItems = new HashMap<>();
+    private HashMap<String, Long> itemPrices = new HashMap<>();
 
     public CartAdapter(Activity context, ArrayList<OrderedProduct> orderedProducts, String userId) {
         this.context = context;
         this.orderedProducts = orderedProducts;
         this.userId = userId;
+
+        for (OrderedProduct orderedProduct : orderedProducts) {
+            String productKey = orderedProduct.getProduct().getKey();
+            checkedItems.put(productKey, false);
+            itemPrices.put(productKey, calculateTotalProductPrice(orderedProduct));
+        }
+    }
+
+    public void setTotalBillUpdateListener(OnTotalBillUpdateListener listener) {
+        this.totalBillUpdateListener = listener;
     }
 
     public CartAdapter() {}
@@ -58,23 +73,61 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
                 holder.cartBinding.tenSanPham.setText(product.getName());
                 holder.cartBinding.soLuongSanPham.setText(String.valueOf(orderedProduct.getAmount()));
 
-                long totalPrice = product.getPrice() * orderedProduct.getAmount();
-                holder.cartBinding.giaSanPham.setText("Giá: " + totalPrice + "vnd");
+                Long price = product.getPrice();
+                long totalPrice = (price != null) ? price.longValue() * orderedProduct.getAmount() : 0;
+                holder.cartBinding.giaSanPham.setText("Tổng Giá: " + totalPrice + "vnd");
 
                 holder.cartBinding.noteSanPham.setText("Ghi chú: " + product.getDescription());
-
+                ImageStorageReference.setImageInto(holder.cartBinding.hinhSanPham, product.getImage().get(0));
                 StringBuilder toppingsText = new StringBuilder();
                 Map<String, Long> toppings = orderedProduct.getToppings();
+
                 for (Map.Entry<String, Long> entry : toppings.entrySet()) {
-                    toppingsText.append(entry.getKey()).append(": ").append(entry.getValue()).append("vnd\n");
+                    toppingsText.append(entry.getKey()).append(": ").append(entry.getValue() != null ? entry.getValue() : 0).append("vnd\n");
                 }
                 holder.cartBinding.toppingThem.setText(toppingsText.toString());
 
-                long totalProductPrice = totalPrice;
+                final long[] totalProductPrice = {totalPrice};
                 for (Map.Entry<String, Long> entry : toppings.entrySet()) {
-                    totalProductPrice += entry.getValue() * orderedProduct.getAmount();
+                    if (entry.getValue() != null) {
+                        totalProductPrice[0] += entry.getValue();
+                    }
                 }
-                holder.cartBinding.giaSanPham.setText("Tổng giá: " + totalProductPrice + "vnd");
+                holder.cartBinding.giaSanPham.setText("Tổng giá: " + totalProductPrice[0] + "vnd");
+
+                holder.cartBinding.checkChonMua.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                    holder.isCheckEnabled = !isChecked; // Set isCheckEnabled based on isChecked
+
+                    // Disable other buttons if isChecked is true
+                    holder.cartBinding.btnGiam.setEnabled(!isChecked);
+                    holder.cartBinding.btnTang.setEnabled(!isChecked);
+                    holder.cartBinding.btnsua.setEnabled(!isChecked);
+                    holder.cartBinding.btnxoa.setEnabled(!isChecked);
+                    checkedItems.put(product.getKey(), isChecked);
+                    final long totalProductPriceLocal = totalProductPrice[0];
+
+                    // Cập nhật trạng thái isChecked vào OrderedProduct
+                    orderedProduct.setCheckedPay(isChecked);
+                    // Cập nhật dữ liệu lên Firebase
+                    updateFirebaseCheckPay(orderedProduct, isChecked);
+
+                    if (isChecked) {
+                        Log.d("ClickAdapter", "Click");
+                        totalBill += totalProductPriceLocal;
+                    } else {
+                        Log.d("ClickAdapter", "No - Click");
+                        totalBill -= totalProductPriceLocal;
+                    }
+                    Log.d("CartAdapter", "Total Bill: " + totalBill);
+
+                    if (totalBillUpdateListener != null) {
+                        totalBillUpdateListener.onTotalBillUpdate(totalBill);
+                    }
+
+                });
+
+                holder.cartBinding.checkChonMua.setChecked(checkedItems.get(product.getKey()) != null ? checkedItems.get(product.getKey()) : false);
+
             } else {
                 Log.e("CartAdapter", "Product is null at position: " + position);
                 holder.cartBinding.tenSanPham.setText("Unknown Product");
@@ -82,34 +135,24 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
                 holder.cartBinding.noteSanPham.setText("Ghi chú: N/A");
             }
 
-            holder.cartBinding.btnxoa.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    String productKey = orderedProduct.getProduct().getKey();
-                    removeItemByKey(productKey);
-                }
+            holder.cartBinding.btnxoa.setOnClickListener(v -> {
+                String productKey = orderedProduct.getProduct().getKey();
+                removeItemByKey(productKey);
             });
 
-            holder.cartBinding.btnsua.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(context, DetailUpdateProductActivity.class);
-                    intent.putExtra("PRODUCT_ID", orderedProduct.getProduct().getKey());
-                    intent.putExtra("AMOUNT", orderedProduct.getAmount());
+            holder.cartBinding.btnsua.setOnClickListener(v -> {
+                Intent intent = new Intent(context, DetailUpdateProductActivity.class);
+                intent.putExtra("PRODUCT_ID", orderedProduct.getProduct().getKey());
+                intent.putExtra("AMOUNT", orderedProduct.getAmount());
 
-                    StringBuilder selectedToppingsString = new StringBuilder();
-                    for (Map.Entry<String, Long> entry : orderedProduct.getToppings().entrySet()) {
-                        selectedToppingsString.append(entry.getKey()).append(": ").append(entry.getValue()).append(", ");
-                    }
-                    String toppingsString = selectedToppingsString.toString();
-                    intent.putExtra("SELECTED_TOPPINGS", toppingsString);
-                    context.startActivityForResult(intent, REQUEST_CODE_UPDATE_PRODUCT);
-
-//                    removeItemByKey(orderedProduct.getProduct().getKey());
+                StringBuilder selectedToppingsString = new StringBuilder();
+                for (Map.Entry<String, Long> entry : orderedProduct.getToppings().entrySet()) {
+                    selectedToppingsString.append(entry.getKey()).append(": ").append(entry.getValue()).append(", ");
                 }
+                String toppingsString = selectedToppingsString.toString();
+                intent.putExtra("SELECTED_TOPPINGS", toppingsString);
+                context.startActivityForResult(intent, REQUEST_CODE_UPDATE_PRODUCT);
             });
-
-
         } else {
             Log.e("CartAdapter", "OrderedProduct is null at position: " + position);
             holder.cartBinding.sttSanPham.setText("Đơn số #" + (position + 1));
@@ -118,48 +161,114 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
             holder.cartBinding.noteSanPham.setText("Ghi chú: N/A");
         }
 
-        holder.cartBinding.btnGiam.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int currentAmount = orderedProduct.getAmount();
-                if (currentAmount < 5) {
-                    orderedProduct.setAmount(currentAmount + 1);
-                    notifyItemChanged(position);
-                    updateFirebase(orderedProduct); // Cập nhật dữ liệu trên Firebase
-                }
+        holder.cartBinding.btnGiam.setOnClickListener(v -> {
+            int currentAmount = orderedProduct.getAmount();
+            if (currentAmount < 5) {
+                orderedProduct.setAmount(currentAmount + 1);
+                holder.cartBinding.soLuongSanPham.setText(String.valueOf(orderedProduct.getAmount()));
+                notifyItemChanged(position);
+                updatePrice(holder, orderedProduct);
             }
         });
 
-        holder.cartBinding.btnTang.setOnClickListener(new View.OnClickListener() {
+        holder.cartBinding.btnTang.setOnClickListener(v -> {
+            int currentAmount = orderedProduct.getAmount();
+            if (currentAmount > 1) {
+                orderedProduct.setAmount(currentAmount - 1);
+                holder.cartBinding.soLuongSanPham.setText(String.valueOf(orderedProduct.getAmount()));
+                notifyItemChanged(position);
+                updatePrice(holder, orderedProduct);
+            }
+        });
+    }
+    private void updateFirebaseCheckPay(OrderedProduct orderedProduct, boolean isChecked) {
+        CartAPI.updateOrderedProductCheckPay(userId, orderedProduct.getProduct().getKey(), isChecked, new OnSuccessListener<Void>() {
             @Override
-            public void onClick(View v) {
-                int currentAmount = orderedProduct.getAmount();
-                if (currentAmount > 0) {
-                    orderedProduct.setAmount(currentAmount - 1);
-                    notifyItemChanged(position);
-                    updateFirebase(orderedProduct); // Cập nhật dữ liệu trên Firebase
-                }
+            public void onSuccess(Void aVoid) {
+                Log.d("CartAdapter", "Update thành công trạng thái isChecked của sản phẩm trong giỏ hàng.");
+            }
+        }, new OnCanceledListener() {
+            @Override
+            public void onCanceled() {
+                Log.e("CartAdapter", "Cập nhật trạng thái isChecked của sản phẩm trong giỏ hàng bị hủy.");
             }
         });
     }
 
-    @Override
-    public int getItemCount() {
-        return orderedProducts.size();
-    }
-
-    // Phương thức cập nhật dữ liệu trên Firebase
-    private void updateFirebase(OrderedProduct orderedProduct) {
-        CartAPI.update(userId, orderedProduct.getOrder());
-    }
-
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        private CartItemtBinding cartBinding;
-
-        public ViewHolder(@NonNull CartItemtBinding itemView) {
-            super(itemView.getRoot());
-            cartBinding = itemView;
+    private void updatePrice(ViewHolder holder, OrderedProduct orderedProduct) {
+        if (orderedProduct == null || orderedProduct.getProduct() == null) {
+            Log.e("CartAdapter", "OrderedProduct or Product is null.");
+            return;
         }
+
+        Long priceObj = orderedProduct.getProduct().getPrice();
+        if (priceObj == null) {
+            Log.e("CartAdapter", "Price of the Product is null.");
+            holder.cartBinding.giaSanPham.setText("Tổng giá: N/A");
+            return;
+        }
+
+        long productPrice = priceObj * orderedProduct.getAmount();
+        long toppingPrice = 0;
+        Map<String, Long> toppings = orderedProduct.getToppings();
+
+        if (toppings != null) {
+            for (Map.Entry<String, Long> entry : toppings.entrySet()) {
+                if (entry.getValue() != null) {
+                    toppingPrice += entry.getValue();
+                }
+            }
+        } else {
+            Log.e("CartAdapter", "Toppings map is null.");
+        }
+
+        long totalPrice = productPrice + toppingPrice;
+        holder.cartBinding.giaSanPham.setText("Tổng giá: " + totalPrice + "vnd");
+
+        String productKey = orderedProduct.getProduct().getKey();
+        boolean isChecked = checkedItems.getOrDefault(productKey, false);
+
+        if (isChecked) {
+            totalBill = 0; // Reset totalBill
+            for (OrderedProduct product : orderedProducts) {
+                long productTotalPrice = calculateTotalProductPrice(product);
+                totalBill += productTotalPrice;
+            }
+            Log.d("CartAdapter", "Total Bill: " + totalBill);
+            if (totalBillUpdateListener != null) {
+                totalBillUpdateListener.onTotalBillUpdate(totalBill);
+            }
+        }
+
+        itemPrices.put(productKey, totalPrice);
+        Intent intent = new Intent();
+        intent.putExtra("totalBill", totalBill);
+        updateFirebase(orderedProduct);
+    }
+
+    private long calculateTotalProductPrice(OrderedProduct orderedProduct) {
+        long totalPrice = orderedProduct.getProduct().getPrice() * orderedProduct.getAmount();
+        Map<String, Long> toppings = orderedProduct.getToppings();
+        for (Map.Entry<String, Long> entry : toppings.entrySet()) {
+            if (entry.getValue() != null) {
+                totalPrice += entry.getValue();
+            }
+        }
+        return totalPrice;
+    }
+
+    private void updateFirebase(OrderedProduct orderedProduct) {
+        CartAPI.updateOrderedProduct(userId, orderedProduct, new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                Log.d("CartAdapter", "Update thành công sản phẩm trong giỏ hàng.");
+            }
+        }, new OnCanceledListener() {
+            @Override
+            public void onCanceled() {
+                Log.e("CartAdapter", "Cập nhật sản phẩm trong giỏ hàng bị hủy.");
+            }
+        });
     }
 
     public void removeItemByKey(String productKey) {
@@ -187,9 +296,22 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
         }
     }
 
-    public interface OnEditItemClickListener {
-
-        void onEditItemClick(OrderedProduct orderedProduct, int position);
+    @Override
+    public int getItemCount() {
+        return orderedProducts.size();
     }
 
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        CartItemtBinding cartBinding;
+        boolean isCheckEnabled = true;
+
+        public ViewHolder(@NonNull CartItemtBinding binding) {
+            super(binding.getRoot());
+            this.cartBinding = binding;
+        }
+    }
+
+    public interface OnTotalBillUpdateListener {
+        void onTotalBillUpdate(long totalBill);
+    }
 }
