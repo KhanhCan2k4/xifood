@@ -39,7 +39,7 @@
                 <TextView
                     android:id="@+id/username"
                     android:layout_width="10dp"
-                    android:text="Person"
+                    android:text="Nhi"
                     android:gravity="bottom"
                     android:textSize="25sp"
                     android:textStyle="bold"
