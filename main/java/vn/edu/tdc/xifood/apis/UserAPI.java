@@ -44,7 +44,7 @@ public class UserAPI {
     }
 
     public static void find(String key, FirebaseCallback callback) {
-        DatabaseReference itemRef = userRef.child("" + key);
+        DatabaseReference itemRef = userRef.child( key);
         itemRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {

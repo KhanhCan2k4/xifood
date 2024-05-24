@@ -13,7 +13,7 @@
     <vn.edu.tdc.xifood.views.CancelHeader
         android:id="@+id/cancelHeader"
         android:layout_width="match_parent"
-        android:layout_height="80dp" />
+        android:layout_height="70dp" />
 
     <ScrollView
         android:paddingHorizontal="10dp"

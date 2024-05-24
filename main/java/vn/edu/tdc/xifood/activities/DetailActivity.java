@@ -44,12 +44,14 @@ public class DetailActivity extends AppCompatActivity {
     private int amount = 1;
     public static final String DETAIL_PRODUCT_KEY = "DETAIL_PRODUCT_KEY";
     public static final int MAX_AMOUNT = 5;
-
+    private SharePreference sharePreference;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        SharePreference.setSharedPreferences(this);
         binding = ProductDetailsLayoutBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
 
         Intent intent = getIntent();
 
@@ -161,6 +163,7 @@ public class DetailActivity extends AppCompatActivity {
                 order.setOrderedProducts(products);
                 order.setDate(LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME).toString());
                 order.setUser(user);
+
                 order.setStatus(Order.STATUS_WAITING);
 
                 OnSuccessListener onSuccessListener = new OnSuccessListener() {
@@ -215,6 +218,11 @@ public class DetailActivity extends AppCompatActivity {
                 user.setGender(SharePreference.find(SharePreference.USER_GENDER));
                 user.setPassword(SharePreference.find(SharePreference.USER_PASS));
                 user.setPermistion(SharePreference.findPermission());
+
+                String s = "Chưa có địa chỉ nào!";
+                ArrayList<String> diachi= new ArrayList<>();
+                diachi.add(s);
+                user.setAddress(diachi);
 
                 order.setOrderedProducts(products);
                 order.setDate(LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME).toString());

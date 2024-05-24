@@ -63,10 +63,10 @@ public class MainActivity extends AppCompatActivity {
                     categories.add(category);
                 }
                 listCategoryAdapter = new ListCategoryAdapter(MainActivity.this, categories);
-                GridLayoutManager manager = new GridLayoutManager(MainActivity.this, 5);
+                LinearLayoutManager manager = new LinearLayoutManager(MainActivity.this);
 
                 // xet huong
-                manager.setOrientation(LinearLayoutManager.VERTICAL);
+                manager.setOrientation(LinearLayoutManager.HORIZONTAL);
 
                 binding.listCategory.setLayoutManager(manager);
                 binding.listCategory.setAdapter(listCategoryAdapter);
