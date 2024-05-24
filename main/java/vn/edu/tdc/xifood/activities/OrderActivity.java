@@ -42,9 +42,11 @@ public class OrderActivity extends AppCompatActivity {
 
                     //get this user's order
                     for (Order o: orders) {
+                          if(o.getUser()!=null){
                         if (o.getUser().getKey().equals(SharePreference.find(SharePreference.USER_TOKEN_KEY))) {
                             thisUserOrder.add(o);
                         }
+                          }
                     }
 
                     orderAdapter = new OrderAdapter(OrderActivity.this, thisUserOrder);
