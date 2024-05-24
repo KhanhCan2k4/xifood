@@ -1,45 +1,40 @@
 package vn.edu.tdc.xifood.activities;
 
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
 
-import android.app.Activity;
+import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
-
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.text.method.PasswordTransformationMethod;
 import android.view.View;
-import android.widget.Toast;
-
-import org.springframework.security.crypto.bcrypt.BCrypt;
-import com.bumptech.glide.Glide;
-import com.google.firebase.FirebaseApp;
 
 import vn.edu.tdc.xifood.apis.ImageStorageReference;
 import vn.edu.tdc.xifood.apis.SharePreference;
 import vn.edu.tdc.xifood.apis.UserAPI;
-import vn.edu.tdc.xifood.databinding.AccountLayoutBinding;
 import vn.edu.tdc.xifood.datamodels.User;
-import vn.edu.tdc.xifood.views.DayDialogFragment;
+import vn.edu.tdc.xifood.databinding.AccountLayoutBinding;
 
 public class AccountActivity extends AppCompatActivity {
 
+    public static final String GENDER_MALE = "ma";
+    public static final String GENDER_FEMALE = "fe";
+    public static final String GENDER_DEFAULT = "de";
     private AccountLayoutBinding binding;
     private User user = new User();
     private Boolean isEditable = false;
     private Uri image;
     ActivityResultLauncher<Intent> activityResultLauncher;
-    public static final String GENDER_DEFAULT = "de";
-    public static final String GENDER_FEMALE = "fe";
-    public static final String GENDER_MALE = "me";
+    private static final int REQ_CODE = 191019;
+    private ActivityResultLauncher<String> requestPermissionLauncher;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,87 +44,55 @@ public class AccountActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         //update user
-        update();
+        updatde();
 
-        //setup hide password
-        binding.oldPassword.setTransformationMethod(new PasswordTransformationMethod());
-        binding.newPassword.setTransformationMethod(new PasswordTransformationMethod());
-        binding.confirmNewPassword.setTransformationMethod(new PasswordTransformationMethod());
-      
-//         setUser(user);
-//        binding.imageUser.setImageResource(user.getImage());
-
-        //edit button
         binding.editBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 v.setSelected(!v.isSelected());
                 if (v.isSelected()) {
                     isEditable = true;
-
                     setEnableEdit(true);
-
-
                 } else {
-                    if(binding.newPassword.isEnabled()){
-                        String newPassword = binding.newPassword.getText().toString();
-                        String confirmNewPassword = binding.confirmNewPassword.getText().toString();
-                        //nếu như mật khẩu xác nhận không khớp với mật khẩu mới
-                        if(!newPassword.equals(confirmNewPassword)){
-                            AlertDialog.Builder builder1 = new AlertDialog.Builder(AccountActivity.this);
-                            builder1.setMessage("Mật Khẩu xác nhận không khớp với mật khẩu vừa nhập !!!");
-                            builder1.setCancelable(true);
-
-                            builder1.setPositiveButton(
-                                    "Close",
-                                    new DialogInterface.OnClickListener() {
-                                        public void onClick(DialogInterface dialog, int id) {
-                                            dialog.cancel();
-                                        }
-                                    });
-                            AlertDialog alert = builder1.create();
-                            alert.show();
-                        }else{
-                            isEditable = false;
-                            //gan lai du lieu tu edit text sang data
-                            setUserInEditText();
-                            //vo hieu hoa chinh sua
-                            setEnableEdit(false);
-                        }
-                    }else{
-                        isEditable = false;
-                        //gan lai du lieu tu edit text sang data
-                        setUserInEditText();
-                        //vo hieu hoa chinh sua
-                        setEnableEdit(false);
-                    }
+                    isEditable = false;
+                    //gan lai du lieu tu edit text sang data
+                    setUserInEditText();
+                    //vo hieu hoa chinh sua
+                    setEnableEdit(false);
                 }
             }
         });
 
-        activityResultLauncher = registerForActivityResult(
-                new ActivityResultContracts.StartActivityForResult(),
-                new ActivityResultCallback<ActivityResult>() {
-                    @Override
-                    public void onActivityResult(ActivityResult result) {
-                        if (result.getResultCode() == Activity.RESULT_OK) {
-                            if (result.getData() != null) {
-                                image = result.getData().getData();
-                                Glide.with(getApplicationContext()).load(image).into(binding.imageAvatar);
-                            } else {
-                                Toast.makeText(AccountActivity.this, "Vui long chon anh", Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    }
-                }
-        );
-
-
-        // chon avatar
+        // change avatar
         binding.imageAvatar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (ContextCompat.checkSelfPermission(AccountActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                    requestPermissionLauncher.launch(Manifest.permission.READ_EXTERNAL_STORAGE);
+                } else {
+                    chooseImage();
+                }
+            }
+        });
+
+        requestPermissionLauncher = registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
+            if (isGranted) {
                 chooseImage();
+            } else {
+                // Handle the case where permission is denied.
+                AlertDialog.Builder builder1 = new AlertDialog.Builder(AccountActivity.this);
+                builder1.setMessage("Bạn không có quyền chọn ảnh!!!");
+                builder1.setCancelable(true);
+
+                builder1.setPositiveButton(
+                        "Close",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
+                AlertDialog alert = builder1.create();
+                alert.show();
             }
         });
 
@@ -149,13 +112,23 @@ public class AccountActivity extends AppCompatActivity {
                                     binding.editBtn.setSelected(false);
                                     setEnableEdit(false);
                                     isEditable = false;
+
+                                    //update into server
+                                    UserAPI.update(user);
+
+                                    //update into local
+                                    SharePreference.setSharedPreferences(AccountActivity.this);
+                                    SharePreference.store(SharePreference.USER_TOKEN_KEY, user.getKey());
+                                    SharePreference.store(SharePreference.USER_NAME, user.getFullName());
+                                    SharePreference.store(SharePreference.USER_EMAIL, user.getEmail());
+                                    SharePreference.store(SharePreference.USER_GENDER, user.getGender());
+                                    SharePreference.store(SharePreference.USER_DOB, user.getDayOfBirth());
+                                    SharePreference.store(SharePreference.USER_AVATAR, user.getAvatar());
+                                    SharePreference.store(SharePreference.USER_PHONE, user.getPhoneNumber());
+                                    SharePreference.store(SharePreference.USER_PASS, user.getPassword());
+
                                     Intent intent = new Intent(AccountActivity.this, SettingActivity.class);
                                     intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                                    //clear password
-                                    binding.oldPassword.setText("");
-                                    binding.newPassword.setText("");
-                                    binding.confirmNewPassword.setText("");
-
                                     // chuyen
                                     startActivity(intent);
                                     dialog.cancel();
@@ -175,17 +148,9 @@ public class AccountActivity extends AppCompatActivity {
                                     binding.editBtn.setSelected(false);
                                     isEditable = false;
                                     setEnableEdit(false);
-                                  
-                                    update();
-                                  
+                                    updatde();
                                     Intent intent = new Intent(AccountActivity.this, SettingActivity.class);
                                     intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-
-                                    //clear password
-                                    binding.oldPassword.setText("");
-                                    binding.newPassword.setText("");
-                                    binding.confirmNewPassword.setText("");
-
                                     // chuyen
                                     startActivity(intent);
                                     dialog.cancel();
@@ -200,7 +165,6 @@ public class AccountActivity extends AppCompatActivity {
 
                     //update into local
                     SharePreference.setSharedPreferences(AccountActivity.this);
-
                     SharePreference.store(SharePreference.USER_TOKEN_KEY, user.getKey());
                     SharePreference.store(SharePreference.USER_NAME, user.getFullName());
                     SharePreference.store(SharePreference.USER_EMAIL, user.getEmail());
@@ -210,75 +174,58 @@ public class AccountActivity extends AppCompatActivity {
                     SharePreference.store(SharePreference.USER_PHONE, user.getPhoneNumber());
                     SharePreference.store(SharePreference.USER_PASS, user.getPassword());
 
-                    //clear password
-                    binding.oldPassword.setText("");
-                    binding.newPassword.setText("");
-                    binding.confirmNewPassword.setText("");
                     Intent intent = new Intent(AccountActivity.this, SettingActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+
                     // chuyen
                     startActivity(intent);
                 }
             }
         });
-        //button xác nhận mk cũ mới cho phép thay đổi mật khẩu mới
-        binding.btnconfirm.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String password = binding.oldPassword.getText().toString();
-                String storehash = SharePreference.find(SharePreference.USER_PASS);
-                if(checkPassword(password, storehash)){
-                    binding.newPassword.setEnabled(true);
-                    binding.confirmNewPassword.setEnabled(true);
-                }else{
-                    AlertDialog.Builder builder1 = new AlertDialog.Builder(AccountActivity.this);
-                    builder1.setMessage("Mật Khẩu không khớp đúng !!!");
-                    builder1.setCancelable(true);
-
-                    builder1.setPositiveButton(
-                            "Close",
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
-                                    dialog.cancel();
-                                }
-                            });
-                    AlertDialog alert = builder1.create();
-                    alert.show();
-                }
-            }
-        });
-
-        binding.btnChangePhoneNumber.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(AccountActivity.this, SendOTPActivity.class);
-                intent.putExtra("phone", SharePreference.find(SharePreference.USER_PHONE));
-                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                startActivity(intent);
-            }
-        });
-        /* calendar button
-        binding.calendarButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new DayDialogFragment().show(getSupportFragmentManager(), "datePicker");
-            }
-        });
-        */
-    }//end onCreate()
-
+    }
 
     private void chooseImage() {
         Intent intent = new Intent();
-        intent.setType("images/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-//        activityResultLauncher.launch(intent);
-        startActivity(intent);
+        intent.setAction(Intent.ACTION_PICK);
+        intent.setType("image/*");
+        startActivityForResult(intent, REQ_CODE);
+    }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == REQ_CODE && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            chooseImage();
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQ_CODE && resultCode == RESULT_OK && data != null && data.getData() != null) {
+            Uri uri = data.getData();
+
+            // Display the image or get the image path
+            String avatarName = "avatars/" + SharePreference.find(SharePreference.USER_TOKEN_KEY);
+            try {
+                ImageStorageReference.setImageInto(binding.imageAvatar, avatarName);
+            } catch (Exception e) {
+                //ignore
+            }
+
+            //Update into server
+            ImageStorageReference.upload(avatarName, uri);
+            user.setAvatar(avatarName);
+            UserAPI.update(user);
+
+            //Update into local
+            SharePreference.store(SharePreference.USER_AVATAR, avatarName);
+        }
     }
 
     private void setUserInEditText() {
         user.setKey(SharePreference.find(SharePreference.USER_TOKEN_KEY));
+        user.setPassword(SharePreference.find(SharePreference.USER_PASS));
         user.setFullName(binding.nameUser.getText().toString());
         switch (binding.genderUser.getSelectedItemPosition()) {
             case 0:
@@ -294,76 +241,48 @@ public class AccountActivity extends AppCompatActivity {
         user.setDayOfBirth(binding.dayBornUser.getText().toString());
         user.setEmail(binding.emailUser.getText().toString());
         user.setPhoneNumber(binding.phoneNumberUser.getText().toString());
-        saveNewPassword(user);
     }
 
-    private void update() {
-
+    private void updatde() {
         user = new User();
-
-        //lay user tu local
         user.setKey(SharePreference.find(SharePreference.USER_TOKEN_KEY));
         user.setFullName(SharePreference.find(SharePreference.USER_NAME));
         user.setEmail(SharePreference.find(SharePreference.USER_EMAIL));
         user.setAvatar(SharePreference.find(SharePreference.USER_AVATAR));
         user.setDayOfBirth(SharePreference.find(SharePreference.USER_DOB));
         user.setGender(SharePreference.find(SharePreference.USER_GENDER));
-        user.setPhoneNumber(SharePreference.find(SharePreference.USER_PHONE));
         user.setPassword(SharePreference.find(SharePreference.USER_PASS));
-        //permission cua user dau mat roi
-//        user.setPermistion(SharePreference.findPermission());
+        user.setPermistion(SharePreference.findPermission());
 
+        binding.nameUser.setText(user.getFullName());
         if (user.getGender().equalsIgnoreCase(GENDER_MALE)) {
             binding.genderUser.setSelection(0);
-        } else if (user.getGender().equalsIgnoreCase(GENDER_FEMALE)) {
+        } else  if (user.getGender().equalsIgnoreCase(GENDER_FEMALE)) {
             binding.genderUser.setSelection(1);
         } else {
             binding.genderUser.setSelection(2);
         }
-
+        binding.dayBornUser.setText(user.getDayOfBirth());
+        binding.emailUser.setText(user.getEmail());
+        binding.phoneNumberUser.setText(user.getPhoneNumber());
         try {
             ImageStorageReference.setImageInto(binding.imageAvatar, user.getAvatar());
         } catch (Exception e) {
             ImageStorageReference.setImageInto(binding.imageAvatar, "avatars/default.jpg");
         }
-
-        binding.nameUser.setText(user.getFullName());
-        binding.dayBornUser.setText(user.getDayOfBirth());
-        binding.emailUser.setText(user.getEmail());
-        binding.phoneNumberUser.setText(user.getPhoneNumber());
     }
 
     private void setEnableEdit(boolean isEditable) {
         binding.nameUser.setEnabled(isEditable);
-//        binding.bioUser.setEnabled(isEditable);
-        binding.genderUser.setEnabled(isEditable);
+        binding.genderUser.setClickable(isEditable);
         binding.dayBornUser.setEnabled(isEditable);
         binding.emailUser.setEnabled(isEditable);
         binding.phoneNumberUser.setEnabled(isEditable);
-        binding.oldPassword.setEnabled(isEditable);
-        binding.newPassword.setEnabled(false);
-        binding.confirmNewPassword.setEnabled(false);
-        //calendar button
-//        binding.calendarButton.setEnabled(isEditable);
     }
 
-    public boolean checkPassword(String inputPassword, String storedHash) {
-        return BCrypt.checkpw(inputPassword, storedHash);
-    }
-    private String hashPassword(String password) {
-        return BCrypt.hashpw(password, BCrypt.gensalt());
-    }
-    public void saveNewPassword(User user){
-        String password = binding.newPassword.getText().toString().trim();
-        String hashedPassword = hashPassword(password);
-        user.setPassword(hashedPassword);
-
-//        UserAPI.store(user);
-    }
-  
     @Override
     protected void onResume() {
         super.onResume();
-        update();
+        updatde();
     }
 }

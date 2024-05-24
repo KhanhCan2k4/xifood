@@ -1,5 +1,7 @@
 package vn.edu.tdc.xifood.datamodels;
 
+import java.util.ArrayList;
+
 public class User {
     //fields
     private String key;
@@ -11,7 +13,16 @@ public class User {
     private String email;
     private String password;
     private String phoneNumber;
+    private ArrayList<String> address;
     private int permistion;
+
+    public ArrayList<String> getAddress() {
+        return address;
+    }
+
+    public void setAddress(ArrayList<String> address) {
+        this.address = address;
+    }
 
     public String getKey() {
         return key;
@@ -95,6 +106,7 @@ public class User {
         this.phoneNumber = "";
         this.gender = "Unknown";
         this.permistion = 0;
+        this.address = new ArrayList<>();
     }
 
     public User() {
@@ -107,6 +119,7 @@ public class User {
         this.avatar = "avatars/default.jpg";
         this.phoneNumber = "";
         this.gender = "Unknown";
+        this.address = new ArrayList<>();
         this.permistion = 0;
     }
 }

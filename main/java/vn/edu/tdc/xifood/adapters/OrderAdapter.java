@@ -18,10 +18,17 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
     private Activity context;
     private ArrayList<Order> orders = new ArrayList<>();
     private OnItemClickListener itemClickListener;
+
+
     private boolean isAnOrder = false;
+    private boolean isPurchaseActivity=false;
 
     public boolean isAnOrder() {
         return isAnOrder;
+    }
+
+    public void setPurchaseActivity(boolean purchaseActivity) {
+        isPurchaseActivity = purchaseActivity;
     }
 
     public void setAnOrder(boolean anOrder) {
@@ -42,6 +49,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
         this.orders.add(oder);
         this.isAnOrder = isAnOrder;
     }
+
 
     @NonNull
     @Override
@@ -64,7 +72,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
         GridLayoutManager manager = new GridLayoutManager(context, 3);
         manager.setOrientation(GridLayoutManager.VERTICAL);
 
-        OrderedProductAdapter productAdapter = new OrderedProductAdapter(context, order.getOrderedProducts());
+        OrderedProductAdapter productAdapter = new OrderedProductAdapter(context, order.getOrderedProducts(),isPurchaseActivity);
         holder.binding.orderList.setLayoutManager(manager);
         holder.binding.orderList.setAdapter(productAdapter);
 
@@ -126,5 +134,6 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
         public void onBuyback(View view, String key);
         public void onCancel(View view, String key);
     }
+
 }
 

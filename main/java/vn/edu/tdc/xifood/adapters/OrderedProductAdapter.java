@@ -26,16 +26,30 @@ public class OrderedProductAdapter extends RecyclerView.Adapter<OrderedProductAd
     private Activity context;
     private ArrayList<OrderedProduct> products = new ArrayList<>();
     private OnItemClickListener itemClickListener;
+    private OnUpdatePrice updatePrice;
+    private boolean isPurchaseAcitivitiy;
 
     public void setOnItemClickListener(OnItemClickListener itemClickListener) {
         this.itemClickListener = itemClickListener;
     }
 
+    public OnUpdatePrice getUpdatePrice() {
+        return updatePrice;
+    }
+
+    public void setUpdatePrice(OnUpdatePrice updatePrice) {
+        this.updatePrice = updatePrice;
+    }
+    public OrderedProductAdapter(Activity context, ArrayList<OrderedProduct> products, boolean isPurchaseAcitivitiy) {
+        this.context = context;
+        this.products = products;
+        this.isPurchaseAcitivitiy = isPurchaseAcitivitiy;
+    }
     public OrderedProductAdapter(Activity context, ArrayList<OrderedProduct> products) {
         this.context = context;
         this.products = products;
+        this.isPurchaseAcitivitiy = false;
     }
-
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -51,23 +65,9 @@ public class OrderedProductAdapter extends RecyclerView.Adapter<OrderedProductAd
 
         holder.binding.txtAmount.setText(product.getAmount() + "");
 
-        holder.binding.btnDecreaseAmount.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                product.setAmount(product.getAmount() - 1);
-                holder.binding.txtAmount.setText(product.getAmount() + "");
-            }
-        });
 
-        holder.binding.btnIncreaseAmount.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                product.setAmount(product.getAmount() + 1);
-                holder.binding.txtAmount.setText(product.getAmount() + "");
-            }
-        });
+
     }
-
     @Override
     public int getItemCount() {
         return products.size();
@@ -88,6 +88,9 @@ public class OrderedProductAdapter extends RecyclerView.Adapter<OrderedProductAd
         public void onItemClick(MyViewHolder viewHolder);
         public void onIncreaseAmount(MyViewHolder viewHolder);
         public void onDecreaseAmount(MyViewHolder viewHolder);
+    }
+    public interface OnUpdatePrice{
+        public long updatePrice(long price, int total);
     }
 }
 

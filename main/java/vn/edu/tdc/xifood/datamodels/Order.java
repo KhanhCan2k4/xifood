@@ -13,6 +13,16 @@ public class Order {
     private int status;
     private User user;
     private String table = "";
+    private String note="";
+    private String address="";
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
 
     public String getTable() {
         return table;
@@ -26,6 +36,14 @@ public class Order {
     }
     public void setKey(String key) {
         this.key = key;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
     }
 
     public ArrayList<OrderedProduct> getOrderedProducts() {
