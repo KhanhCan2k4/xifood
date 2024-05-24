@@ -20,6 +20,9 @@
         android:theme="@style/Theme.XiFood"
         tools:targetApi="31">
         <activity
+            android:name="vn.edu.tdc.xifood.activities.DanhGiaActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.SendOTPActivity"
             android:exported="false" />
         <activity

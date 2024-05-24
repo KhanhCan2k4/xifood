@@ -30,7 +30,7 @@
             android:textColor="#F44336"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:text="3.000.000VND"
+            android:text="0 vnd"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
     </LinearLayout>

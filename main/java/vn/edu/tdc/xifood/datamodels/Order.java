@@ -3,6 +3,8 @@ package vn.edu.tdc.xifood.datamodels;
 import java.util.ArrayList;
 import java.util.Map;
 
+import vn.edu.tdc.xifood.apis.OrderAPI;
+
 public class Order {
     public static final int STATUS_WAITING = 0;
     public static final int STATUS_DONE = 1;
@@ -13,6 +15,10 @@ public class Order {
     private int status;
     private User user;
     private String table = "";
+
+    private int rating;
+    private String reviewContent;
+    private String imageReview;
 
     public String getTable() {
         return table;
@@ -53,6 +59,36 @@ public class Order {
             orderedProducts.remove(product);
         }
     }
+
+    // nhi
+
+    public int getRating() {
+        return rating;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
+    }
+
+    public String getReviewContent() {
+        return reviewContent;
+    }
+
+    public void setReviewContent(String reviewContent) {
+        this.reviewContent = reviewContent;
+    }
+
+    public String getImageReview() {
+        return imageReview;
+    }
+
+    public void setImageReview(String imageReview) {
+        this.imageReview = imageReview;
+    }
+
+    // nhi
+
+
     public String getDate() {
         return date;
     }
@@ -60,12 +96,6 @@ public class Order {
         this.date = date;
     }
 
-    public int getStatus() {
-        return status;
-    }
-    public void setStatus(int status) {
-        this.status = status;
-    }
     public User getUser() {
         return user;
     }
@@ -73,7 +103,30 @@ public class Order {
         this.user = user;
     }
 
+
+    // nhi
     public Order() {
+        this.rating = 0;
+        this.reviewContent = "";
+        this.imageReview = "";
+    }
+
+    // constructors sao chep
+    public Order(Order original) {
+        this.user = original.user;
+        this.orderedProducts = new ArrayList<>(original.orderedProducts);
+        this.status = STATUS_WAITING;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        if (this.status != status){
+            this.status = status;
+            OrderAPI.update(this);
+        }
     }
 
 }

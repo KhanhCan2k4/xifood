@@ -1,7 +1,6 @@
 package vn.edu.tdc.xifood.adapters;
 
 import android.app.Activity;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -19,6 +18,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
     private ArrayList<Order> orders = new ArrayList<>();
     private OnItemClickListener itemClickListener;
     private boolean isAnOrder = false;
+
 
     public boolean isAnOrder() {
         return isAnOrder;
@@ -53,13 +53,8 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         Order order = orders.get(position);
 
-        String title = "";
-        if (order.getTable().isEmpty()) {
-            title = String.format("Đơn online #%d", position +1);
-        } else {
-            title = String.format("Đơn tại %s", order.getTable());
-        }
-        holder.binding.textOrderCode.setText(title);
+        // hiển thị đơn hàng
+        holder.binding.textOrderCode.setText(String.format("Đơn số #%d", position + 1));
 
         GridLayoutManager manager = new GridLayoutManager(context, 3);
         manager.setOrientation(GridLayoutManager.VERTICAL);
@@ -70,12 +65,49 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
 
         holder.setKey(order.getKey());
 
+        // trang thai
         if (isAnOrder) {
             holder.binding.btnView.setVisibility(View.INVISIBLE);
             holder.binding.btnBuyBack.setVisibility(View.INVISIBLE);
         } else {
+            // để kiểm tra trạng thái là đã được đặt hay chưa -> xét lại nút
+            switch  (order.getStatus()) {
+                case Order.STATUS_WAITING:
+                    holder.binding.btnBuyBack.setText("Hủy");
+                    holder.binding.btnBuyBack.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            if (itemClickListener != null) {
+                                itemClickListener.onCancel(holder.binding.btnBuyBack, order.getKey());
+                            }
+                        }
+                    });
+                    break;
+                case  Order.STATUS_DONE:
+                    holder.binding.btnBuyBack.setText("Mua lại");
+                    holder.binding.btnBuyBack.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            if (itemClickListener != null) {
+                                itemClickListener.onBuyback(holder.binding.btnView, order.getKey());
+                            }
+                        }
+                    });
+                    break;
+                default:
+                    holder.binding.btnBuyBack.setVisibility(View.GONE);
+                    break;
+            }
             holder.binding.btnView.setText("Xem");
-            holder.binding.btnBuyBack.setText("Mua lại");
+            holder.binding.btnView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (itemClickListener != null) {
+                        itemClickListener.onView(holder.binding.btnView, order.getKey());
+                    }
+                }
+            });
+
         }
     }
 
@@ -101,23 +133,6 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
             super(itemView.getRoot());
 
             binding = itemView;
-
-            binding.btnView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (itemClickListener != null) {
-                        itemClickListener.onView(binding.btnView, key);
-                    }
-                }
-            });
-            binding.btnBuyBack.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (itemClickListener != null) {
-                        itemClickListener.onBuyback(binding.btnBuyBack, key);
-                    }
-                }
-            });
         }
     }
 
