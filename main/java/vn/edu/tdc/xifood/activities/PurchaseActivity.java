@@ -204,7 +204,7 @@ public class PurchaseActivity extends AppCompatActivity {
                                     order.setStatus(Order.STATUS_DONE);
                                     OrderAPI.update(order);
                                     Toast.makeText(PurchaseActivity.this, "Xin cảm ơn quý khách", Toast.LENGTH_SHORT).show();
-                                    Intent intent = new Intent(PurchaseActivity.this, CartActivity.class);
+                                    Intent intent = new Intent(PurchaseActivity.this, OrderActivity.class);
                                     intent.setFlags(Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT);
                                     startActivity(intent);
                                     }else {
