@@ -201,7 +201,7 @@ public class PurchaseActivity extends AppCompatActivity {
                                     Log.d("so sanh", ""+order.getUser().getAddress().get(0).equals(s));
                                     String address = order.getUser().getAddress().get(0);
                                     order.setAddress(order.getUser().getAddress().get(0));
-                                    order.setStatus(Order.STATUS_DONE);
+                                   // order.setStatus(Order.STATUS_DONE);
                                     OrderAPI.update(order);
                                     Toast.makeText(PurchaseActivity.this, "Xin cảm ơn quý khách", Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent(PurchaseActivity.this, OrderActivity.class);
