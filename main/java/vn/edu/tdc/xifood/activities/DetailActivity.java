@@ -55,6 +55,7 @@ public class DetailActivity extends AppCompatActivity {
 
         key = intent.getStringExtra(DETAIL_PRODUCT_KEY);
         toppingsWithAmount = new HashMap<>();
+        SharePreference.setSharedPreferences(this);
 
         binding.productName.setText("Đang tải...");
         binding.productPrice.setText("Đang tải...");
@@ -136,7 +137,7 @@ public class DetailActivity extends AppCompatActivity {
 
                 Order order = new Order();
                 ArrayList<OrderedProduct> products = new ArrayList<>();
-                OrderedProduct orderedProduct = new OrderedProduct(product, amount);
+                OrderedProduct orderedProduct = new OrderedProduct(product, amount, false);
                 Map                <String, Long> orderedToppings = new HashMap<>();
                 for (Map.Entry<Topping, Integer> entry : toppingsWithAmount.entrySet()) {
                     Topping topping = entry.getKey();
@@ -157,6 +158,13 @@ public class DetailActivity extends AppCompatActivity {
                 user.setGender(SharePreference.find(SharePreference.USER_GENDER));
                 user.setPassword(SharePreference.find(SharePreference.USER_PASS));
                 user.setPermistion(SharePreference.findPermission());
+                String s = "Chưa có địa chỉ nào!";
+
+                ArrayList<String> diachi= new ArrayList<>();
+
+                diachi.add(s);
+
+                user.setAddress(diachi);
 
                 order.setOrderedProducts(products);
                 order.setDate(LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME).toString());
@@ -179,13 +187,17 @@ public class DetailActivity extends AppCompatActivity {
                         showAlert("THÔNG BÁO", "Đã xảy ra lỗi, vui lòng thử lại sau :<");
                     }
                 };
+
+                if (SharePreference.findPermission() ==  UserAPI.STAFF_PERMISSION) {
+
                 CartAPI.store(SharePreference.find(SharePreference.USER_TOKEN_KEY), order, onSuccessListener, onCanceledListener);
+                } else  {
+                    CartAPI.storeM(SharePreference.find(SharePreference.USER_TOKEN_KEY), order, onSuccessListener, onCanceledListener);
+                }
             }
         });
 
-        if (SharePreference.findPermission() ==  UserAPI.STAFF_PERMISSION) {
-            binding.buyNow.setVisibility(View.GONE);
-        }
+
         binding.buyNow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -194,7 +206,7 @@ public class DetailActivity extends AppCompatActivity {
 
                 Order order = new Order();
                 ArrayList<OrderedProduct> products = new ArrayList<>();
-                OrderedProduct orderedProduct = new OrderedProduct(product, amount);
+                OrderedProduct orderedProduct = new OrderedProduct(product, amount, false);
                 Map<String, Long> orderedToppings = new HashMap<>();
                 for (Map.Entry<Topping, Integer> entry : toppingsWithAmount.entrySet()) {
                     Topping topping = entry.getKey();
