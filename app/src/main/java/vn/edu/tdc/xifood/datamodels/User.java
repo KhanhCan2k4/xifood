@@ -1,6 +1,9 @@
 package vn.edu.tdc.xifood.datamodels;
 
-public class User {
+import java.io.Serializable;
+import java.util.ArrayList;
+
+public class User implements Serializable {
     //fields
     private String key;
     private String fullName;
@@ -12,7 +15,16 @@ public class User {
     private String password;
     private String phoneNumber;
     private int permistion;
+    private ArrayList<String> address;
 
+
+    public ArrayList<String> getAddress() {
+        return address;
+    }
+
+    public void setAddress(ArrayList<String> address) {
+        this.address = address;
+    }
     public String getKey() {
         return key;
     }
@@ -95,6 +107,7 @@ public class User {
         this.phoneNumber = "";
         this.gender = "Unknown";
         this.permistion = 0;
+        this.address = new ArrayList<>();
     }
 
     public User() {
@@ -107,6 +120,7 @@ public class User {
         this.avatar = "avatars/default.jpg";
         this.phoneNumber = "";
         this.gender = "Unknown";
+        this.address = new ArrayList<>();
         this.permistion = 0;
     }
 }

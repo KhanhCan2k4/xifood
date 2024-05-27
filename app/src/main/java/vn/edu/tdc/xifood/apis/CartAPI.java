@@ -116,7 +116,7 @@ public class CartAPI {
         });
     }
 
-    public static void storeK(String userId, Order order, OnSuccessListener<Void> onSuccessListener, OnCanceledListener onCanceledListener) {
+    public static void store(String userId, Order order, OnSuccessListener<Void> onSuccessListener, OnCanceledListener onCanceledListener) {
         find(userId, new FirebaseCallback() {
             @Override
             public void onCallback(Order oldOder) {
@@ -142,6 +142,7 @@ public class CartAPI {
                     Log.d("TAG", "onCallback: SharePreference.CART_KEY " + SharePreference.find(SharePreference.CART_KEY));
                     DatabaseReference itemRef = cartRef.child(SharePreference.find(SharePreference.CART_KEY));
                     itemRef.setValue(oldOder)
+
                             .addOnSuccessListener(onSuccessListener)
                             .addOnCanceledListener(onCanceledListener);
                 }

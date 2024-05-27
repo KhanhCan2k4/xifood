@@ -10,21 +10,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.Toast;
-
-import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Set;
 
-import vn.edu.tdc.xifood.R;
-import vn.edu.tdc.xifood.adapters.Product;
 import vn.edu.tdc.xifood.adapters.RecentsProductsAdapter;
 import vn.edu.tdc.xifood.apis.ImageStorageReference;
 import vn.edu.tdc.xifood.apis.SharePreference;
-import vn.edu.tdc.xifood.apis.UserAPI;
 import vn.edu.tdc.xifood.databinding.SettingLayoutBinding;
+import vn.edu.tdc.xifood.datamodels.Product;
 import vn.edu.tdc.xifood.datamodels.User;
 import vn.edu.tdc.xifood.views.Navbar;
 

@@ -71,6 +71,11 @@ public class RegisterActivity extends AppCompatActivity {
         Button registerButton = findViewById(R.id.btnRegister);
         registerButton.setText("Đang tải...");
         registerButton.setEnabled(false);
+        ArrayList<String> diachi= new ArrayList<>();
+
+        String s= "bạn chưa có địa chỉ!";
+
+        diachi.add(s);
 
         //check less then 6 characters password
         if (username.length() < 6 || username.length() > 35) {
@@ -129,6 +134,7 @@ public class RegisterActivity extends AppCompatActivity {
                 user.setGender(AccountActivity.GENDER_DEFAULT);
                 user.setEmail(email);
                 user.setBio("");
+                user.setAddress(diachi);
                 user.setDayOfBirth("");
 
                 UserAPI.store(user)

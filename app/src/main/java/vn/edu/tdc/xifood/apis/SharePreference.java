@@ -12,6 +12,7 @@ public class SharePreference {
     public static final String USER_EMAIL = "USER_EMAIL";
     public static final String USER_PHONE = "USER_PHONE";
     public static final String USER_AVATAR = "USER_AVATAR";
+    public static final String USER_ADDRESS = "USER_ADDRESS";
     public static final String USER_PASS = "USER_PASS";
     public static final String USER_PERMISSION = "USER_PERMISSION";
     public static final String CART_KEY = "CART_KEY";

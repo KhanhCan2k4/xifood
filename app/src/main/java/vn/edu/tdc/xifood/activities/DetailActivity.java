@@ -44,6 +44,7 @@ public class DetailActivity extends AppCompatActivity {
     private int amount = 1;
     public static final String DETAIL_PRODUCT_KEY = "DETAIL_PRODUCT_KEY";
     public static final int MAX_AMOUNT = 5;
+    private ArrayList<String> adress = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +56,10 @@ public class DetailActivity extends AppCompatActivity {
 
         key = intent.getStringExtra(DETAIL_PRODUCT_KEY);
         toppingsWithAmount = new HashMap<>();
+        SharePreference.setSharedPreferences(this);
 
+        String s = "Bạn chưa có địa chỉ nào";
+        adress.add(s);
         binding.productName.setText("Đang tải...");
         binding.productPrice.setText("Đang tải...");
         binding.productDes.setText("Đang tải...");
@@ -157,6 +161,13 @@ public class DetailActivity extends AppCompatActivity {
                 user.setGender(SharePreference.find(SharePreference.USER_GENDER));
                 user.setPassword(SharePreference.find(SharePreference.USER_PASS));
                 user.setPermistion(SharePreference.findPermission());
+                String s = "Chưa có địa chỉ nào!";
+
+                ArrayList<String> diachi= new ArrayList<>();
+
+                diachi.add(s);
+
+                user.setAddress(diachi);
 
                 order.setOrderedProducts(products);
                 order.setDate(LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME).toString());
@@ -180,13 +191,16 @@ public class DetailActivity extends AppCompatActivity {
                     }
                 };
 
-                CartAPI.storeM(SharePreference.find(SharePreference.USER_TOKEN_KEY), order, onSuccessListener, onCanceledListener);
+                if (SharePreference.findPermission() ==  UserAPI.STAFF_PERMISSION) {
+
+                CartAPI.store(SharePreference.find(SharePreference.USER_TOKEN_KEY), order, onSuccessListener, onCanceledListener);
+                } else  {
+                    CartAPI.storeM(SharePreference.find(SharePreference.USER_TOKEN_KEY), order, onSuccessListener, onCanceledListener);
+                }
             }
         });
 
-        if (SharePreference.findPermission() ==  UserAPI.STAFF_PERMISSION) {
-            binding.buyNow.setVisibility(View.GONE);
-        }
+
         binding.buyNow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -215,6 +229,7 @@ public class DetailActivity extends AppCompatActivity {
                 user.setDayOfBirth(SharePreference.find(SharePreference.USER_DOB));
                 user.setGender(SharePreference.find(SharePreference.USER_GENDER));
                 user.setPassword(SharePreference.find(SharePreference.USER_PASS));
+                user.setAddress(adress);
                 user.setPermistion(SharePreference.findPermission());
 
                 order.setOrderedProducts(products);
@@ -244,6 +259,7 @@ public class DetailActivity extends AppCompatActivity {
                             }
                         });
             }
+
 
         });
     }

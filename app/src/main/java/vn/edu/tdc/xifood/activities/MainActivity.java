@@ -181,6 +181,16 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        // chuyen sang ListSearchActivity
+        binding.txtSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, ListSearchActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                startActivity(intent);
+            }
+        });
+
     }
 
     // gọi action để chạy ViewFlipper

@@ -24,8 +24,9 @@
             android:background="@drawable/back_account_icon"/>
 
         <EditText
+            android:id="@+id/keyWordOfSearchLayout"
             android:layout_gravity="center"
-           android:hint="   search...."
+            android:hint="   search...."
             android:layout_width="0dp"
             android:layout_height="45dp"
             android:layout_marginLeft="10dp"
@@ -34,6 +35,7 @@
             android:layout_weight="4"/>
 
         <ImageButton
+            android:id="@+id/startSearch"
             android:layout_gravity="center"
             android:layout_width="30dp"
             android:layout_height="30dp"

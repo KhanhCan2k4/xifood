@@ -1,10 +1,11 @@
 package vn.edu.tdc.xifood.datamodels;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class OrderedProduct {
+public class OrderedProduct implements Serializable {
     private Product product;
     private Map<String, Long> toppings;
     private int amount;
@@ -60,6 +61,11 @@ public class OrderedProduct {
         this.amount = 0;
         this.toppings = new HashMap<String, Long>();
         this.isCheckedPay = false;
+    }
+    public OrderedProduct(Product product, int amount) {
+        this.product = product;
+        this.amount = amount;
+        this.toppings = new HashMap<String, Long>();
     }
     public void mergeToppings(Map<String, Long> newToppings) {
         if (this.toppings == null) {
