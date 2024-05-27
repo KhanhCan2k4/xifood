@@ -32,11 +32,13 @@ import vn.edu.tdc.xifood.apis.CategoryAPI;
 import vn.edu.tdc.xifood.apis.ProductAPI;
 import vn.edu.tdc.xifood.apis.SharePreference;
 import vn.edu.tdc.xifood.apis.UserAPI;
+import vn.edu.tdc.xifood.apis.UserPreferences;
 import vn.edu.tdc.xifood.data.CategoryData;
 import vn.edu.tdc.xifood.data.ListProductsData;
 import vn.edu.tdc.xifood.databinding.MainLayoutBinding;
 import vn.edu.tdc.xifood.datamodels.Category;
 import vn.edu.tdc.xifood.datamodels.Product;
+import vn.edu.tdc.xifood.staffProcessing.OrderStaffActivity;
 import vn.edu.tdc.xifood.views.Navbar;
 
 public class MainActivity extends AppCompatActivity {
@@ -147,7 +149,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onOrderButtonClick(View view) {
                 Intent intent;
-                intent = new Intent(MainActivity.this, OrderActivity.class);
+                //kiem tra quyen truy cap
+                if(SharePreference.findPermission() == UserAPI.STAFF_PERMISSION){
+                    intent = new Intent(MainActivity.this, OrderStaffActivity.class);
+                }else{
+                    intent = new Intent(MainActivity.this, OrderActivity.class);
+                }
 
                 intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 

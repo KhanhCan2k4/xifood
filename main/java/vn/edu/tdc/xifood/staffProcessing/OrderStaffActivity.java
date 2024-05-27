@@ -1,99 +1,101 @@
 package vn.edu.tdc.xifood.staffProcessing;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import java.util.ArrayList;
-
-import vn.edu.tdc.xifood.R;
+import vn.edu.tdc.xifood.activities.DanhGiaActivity;
 import vn.edu.tdc.xifood.activities.ListProductsActivity;
 import vn.edu.tdc.xifood.activities.MainActivity;
-import vn.edu.tdc.xifood.activities.OrderActivity;
-import vn.edu.tdc.xifood.activities.PurchaseActivity;
 import vn.edu.tdc.xifood.activities.SettingActivity;
 import vn.edu.tdc.xifood.adapters.OrderAdapter;
+import vn.edu.tdc.xifood.apis.OrderAPI;
+import vn.edu.tdc.xifood.apis.SharePreference;
 import vn.edu.tdc.xifood.databinding.OrderLayoutBinding;
-import vn.edu.tdc.xifood.models.Order;
-import vn.edu.tdc.xifood.models.Product;
+import vn.edu.tdc.xifood.datamodels.Order;
+import vn.edu.tdc.xifood.datamodels.User;
 import vn.edu.tdc.xifood.views.Navbar;
 
 public class OrderStaffActivity extends AppCompatActivity {
     private OrderLayoutBinding binding;
-    private ArrayList<Order> orders;
     OrderAdapter orderAdapter;
+    private ArrayList<vn.edu.tdc.xifood.datamodels.Order> thisUserOrder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         binding = OrderLayoutBinding.inflate(getLayoutInflater());
-
         setContentView(binding.getRoot());
 
-        orders = new ArrayList<>();
-        Order order1 = new Order(123);
-        Order order2 = new Order(124);
-        Order order3 = new Order(125);
+        SharePreference.setSharedPreferences(this);
 
-        Product product1 = new Product(1, "Sản phẩm 1", "=", 20000);
-        Product product2 = new Product(2, "Sản phẩm 2", "=", 20000);
-        Product product3 = new Product(3, "Sản phẩm 3", "=", 20000);
-        Product product4 = new Product(4, "Sản phẩm 2", "=", 20000);
-        Product product5 = new Product(5, "Sản phẩm 3", "=", 20000);
+        OrderAPI.all(new OrderAPI.FirebaseCallbackAll() {
+            @Override
+            public void onCallback(ArrayList<vn.edu.tdc.xifood.datamodels.Order> orders) {
+                if (orders != null) {
+                    thisUserOrder = new ArrayList<>();
 
-        product1.setAmount(2);
-        product2.setAmount(5);
-        product3.setAmount(6);
-        product4.setAmount(2);
-        product5.setAmount(1);
+                    String userToken = SharePreference.find(SharePreference.USER_TOKEN_KEY);
 
-        order1.setProducts(product1, product3);
-        order2.setProducts(product1, product2, product3, product4, product5);
-        order3.setProducts(product1, product3, product4, product5);
+                    // Kiểm tra token không null
+                    if (userToken == null || userToken.isEmpty()) {
+                        Log.e("OrderActivity", "User token is null or empty");
+                        return;
+                    }
 
-        orders.add(order1);
-        orders.add(order2);
-        orders.add(order3);
+                    // Lấy đơn hàng của người dùng này
+                    for (vn.edu.tdc.xifood.datamodels.Order order : orders) {
+                        User user = order.getUser();
+                        if (user != null && user.getKey() != null && user.getKey().equals(userToken)) {
+                            thisUserOrder.add(order);
+                        }
+                    }
 
-//        orderAdapter = new OrderAdapter(this, orders);
-//        GridLayoutManager manager = new GridLayoutManager(this, 3);
-//        manager.setOrientation(RecyclerView.HORIZONTAL);
-//
-//        binding.orderList.setLayoutManager(manager);
-//        binding.orderList.setAdapter(orderAdapter);
-//
-//        orderAdapter.setOnItemClickListener(new OrderAdapter.OnItemClickListener() {
-//            @Override
-//            public void onView(View view, int id) {
-//                Intent intent = new Intent(OrderStaffActivity.this, PurchaseActivity.class);
-//                intent.putExtra("id", id);
-//
-//                startActivity(intent);
-//            }
-//
-//            @Override
-//            public void onBuyback(View view, int id) {
-//                Intent intent = new Intent(OrderStaffActivity.this, PurchaseActivity.class);
-//                intent.putExtra("id", id);
-//
-//                startActivity(intent);
-//            }
-//
-//            @Override
-//            public void onCancel(View view, int id) {
-//
-//            }
-//        });
+                    //get this user's order
+                    orderAdapter = new OrderAdapter(OrderStaffActivity.this, thisUserOrder);
+                    LinearLayoutManager manager = new LinearLayoutManager(OrderStaffActivity.this);
+                    manager.setOrientation(RecyclerView.VERTICAL);
+
+                    binding.orderList.setLayoutManager(manager);
+                    binding.orderList.setAdapter(orderAdapter);
+
+                    // thuc hien uy quyen cac nut
+                    orderAdapter.setOnItemClickListener(new OrderAdapter.OnItemClickListener() {
+                        @Override
+                        public void onView(View view, String key) {
+                            Intent intent = new Intent(OrderStaffActivity.this, DanhGiaActivity.class);
+                            Log.d("key", "onView: " + key);
+                            intent.putExtra(DanhGiaActivity.ORDERED_KEY, key);
+                            startActivity(intent);
+                        }
+
+                        @Override
+                        public void onBuyback(View view, String key) {
+                            onBuyBackOrder(key);
+                        }
+
+                        @Override
+                        public void onCancel(View view, String key) {
+                            cancelOrder(key);
+                        }
+                    });
+
+                }
+            }
+        });
 
         binding.navbar.setNavClickListener(new Navbar.OnNavClickListener() {
             @Override
             public void onHomeButtonClick(View view) {
-                Intent intent = new Intent(OrderStaffActivity.this, MainStaffActivity.class);
+                Intent intent = new Intent(OrderStaffActivity.this, MainActivity.class);
 
                 intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 
@@ -104,7 +106,7 @@ public class OrderStaffActivity extends AppCompatActivity {
             @Override
             public void onDiscountButtonClick(View view) {
                 //chuyen qua danh muc uu dai
-                Intent intent = new Intent(OrderStaffActivity.this, MainStaffActivity.class);
+                Intent intent = new Intent(OrderStaffActivity.this, ListProductsActivity.class);
                 intent.putExtra("id", 1);
 
                 intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
@@ -120,13 +122,87 @@ public class OrderStaffActivity extends AppCompatActivity {
 
             @Override
             public void onAccountButtonClick(View view) {
-                Intent intent = new Intent(OrderStaffActivity.this, AccountStaffActivity.class);
+                Intent intent = new Intent(OrderStaffActivity.this, SettingActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 
                 // chuyen
                 startActivity(intent);
             }
         });
+    }
 
+    // tao ham de xoa don hang
+    private void cancelOrder(String key) {
+
+        // tim va xoa don hang tren firebase
+        final vn.edu.tdc.xifood.datamodels.Order[] orderToCancel = new vn.edu.tdc.xifood.datamodels.Order[1];
+        for (vn.edu.tdc.xifood.datamodels.Order order : thisUserOrder) {
+            if (order.getKey().equals(key)) {
+                orderToCancel[0] = order;
+                break;
+            }
+        }
+
+        if (orderToCancel[0] != null) {
+            OrderAPI.destroy(orderToCancel[0], new OrderAPI.FirebaseCallback() {
+                @Override
+                public void onCallback(vn.edu.tdc.xifood.datamodels.Order order) {
+                    if (order != null) {
+
+                        // xoa don hang khoi danh sach local
+                        boolean remove = thisUserOrder.remove(orderToCancel[0]);
+
+                        if (remove) {
+                            orderAdapter.notifyDataSetChanged();
+                        } else {
+                            Log.e("OrderActivity", "Không thể xóa đơn hàng khỏi danh sách local");
+                        }
+                    } else {
+                        Log.e("OrderActivity", "Không thể xóa đơn hàng từ Firebase");
+                    }
+                }
+            });
+        } else {
+            Log.e("OrderActivity", "Không tìm thấy đơn hàng để xóa");
+        }
+    }
+
+    // tao ham mua lai don hang
+    private void onBuyBackOrder(String key) {
+        vn.edu.tdc.xifood.datamodels.Order originalOrder = null;
+
+        for (vn.edu.tdc.xifood.datamodels.Order order : thisUserOrder) {
+            if (order.getKey().equals(key)) {
+                originalOrder = order;
+                break;
+            }
+        }
+
+
+        if (originalOrder != null) {
+
+            vn.edu.tdc.xifood.datamodels.Order newOrder = new vn.edu.tdc.xifood.datamodels.Order(originalOrder);
+
+            // them don hang mua lai vao firebase
+            OrderAPI.store(newOrder, new OrderAPI.FirebaseCallback() {
+                @Override
+                public void onCallback(Order order) {
+                    if (order != null) {
+
+                        // Thêm đơn hàng mới vào danh sách
+//                        thisUserOrder.add(order);
+
+                        // cap nhat lai giao dien
+                        orderAdapter.notifyDataSetChanged();
+                        Toast.makeText(OrderStaffActivity.this, "Đơn hàng đã được mua lại", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Log.e("OrderActivity", "Không thể thêm đơn hàng mới vào Firebase");
+                        Toast.makeText(OrderStaffActivity.this, "Không thể mua lại đơn hàng", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        } else {
+            Log.e("OrderActivity", "Không tìm thấy đơn hàng để mua lại");
+        }
     }
 }
