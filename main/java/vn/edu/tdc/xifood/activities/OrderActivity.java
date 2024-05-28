@@ -186,8 +186,6 @@ public class OrderActivity extends AppCompatActivity {
                 public void onCallback(Order order) {
                     if (order != null) {
 
-                        // Thêm đơn hàng mới vào danh sách
-//                        thisUserOrder.add(order);
 
                         // cap nhat lai giao dien
                         orderAdapter.notifyDataSetChanged();
