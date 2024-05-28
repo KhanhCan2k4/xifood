@@ -15,6 +15,7 @@ import vn.edu.tdc.xifood.datamodels.Product;
 public class ProductAPI {
     private static String tblName = "products";
     private static DatabaseReference productRef = FirebaseDatabase.getInstance().getReference(tblName);
+
     public static void all(FirebaseCallbackAll callback) {
         productRef.addValueEventListener(new ValueEventListener() {
             @Override

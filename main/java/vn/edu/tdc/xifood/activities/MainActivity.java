@@ -2,11 +2,15 @@ package vn.edu.tdc.xifood.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.net.Uri;
 import android.os.Bundle;
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
@@ -29,6 +33,7 @@ import vn.edu.tdc.xifood.R;
 import vn.edu.tdc.xifood.adapters.ListCategoryAdapter;
 import vn.edu.tdc.xifood.adapters.ListProductsAdapter;
 import vn.edu.tdc.xifood.apis.CategoryAPI;
+import vn.edu.tdc.xifood.apis.ConfigAPI;
 import vn.edu.tdc.xifood.apis.ProductAPI;
 import vn.edu.tdc.xifood.apis.SharePreference;
 import vn.edu.tdc.xifood.apis.UserAPI;
@@ -47,7 +52,8 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<Category> categories;
     private ListCategoryAdapter listCategoryAdapter;
     private ViewFlipper viewFlipper;
-    public static final String CLICKED_CATEGORY_KEY = "key";
+    public static final String CLICKED_CATEGORY_KEY = "CLICKED_CATEGORY_KEY";
+    public static final String NEW_PRODUCT_KEY = "NEW_PRODUCT_KEY";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,78 +62,72 @@ public class MainActivity extends AppCompatActivity {
         binding = MainLayoutBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        //lay du lieu
+        //category adapter
         categories = new ArrayList<>();
-        CategoryAPI.all(new CategoryAPI.FirebaseCallbackAll() {
+        listCategoryAdapter = new ListCategoryAdapter(MainActivity.this, categories);
+        GridLayoutManager manager = new GridLayoutManager(MainActivity.this, 5);
+        manager.setOrientation(LinearLayoutManager.VERTICAL);
+        binding.listCategory.setLayoutManager(manager);
+        binding.listCategory.setAdapter(listCategoryAdapter);
+        //goi uy quyen cho danh muc
+        listCategoryAdapter.setItemClick(new ListCategoryAdapter.ItemClickListener() {
             @Override
-            public void onCallback(ArrayList<Category> categoriesList) {
-                for (Category category : categoriesList) {
-                    categories.add(category);
+            public void onItemClick(ListCategoryAdapter.ViewHolder holder) {
+                String key = holder.getCategoryKey();
+                if (!key.isEmpty()) {
+                    Intent intent = new Intent(MainActivity.this, ListProductsActivity.class);
+                    intent.putExtra(CLICKED_CATEGORY_KEY, key);
+                    Log.d(CLICKED_CATEGORY_KEY, key + "");
+
+                    intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+
+                    // chuyen
+                    startActivity(intent);
                 }
-                listCategoryAdapter = new ListCategoryAdapter(MainActivity.this, categories);
-                GridLayoutManager manager = new GridLayoutManager(MainActivity.this, 5);
-
-                // xet huong
-                manager.setOrientation(LinearLayoutManager.VERTICAL);
-
-                binding.listCategory.setLayoutManager(manager);
-                binding.listCategory.setAdapter(listCategoryAdapter);
-                //goi uy quyen cho danh muc
-                listCategoryAdapter.setItemClick(new ListCategoryAdapter.ItemClickListener() {
-                    @Override
-                    public void onItemClick(ListCategoryAdapter.ViewHolder holder) {
-                        String key = holder.getCategoryKey();
-                        if (!key.isEmpty()) {
-                            Intent intent = new Intent(MainActivity.this, ListProductsActivity.class);
-                            intent.putExtra(CLICKED_CATEGORY_KEY, key);
-                            Log.d(CLICKED_CATEGORY_KEY, key + "");
-
-                            intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-
-                            // chuyen
-                            startActivity(intent);
-                        }
-                    }
-                });
             }
         });
 
-        //san pham
+        //product adapter
         products = new ArrayList<>();
-        ProductAPI.all(new ProductAPI.FirebaseCallbackAll() {
+        ListProductsAdapter adapter = new ListProductsAdapter(MainActivity.this, products);
+        GridLayoutManager manager2 = new GridLayoutManager(MainActivity.this, 3);
+        manager2.setOrientation(GridLayoutManager.VERTICAL);
+
+        binding.listProducts.setLayoutManager(manager2);
+        binding.listProducts.setAdapter(adapter);
+        adapter.setItemClickListener(new ListProductsAdapter.ItemClickListener() {
             @Override
-            public void onCallback(ArrayList<Product> productsList) {
-                Log.d("No-1", "onCallback: " + productsList.size());
-                for (Product product : productsList) {
-                    for (Category category : product.getCategories()) {
-                        if ("5".equals(category.getKey())) {
-                            products.add(product);
-                        }
+            public void onItemClick(ListProductsAdapter.ViewHolder holder) {
+                Intent intent = new Intent(MainActivity.this, DetailActivity.class);
+                intent.putExtra(DetailActivity.DETAIL_PRODUCT_KEY, holder.getProductKey());
+
+                startActivity(intent);
+            }
+        });
+
+        //lay du lieu
+        CategoryAPI.all(new CategoryAPI.FirebaseCallbackAll() {
+            @Override
+            public void onCallback(ArrayList<Category> categoriesList) {
+               categories = categoriesList;
+               listCategoryAdapter.setCategories(categories);
+               listCategoryAdapter.notifyDataSetChanged();
+
+                for (Category category: categories ) {
+                    if (category.getKey().equals(NEW_PRODUCT_KEY)) {
+                        products = category.getProducts();
+                        adapter.setProducts(products);
+                        adapter.notifyDataSetChanged();
+                        break;
                     }
                 }
-
-                Log.d("No-2", "onCallback: " + products.size());
-                ListProductsAdapter adapter = new ListProductsAdapter(MainActivity.this, products);
-                GridLayoutManager manager2 = new GridLayoutManager(MainActivity.this, 3);
-                manager2.setOrientation(GridLayoutManager.VERTICAL);
-
-                binding.listProducts.setLayoutManager(manager2);
-                binding.listProducts.setAdapter(adapter);
-                adapter.setItemClickListener(new ListProductsAdapter.ItemClickListener() {
-                    @Override
-                    public void onItemClick(ListProductsAdapter.ViewHolder holder) {
-                        Intent intent = new Intent(MainActivity.this, DetailActivity.class);
-                        intent.putExtra(DetailActivity.DETAIL_PRODUCT_KEY, holder.getProductKey());
-
-                        startActivity(intent);
-                    }
-                });
             }
         });
 
         viewFlipper = findViewById(R.id.bannerViewFlipper);
         ActionViewFlipper();
 
+        binding.navbar.setActiveIndex(0);
         binding.navbar.setNavClickListener(new Navbar.OnNavClickListener() {
             @Override
             public void onHomeButtonClick(View view) {
@@ -138,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
             public void onDiscountButtonClick(View view) {
                 //chuyen qua danh muc uu dai
                 Intent intent = new Intent(MainActivity.this, ListProductsActivity.class);
-                intent.putExtra(MainActivity.CLICKED_CATEGORY_KEY, "0");
+                intent.putExtra(MainActivity.CLICKED_CATEGORY_KEY, ListProductsActivity.DISCOUT_KEY);
 
                 intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 
@@ -198,8 +198,37 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-    }
+        //set app's info
+        ConfigAPI.find("APP_EVENT", new ConfigAPI.FirebaseCallback() {
+            @Override
+            public void onCallback(String config) {
+                binding.event.setText(config);
+            }
+        });
 
+        ConfigAPI.find("APP_EVENT_DESC", new ConfigAPI.FirebaseCallback() {
+            @Override
+            public void onCallback(String config) {
+                binding.eventDesc.setText(config);
+            }
+        });
+
+        binding.websiteLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ConfigAPI.find("APP_LINK", new ConfigAPI.FirebaseCallback() {
+                    @Override
+                    public void onCallback(String config) {
+//                Log.d("--LINK", "onCallback: " + config);
+                        Intent intent = new Intent(Intent.ACTION_VIEW);
+                        intent.setData(Uri.parse(config));
+
+                        startActivity(intent);
+                    }
+                });
+            }
+        });
+    }
     // gọi action để chạy ViewFlipper
     private void ActionViewFlipper() {
         List<String> bannerViewFlipper = new ArrayList<>();
@@ -220,5 +249,4 @@ public class MainActivity extends AppCompatActivity {
         viewFlipper.setInAnimation(slide_in);
         viewFlipper.setOutAnimation(slide_out);
     }
-
 }

@@ -10,7 +10,7 @@
     <ImageButton
         android:id="@+id/btnHome"
         style="@style/NavButtonStyle"
-        android:background="@drawable/home_icon" />
+        android:background="@drawable/home_icon"/>
 
     <ImageButton
         android:id="@+id/btnDiscount"
