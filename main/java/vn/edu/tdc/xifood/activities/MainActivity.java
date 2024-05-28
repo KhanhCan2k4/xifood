@@ -37,6 +37,7 @@ import vn.edu.tdc.xifood.apis.ConfigAPI;
 import vn.edu.tdc.xifood.apis.ProductAPI;
 import vn.edu.tdc.xifood.apis.SharePreference;
 import vn.edu.tdc.xifood.apis.UserAPI;
+import vn.edu.tdc.xifood.apis.UserPreferences;
 import vn.edu.tdc.xifood.data.CategoryData;
 import vn.edu.tdc.xifood.data.ListProductsData;
 import vn.edu.tdc.xifood.databinding.MainLayoutBinding;
@@ -148,7 +149,6 @@ public class MainActivity extends AppCompatActivity {
             public void onOrderButtonClick(View view) {
                 Intent intent;
                 intent = new Intent(MainActivity.this, OrderActivity.class);
-
                 intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 
                 // chuyen
