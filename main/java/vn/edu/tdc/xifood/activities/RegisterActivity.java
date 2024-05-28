@@ -121,10 +121,13 @@ public class RegisterActivity extends AppCompatActivity {
                     for (User u : users) {
                         if (u.getEmail().equalsIgnoreCase(email)) {
                             //email already exist
-                            showAlert("THÔNG BÁO", "Email đã tồn tại");
-                            registerButton.setText("Đăng ký");
-                            registerButton.setEnabled(true);
-                            return;
+                            if (!isFinishing()) {
+                                showAlert("THÔNG BÁO", "Email đã tồn tại");
+                                registerButton.setText("Đăng ký");
+                                registerButton.setEnabled(true);
+                                return;
+                            }
+
                         }
                     }
 
@@ -200,7 +203,7 @@ public class RegisterActivity extends AppCompatActivity {
                 })
                 .show();
     }
-        public static boolean containsSpecialCharacter(String text) {
+    public static boolean containsSpecialCharacter(String text) {
         // Biểu thức chính quy để tìm các ký tự đặc biệt !@#$%^&*()
         String specialCharacterRegex = ".*[!@#$%^&*()].*";
         Pattern pattern = Pattern.compile(specialCharacterRegex);

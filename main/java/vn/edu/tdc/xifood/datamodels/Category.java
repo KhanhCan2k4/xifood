@@ -6,7 +6,6 @@ public class Category {
     private String key;
     private String name;
     private String icon;
-    private String keyOfUser;
     private ArrayList<Product> products;
     private ArrayList<Topping> toppings;
 
@@ -15,14 +14,6 @@ public class Category {
     }
     public void setKey(String key) {
         this.key = key;
-    }
-
-    public String getKeyOfUser() {
-        return keyOfUser;
-    }
-
-    public void setKeyOfUser(String keyOfUser) {
-        this.keyOfUser = keyOfUser;
     }
 
     public String getName() {

@@ -23,8 +23,9 @@ import vn.edu.tdc.xifood.R;
 import vn.edu.tdc.xifood.adapters.ListCategoryAdapter;
 import vn.edu.tdc.xifood.adapters.ListProductsAdapter;
 import vn.edu.tdc.xifood.adapters.OrderAdapter;
-import vn.edu.tdc.xifood.datamodels.Product;
 import vn.edu.tdc.xifood.adapters.RecentsProductsAdapter;
+import vn.edu.tdc.xifood.datamodels.Product;
+
 import vn.edu.tdc.xifood.apis.CategoryAPI;
 import vn.edu.tdc.xifood.apis.ImageStorageReference;
 import vn.edu.tdc.xifood.apis.OrderAPI;
@@ -64,7 +65,7 @@ public class SettingActivity extends AppCompatActivity {
                 new AlertDialog.Builder(SettingActivity.this)
                         .setTitle("Đăng Xuất")
                         .setMessage("Bạn có chắc chắn muốn đăng xuất không?")
-                        .setPositiveButton("Đăng Xuất", new DialogInterface.OnClickListener() {
+                        .setPositiveButton("aĐăng Xuất", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 // Xóa tất cả dữ liệu người dùng
                                 SharePreference.clearAll();

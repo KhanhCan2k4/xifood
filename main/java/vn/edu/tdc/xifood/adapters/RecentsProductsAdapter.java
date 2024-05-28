@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 import vn.edu.tdc.xifood.databinding.ListItemRecentsSettingBinding;
+import vn.edu.tdc.xifood.datamodels.Product;
 
 public class RecentsProductsAdapter extends RecyclerView.Adapter<RecentsProductsAdapter.MyViewHolder> {
     private Activity context;
@@ -30,8 +31,8 @@ public class RecentsProductsAdapter extends RecyclerView.Adapter<RecentsProducts
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         // Lay du lieu tai position tu data src
         Product product = list.get(position);
-        holder.binding.nameProducts.setText(product.getNameProduct());
-        String price = product.getPriceProduct()+"";
+        holder.binding.nameProducts.setText(product.getName());
+        String price = product.getPrice()+"";
         String[] result = price.split("000");
         holder.binding.priceProducts.setText(result[0]+".000đ");
     }

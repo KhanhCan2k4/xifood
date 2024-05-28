@@ -16,14 +16,24 @@
         android:layout_height="80dp" />
 
     <ScrollView
-        android:paddingHorizontal="10dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="10dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="5dp"
+                android:text="THÔNG TIN SẢN PHẦM"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:textStyle="bold"></TextView>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -41,12 +51,11 @@
                     android:scaleType="fitXY"
                     android:src="@drawable/img" />
 
-
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3"
                     android:layout_marginLeft="5dp"
+                    android:layout_weight="3"
                     android:orientation="vertical">
 
                     <TextView
@@ -57,59 +66,58 @@
                         android:text="Caffe sua da uong ia thay ba"
                         android:textColor="#B00000"
                         android:textSize="24dp"
-
                         android:textStyle="bold" />
 
-
-
                     <LinearLayout
-
                         android:layout_width="match_parent"
                         android:layout_height="100dp"
                         android:orientation="horizontal">
+
                         <TextView
                             android:id="@+id/productPrice"
                             android:layout_width="150dp"
                             android:layout_height="30dp"
                             android:layout_marginRight="10dp"
-                            android:textColor="#111"
                             android:text="100000vnd"
+                            android:textColor="#111"
                             android:textSize="25dp"
                             android:textStyle="bold" />
+
                         <LinearLayout
                             android:layout_width="wrap_content"
-                            android:gravity="center_vertical"
-                            android:layout_height="match_parent">
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical">
+
                             <ImageButton
                                 android:id="@+id/minusProduct"
                                 android:layout_width="20dp"
                                 android:layout_height="25dp"
-                                android:backgroundTint="#FF4F4F"
                                 android:background="@drawable/mid"
-                                />
+                                android:backgroundTint="#FF4F4F" />
 
                         </LinearLayout>
-
 
                         <TextView
                             android:id="@+id/productAmount"
                             android:layout_width="27dp"
                             android:layout_height="match_parent"
-                            android:textStyle="bold"
                             android:gravity="center"
-                            android:textColor="#111"
                             android:text="1"
-                            android:textSize="24dp" />
+                            android:textColor="#111"
+                            android:textSize="24dp"
+                            android:textStyle="bold" />
+
                         <LinearLayout
-                            android:gravity="center_vertical"
                             android:layout_width="wrap_content"
-                            android:layout_height="match_parent">
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical">
+
                             <ImageButton
                                 android:id="@+id/addProduct"
                                 android:layout_width="20dp"
                                 android:layout_height="25dp"
-                                android:backgroundTint="#FF4F4F"
                                 android:background="@drawable/add"
+                                android:backgroundTint="#FF4F4F"
 
                                 />
                         </LinearLayout>
@@ -126,114 +134,28 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
 
-                android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-            " />
+                android:text="Lorem ipsum dolor sit amet, consectetur ad " />
 
             <TextView
-                android:id="@+id/Topping"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:layout_marginBottom="10dp"
-                android:textColor="#FF4F4F"
-                android:text="topping them"
-                android:textSize="16dp"
-                android:textStyle="bold" />
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="5dp"
+                android:text="TOPPING ĐI KÈM"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:textStyle="bold"></TextView>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/toppingList"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp" />
-
-            <TextView
-                android:id="@+id/Bill"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:layout_marginBottom="10dp"
-                android:textColor="#FF4F4F"
-                android:text="Don Hang Cua Ban"
-                android:textSize="16dp"
-                android:textStyle="bold" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="6"
-                    android:text="ten"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="sl"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="3"
-                    android:text="gia"
-                    android:textStyle="bold" />
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#000000" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/oderListView"
-                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#000000" />
-
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="6"
-                    android:gravity="right"
-                    android:text="tong: "
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="0"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="3"
-                    android:text="0000"
-                    android:textStyle="bold" />
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="80dp"
                 android:orientation="horizontal">
 
                 <Button
@@ -243,9 +165,7 @@
                     android:layout_margin="5dp"
                     android:layout_weight="5"
                     android:backgroundTint="#CF0000"
-                    android:text="add to card" />
-                <!--                    android:background="#CF0000"-->
-
+                    android:text="THÊM VÀO GIỎ HÀNG" />
 
                 <Button
                     android:id="@+id/buyNow"
@@ -254,11 +174,10 @@
                     android:layout_margin="5dp"
                     android:layout_weight="5"
                     android:backgroundTint="#FFC327"
-                    android:text="buy now" />
-                <!--                    android:background="#FFC327"-->
-
+                    android:text="MUA NGAY" />
 
             </LinearLayout>
+
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

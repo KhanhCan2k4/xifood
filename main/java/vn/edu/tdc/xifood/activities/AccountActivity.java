@@ -68,10 +68,10 @@ public class AccountActivity extends AppCompatActivity {
         textViewDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               if ( isEditable)
-               {
-                   showDatePickerDialog();
-               }
+                if ( isEditable)
+                {
+                    showDatePickerDialog();
+                }
 
             }
         });
@@ -110,30 +110,30 @@ public class AccountActivity extends AppCompatActivity {
                         else {
 
 
-                        String confirmNewPassword = binding.confirmNewPassword.getText().toString();
-                        //nếu như mật khẩu xác nhận không khớp với mật khẩu mới
-                        if (!newPassword.equals(confirmNewPassword)) {
-                            AlertDialog.Builder builder1 = new AlertDialog.Builder(AccountActivity.this);
-                            builder1.setMessage("Mật Khẩu xác nhận không khớp với mật khẩu vừa nhập !!!");
-                            builder1.setCancelable(true);
+                            String confirmNewPassword = binding.confirmNewPassword.getText().toString();
+                            //nếu như mật khẩu xác nhận không khớp với mật khẩu mới
+                            if (!newPassword.equals(confirmNewPassword)) {
+                                AlertDialog.Builder builder1 = new AlertDialog.Builder(AccountActivity.this);
+                                builder1.setMessage("Mật Khẩu xác nhận không khớp với mật khẩu vừa nhập !!!");
+                                builder1.setCancelable(true);
 
-                            builder1.setPositiveButton(
-                                    "Close",
-                                    new DialogInterface.OnClickListener() {
-                                        public void onClick(DialogInterface dialog, int id) {
-                                            dialog.cancel();
-                                        }
-                                    });
-                            AlertDialog alert = builder1.create();
-                            alert.show();
-                        } else {
-                            saveNewPassword(user);
-                            isEditable = false;
-                            //gan lai du lieu tu edit text sang data
-                            setUserInEditText();
-                            //vo hieu hoa chinh sua
-                            setEnableEdit(false);
-                        }
+                                builder1.setPositiveButton(
+                                        "Close",
+                                        new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int id) {
+                                                dialog.cancel();
+                                            }
+                                        });
+                                AlertDialog alert = builder1.create();
+                                alert.show();
+                            } else {
+                                saveNewPassword(user);
+                                isEditable = false;
+                                //gan lai du lieu tu edit text sang data
+                                setUserInEditText();
+                                //vo hieu hoa chinh sua
+                                setEnableEdit(false);
+                            }
                         }
                     } else {
                         isEditable = false;
@@ -395,7 +395,7 @@ public class AccountActivity extends AppCompatActivity {
 
 
         user.setDayOfBirth(binding.textViewDate.getText().toString());
-      //  saveNewPassword(user);
+        //  saveNewPassword(user);
     }
 
     private void update() {
