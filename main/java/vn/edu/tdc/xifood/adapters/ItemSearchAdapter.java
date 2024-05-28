@@ -1,7 +1,6 @@
 package vn.edu.tdc.xifood.adapters;
 
 import android.app.Activity;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -27,11 +26,13 @@ public class ItemSearchAdapter extends RecyclerView.Adapter<ItemSearchAdapter.My
         this.products = products;
     }
 
-    public void setItemClickListener(ItemClickListener itemClickListener) {
+    public void setItemClickListener(ItemClickListener itemClickListener){
         this.itemClickListener = itemClickListener;
     }
 
     // contructors
+
+
     public ItemSearchAdapter(ArrayList<Product> products, Activity context) {
         this.products = products;
         this.context = context;
@@ -49,15 +50,6 @@ public class ItemSearchAdapter extends RecyclerView.Adapter<ItemSearchAdapter.My
         ItemSearchLayoutBinding binding = (ItemSearchLayoutBinding) holder.getBinding();
         binding.txtName.setText(product.getName());
         binding.btnImage.setImageResource(R.drawable.milk_tea);
-        holder.key = product.getKey();
-        holder.binding.getRoot().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (itemClickListener != null) {
-                    itemClickListener.onItemClick(holder);
-                }
-            }
-        });
     }
 
     @Override
@@ -65,14 +57,9 @@ public class ItemSearchAdapter extends RecyclerView.Adapter<ItemSearchAdapter.My
         return products.size();
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    public class MyViewHolder extends RecyclerView.ViewHolder{
 
         private ViewBinding binding;
-        private String key;
-
-        public String getKey() {
-            return key;
-        }
 
         public MyViewHolder(@NonNull ViewBinding itemView) {
             super(itemView.getRoot());
@@ -87,8 +74,7 @@ public class ItemSearchAdapter extends RecyclerView.Adapter<ItemSearchAdapter.My
             this.binding = binding;
         }
     }
-
-    public interface ItemClickListener {
-        public void onItemClick(MyViewHolder holder);
+    public interface ItemClickListener{
+        public void onItemClick(ListSearchProductsAdapter.ViewHolder holder);
     }
 }

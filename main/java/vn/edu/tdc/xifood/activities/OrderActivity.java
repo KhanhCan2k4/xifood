@@ -1,7 +1,7 @@
 package vn.edu.tdc.xifood.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
@@ -58,8 +58,8 @@ public class OrderActivity extends AppCompatActivity {
 
                     //get this user's order
                     orderAdapter = new OrderAdapter(OrderActivity.this, thisUserOrder);
-                    LinearLayoutManager manager = new LinearLayoutManager(OrderActivity.this);
-                    manager.setOrientation(RecyclerView.VERTICAL);
+                    GridLayoutManager manager = new GridLayoutManager(OrderActivity.this, 3);
+                    manager.setOrientation(RecyclerView.HORIZONTAL);
 
                     binding.orderList.setLayoutManager(manager);
                     binding.orderList.setAdapter(orderAdapter);
@@ -151,6 +151,7 @@ public class OrderActivity extends AppCompatActivity {
 
                         if (remove) {
                             orderAdapter.notifyDataSetChanged();
+                            Toast.makeText(OrderActivity.this, "Đơn hàng đã được xóa", Toast.LENGTH_SHORT).show();
                         } else {
                             Log.e("OrderActivity", "Không thể xóa đơn hàng khỏi danh sách local");
                         }
@@ -186,6 +187,8 @@ public class OrderActivity extends AppCompatActivity {
                 public void onCallback(Order order) {
                     if (order != null) {
 
+                        // Thêm đơn hàng mới vào danh sách
+//                        thisUserOrder.add(order);
 
                         // cap nhat lai giao dien
                         orderAdapter.notifyDataSetChanged();

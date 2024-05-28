@@ -58,9 +58,7 @@ public class AccountActivity extends AppCompatActivity {
         binding.oldPassword.setTransformationMethod(new PasswordTransformationMethod());
         binding.newPassword.setTransformationMethod(new PasswordTransformationMethod());
         binding.confirmNewPassword.setTransformationMethod(new PasswordTransformationMethod());
-      
-//         setUser(user);
-//        binding.imageUser.setImageResource(user.getImage());
+
 
         //edit button
         binding.editBtn.setOnClickListener(new View.OnClickListener() {
@@ -321,19 +319,19 @@ public class AccountActivity extends AppCompatActivity {
         binding.phoneNumberUser.setText(user.getPhoneNumber());
     }
 
-//    private void setEnableEdit(boolean isEditable) {
-//        binding.nameUser.setEnabled(isEditable);
-////        binding.bioUser.setEnabled(isEditable);
-//        binding.genderUser.setEnabled(isEditable);
-//        binding.dayBornUser.setEnabled(isEditable);
-//        binding.emailUser.setEnabled(isEditable);
-//        binding.phoneNumberUser.setEnabled(isEditable);
-//        binding.oldPassword.setEnabled(isEditable);
-//        binding.newPassword.setEnabled(false);
-//        binding.confirmNewPassword.setEnabled(false);
-//        //calendar button
-////        binding.calendarButton.setEnabled(isEditable);
-//    }
+    private void setEnableEdit(boolean isEditable) {
+        binding.nameUser.setEnabled(isEditable);
+//        binding.bioUser.setEnabled(isEditable);
+        binding.genderUser.setEnabled(isEditable);
+        binding.dayBornUser.setEnabled(isEditable);
+        binding.emailUser.setEnabled(isEditable);
+        binding.phoneNumberUser.setEnabled(isEditable);
+        binding.oldPassword.setEnabled(isEditable);
+        binding.newPassword.setEnabled(false);
+        binding.confirmNewPassword.setEnabled(false);
+        //calendar button
+//        binding.calendarButton.setEnabled(isEditable);
+    }
 
     public boolean checkPassword(String inputPassword, String storedHash) {
         return BCrypt.checkpw(inputPassword, storedHash);
@@ -371,14 +369,6 @@ public class AccountActivity extends AppCompatActivity {
         user.setPhoneNumber(binding.phoneNumberUser.getText().toString());
     }
 
-    private void setEnableEdit(boolean isEditable) {
-        binding.nameUser.setEnabled(isEditable);
-        binding.genderUser.setClickable(isEditable);
-        binding.dayBornUser.setEnabled(isEditable);
-        binding.emailUser.setEnabled(isEditable);
-        binding.phoneNumberUser.setEnabled(isEditable);
-    }
-  
     @Override
     protected void onResume() {
         super.onResume();

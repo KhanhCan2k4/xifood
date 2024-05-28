@@ -71,9 +71,9 @@ public class DetailUpdateProductActivity extends AppCompatActivity {
 
         // Cập nhật giao diện để hiển thị số lượng sản phẩm
         binding.productAmount.setText(String.valueOf(oldAmount[0]));
-        binding.productName.setText("Đang tải...");
-        binding.productPrice.setText("Đang tải...");
-        binding.productDes.setText("Đang tải...");
+        binding.productName.setText("Load...");
+        binding.productPrice.setText("Load...");
+        binding.productDes.setText("Load...");
         ImageStorageReference.setImageInto(binding.productImg, "products/default.png");
         ProductAPI.find(key, new ProductAPI.FirebaseCallback() {
             @Override
@@ -154,7 +154,7 @@ public class DetailUpdateProductActivity extends AppCompatActivity {
         binding.Capnhat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                binding.Capnhat.setText("Cập nhật Thành Công");
+                binding.Capnhat.setText("Update successfully");
                 binding.Capnhat.setEnabled(false);
 
                 UpdateProduct(oldAmount[0], toppingsWithAmount, false);
@@ -168,7 +168,7 @@ public class DetailUpdateProductActivity extends AppCompatActivity {
         binding.quayLai.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                binding.quayLai.setText("Đang tải...");
+                binding.quayLai.setText("Load...");
                 binding.quayLai.setEnabled(false);
 
                 Intent returnIntent = new Intent();
@@ -202,9 +202,9 @@ public class DetailUpdateProductActivity extends AppCompatActivity {
                     OnSuccessListener<Void> onSuccessListener = new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
-                            binding.Capnhat.setText("Cập nhật sản phẩm");
+                            binding.Capnhat.setText("Update product");
                             binding.Capnhat.setEnabled(true);
-                            showAlert("THÔNG BÁO", "Cập nhật sản phẩm thành công");
+                            showAlert("Notification", "Update successfully");
 
                             Intent intent = new Intent();
                             intent.putExtra("isCartUpdated", true);
@@ -216,9 +216,9 @@ public class DetailUpdateProductActivity extends AppCompatActivity {
                     OnCanceledListener onCanceledListener = new OnCanceledListener() {
                         @Override
                         public void onCanceled() {
-                            binding.Capnhat.setText("Cập nhật sản phẩm");
+                            binding.Capnhat.setText("Update product");
                             binding.Capnhat.setEnabled(true);
-                            showAlert("THÔNG BÁO", "Đã xảy ra lỗi, vui lòng thử lại sau :<");
+                            showAlert("Notification", "An error occurred, please try again later :<");
                         }
                     };
 
@@ -268,9 +268,9 @@ public class DetailUpdateProductActivity extends AppCompatActivity {
         OnSuccessListener<Void> onSuccessListener = new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
-                binding.Capnhat.setText("Cập nhật sản phẩm");
+                binding.Capnhat.setText("Update product");
                 binding.Capnhat.setEnabled(true);
-                showAlert("THÔNG BÁO", "Cập nhật sản phẩm thành công");
+                showAlert("Notification", "Update successfully");
 
                 Intent intent = new Intent();
                 intent.putExtra("isCartUpdated", true);
@@ -282,9 +282,9 @@ public class DetailUpdateProductActivity extends AppCompatActivity {
         OnCanceledListener onCanceledListener = new OnCanceledListener() {
             @Override
             public void onCanceled() {
-                binding.Capnhat.setText("Cập nhật sản phẩm");
+                binding.Capnhat.setText("Update product");
                 binding.Capnhat.setEnabled(true);
-                showAlert("THÔNG BÁO", "Đã xảy ra lỗi, vui lòng thử lại sau :<");
+                showAlert("Notification", "An error occurred, please try again later :<");
             }
         };
 

@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import vn.edu.tdc.xifood.R;
-import vn.edu.tdc.xifood.datamodels.Product;
 import vn.edu.tdc.xifood.datamodels.Topping;
 
 public class ToppinAdapter extends RecyclerView.Adapter<ToppinAdapter.ViewHolder> {
@@ -48,7 +47,7 @@ public class ToppinAdapter extends RecyclerView.Adapter<ToppinAdapter.ViewHolder
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Topping topping = toppings.get(position);
         holder.nameTopping.setText(topping.getName());
-        holder.priceTopping.setText(Product.getPriceInFormat(topping.getPrice()));
+        holder.priceTopping.setText(topping.getPrice()+"");
         holder.checkbox.setOnCheckedChangeListener(null); // Disable listener to prevent triggering previous listener
 
         // Set checked status based on toppingsWithAmount map

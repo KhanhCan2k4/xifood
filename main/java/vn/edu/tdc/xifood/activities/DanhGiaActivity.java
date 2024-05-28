@@ -154,6 +154,14 @@ public class DanhGiaActivity extends AppCompatActivity {
             disableReviewInputs();
         }
 
+        // update
+//        OrderAPI.update(order);
+
+        // khi an danh gia thi se khong cho chon de danh gia nua
+//        binding.rating.setEnabled(false);
+//        binding.btnAddImage.setVisibility(View.GONE);
+//        binding.txtReview.setEnabled(false);
+//        binding.danhGia.setVisibility(View.GONE);
     }
 
     private void loadReview(String key) {

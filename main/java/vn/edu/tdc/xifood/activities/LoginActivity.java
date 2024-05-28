@@ -25,10 +25,13 @@ import java.util.ArrayList;
 import java.util.regex.Pattern;
 
 import vn.edu.tdc.xifood.R;
+import vn.edu.tdc.xifood.activities.MainActivity;
+import vn.edu.tdc.xifood.activities.RegisterActivity;
 import vn.edu.tdc.xifood.apis.SharePreference;
 import vn.edu.tdc.xifood.apis.UserAPI;
 import vn.edu.tdc.xifood.apis.UserPreferences;
 import vn.edu.tdc.xifood.datamodels.User;
+import vn.edu.tdc.xifood.staffProcessing.MainStaffActivity;
 
 public class LoginActivity extends AppCompatActivity {
     private EditText usernameEditText, passwordEditText;
@@ -113,7 +116,12 @@ public class LoginActivity extends AppCompatActivity {
                         SharePreference.store(SharePreference.USER_PERMISSION, user.getPermistion());
 
                         //check permisstion
-                        navigateToMainActivity();
+//                        Log.d("TAG", "login: success");
+                        if (user.getPermistion() == UserAPI.STAFF_PERMISSION) { //is staff
+                            navigateToMainActivityForStaff();
+                        } else { //is normal user
+                            navigateToMainActivity();
+                        }
                     }
                 }
 
@@ -131,6 +139,12 @@ public class LoginActivity extends AppCompatActivity {
 
     private void navigateToMainActivity() {
         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    private void navigateToMainActivityForStaff() {
+        Intent intent = new Intent(LoginActivity.this, MainStaffActivity.class);
         startActivity(intent);
         finish();
     }

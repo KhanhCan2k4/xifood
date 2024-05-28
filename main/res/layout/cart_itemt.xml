@@ -144,11 +144,12 @@ android:src="@drawable/edit"
         android:layout_height="wrap_content"
         android:layout_weight="6"/>
     <CheckBox
-        android:layout_margin="15dp"
+        android:layout_margin="20dp"
         android:id="@+id/checkChonMua"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Chọn mua" />
+        android:textStyle="bold|italic"
+        android:text="Buy" />
 </LinearLayout>
 
 </LinearLayout>
