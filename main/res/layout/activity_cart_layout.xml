@@ -8,15 +8,22 @@
     android:orientation="vertical"
     tools:context=".activities.CartActivity">
 
+    <vn.edu.tdc.xifood.views.CancelHeader
+        android:id="@+id/cancelHeader"
+        android:layout_width="match_parent"
+        android:layout_height="70dp" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/listCart"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1" />
 
-    <vn.edu.tdc.xifood.views.Navbar
-        android:id="@+id/navbar"
+
+    <vn.edu.tdc.xifood.views.ActionFooter
+        android:id="@+id/cartFooter"
         android:layout_width="match_parent"
-        android:layout_height="70dp"/>
+        android:layout_height="100dp" />
+
 
 </androidx.appcompat.widget.LinearLayoutCompat>

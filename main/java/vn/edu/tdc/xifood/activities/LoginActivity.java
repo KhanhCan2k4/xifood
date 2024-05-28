@@ -37,6 +37,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText usernameEditText, passwordEditText;
     private GoogleSignInClient mGoogleSignInClient;
     private static final int RC_SIGN_IN = 9001;
+    private String alert="đăng nhập không thành công! vui lòng kiểm tra lại email hoặc mật khẩu!";
     public static final Pattern VALID_EMAIL_ADDRESS_REGEX =
             Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
 
@@ -63,7 +64,7 @@ public class LoginActivity extends AppCompatActivity {
 
         findViewById(R.id.btnRegister).setOnClickListener(v -> navigateToRegister());
         findViewById(R.id.btnSignIn).setOnClickListener(v -> login());
-        findViewById(R.id.loginWithGoogle).setOnClickListener(v -> signInWithGoogle());
+        findViewById(R.id.loginWithGoogle).setOnClickListener(v -> dangNhapGoogle());
     }
 
     private void navigateToRegister() {
@@ -82,7 +83,7 @@ public class LoginActivity extends AppCompatActivity {
 
         //check valid email
         if (!VALID_EMAIL_ADDRESS_REGEX.matcher(email).matches()) {
-            showAlert("THÔNG BÁO", "Email không hợp lệ");
+            showAlert("THÔNG BÁO", alert);
             btnLogin.setText("Đăng nhập");
             btnLogin.setEnabled(true);
             return;
@@ -90,7 +91,7 @@ public class LoginActivity extends AppCompatActivity {
 
         //check less then 6 characters password
         if (password.length() < 6 || password.length() > 15) {
-            showAlert("THÔNG BÁO", "Mật khẩu chỉ từ 6 đến 15 kí tự");
+            showAlert("THÔNG BÁO", alert);
             btnLogin.setText("Đăng nhập");
             btnLogin.setEnabled(true);
             return;
@@ -118,7 +119,10 @@ public class LoginActivity extends AppCompatActivity {
                         //check permisstion
 //                        Log.d("TAG", "login: success");
                         if (user.getPermistion() == UserAPI.STAFF_PERMISSION) { //is staff
-                            navigateToMainActivityForStaff();
+                          //  navigateToMainActivityForStaff();
+                            Intent intent = new Intent(LoginActivity.this, MainStaffActivity.class);
+                            startActivity(intent);
+                            finish();
                         } else { //is normal user
                             navigateToMainActivity();
                         }
@@ -128,7 +132,7 @@ public class LoginActivity extends AppCompatActivity {
                 //login failed
                 btnLogin.setText("Đăng nhập");
                 btnLogin.setEnabled(true);
-                showAlert("THÔNG BÁO", "Đăng nhập không thành công. Vui lòng kiểm tra lại thông tin đăng nhập.");
+                showAlert("THÔNG BÁO", alert);
             }
         });
     }
@@ -150,16 +154,18 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void showAlert(String title, String message) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(title)
-                .setMessage(message)
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                })
-                .show();
+        if (!isFinishing()) { // Kiểm tra xem activity có đang kết thúc không
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle(title)
+                    .setMessage(message)
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    })
+                    .show();
+        }
     }
 
     private void signInWithGoogle() {
@@ -174,6 +180,11 @@ public class LoginActivity extends AppCompatActivity {
         // Gửi Intent để yêu cầu đăng nhập Google
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
+
+    }
+    private void dangNhapGoogle() {
+        Toast.makeText(LoginActivity.this, "Tính năng đang được cập nhật", Toast.LENGTH_LONG).show();
+
     }
 
     @Override
@@ -187,7 +198,7 @@ public class LoginActivity extends AppCompatActivity {
             } else {
                 // Đăng nhập không thành công
                 Log.e("GoogleSignIn", "Đăng nhập không thành công");
-                showAlert("LỖI", "Đăng nhập không thành công. Vui lòng kiểm tra lại thông tin đăng nhập.");
+                showAlert("LỖI", alert);
             }
         }
     }
@@ -200,8 +211,8 @@ public class LoginActivity extends AppCompatActivity {
                 })
                 .addOnFailureListener(e -> {
                     // Xử lý đăng nhập thất bại
-                    Log.e("GoogleSignIn", "Đăng nhập không thành công", e);
-                    showAlert("LỖI", "Đăng nhập không thành công");
+                    Log.e("GoogleSignIn", alert, e);
+                    showAlert("LỖI", alert);
                 });
     }
 
@@ -215,5 +226,6 @@ public class LoginActivity extends AppCompatActivity {
 
         // Chuyển hướng đến MainActivity
         navigateToMainActivity();
+
     }
 }

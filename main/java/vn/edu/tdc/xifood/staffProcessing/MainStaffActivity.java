@@ -138,15 +138,17 @@ public class MainStaffActivity extends AppCompatActivity {
     private void upDate(int nextId) {
         id = nextId;
 
-        binding.categoryName.setText(categories.get(id).getName());
-//        products = ListProductsData.getProducts();
-        products = new ArrayList<>();
+        if (categories.size() > 0 ){
+            binding.categoryName.setText(categories.get(id).getName());
+            products = new ArrayList<>();
 
-        //xet mang moi, truoc khi cap nhat
-        adapter.setProducts(products);
-        //thong bao cap nhat
-        adapter.notifyDataSetChanged();
+            // Xác định danh sách sản phẩm mới trước khi cập nhật
+            adapter.setProducts(products);
+            // Thông báo cập nhật
+            adapter.notifyDataSetChanged();
     }
+}
+
 
     @Override
     protected void onResume() {

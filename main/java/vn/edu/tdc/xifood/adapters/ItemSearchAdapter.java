@@ -18,6 +18,13 @@ public class ItemSearchAdapter extends RecyclerView.Adapter<ItemSearchAdapter.My
     private Activity context;
     private ItemClickListener itemClickListener;
 
+    public ArrayList<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(ArrayList<Product> products) {
+        this.products = products;
+    }
 
     public void setItemClickListener(ItemClickListener itemClickListener){
         this.itemClickListener = itemClickListener;

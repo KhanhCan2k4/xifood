@@ -17,6 +17,7 @@ import java.util.ArrayList;
 
 import vn.edu.tdc.xifood.datamodels.Order;
 import vn.edu.tdc.xifood.datamodels.OrderedProduct;
+import vn.edu.tdc.xifood.datamodels.Product;
 
 public class CartAPI {
     private static String tblName = "carts";
@@ -58,6 +59,39 @@ public class CartAPI {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 callback.onCallback(null);
+            }
+        });
+    }
+    public static void storeM(String userId, Order order, OnSuccessListener<Void> onSuccessListener, OnCanceledListener onCanceledListener) {
+        find(userId, new FirebaseCallback() {
+            @Override
+            public void onCallback(Order oldOrder) {
+                DatabaseReference itemRef;
+                if (oldOrder == null) { // new cart
+                    // first time to have a cart --> create new one
+                    itemRef = cartRef.child(userId);
+                    itemRef.setValue(order)
+                            .addOnSuccessListener(onSuccessListener)
+                            .addOnCanceledListener(onCanceledListener);
+                } else {
+                    // merge the new order into the existing order
+                    OrderedProduct newProduct = order.getOrderedProducts().get(0);
+                    boolean productExists = false;
+                    for (OrderedProduct existingProduct : oldOrder.getOrderedProducts()) {
+                        if (existingProduct.getProduct().getKey().equals(newProduct.getProduct().getKey())) {
+                            existingProduct.mergeProduct(newProduct);
+                            productExists = true;
+                            break;
+                        }
+                    }
+                    if (!productExists) {
+                        oldOrder.addOrderedProduct(newProduct);
+                    }
+                    itemRef = cartRef.child(userId);
+                    itemRef.setValue(oldOrder)
+                            .addOnSuccessListener(onSuccessListener)
+                            .addOnCanceledListener(onCanceledListener);
+                }
             }
         });
     }
@@ -212,6 +246,13 @@ public class CartAPI {
         itemRef.setValue(order);
     }
 
+    public static void updateOrderedProductCheckPay(String userId, String productId, boolean isChecked, OnSuccessListener<Void> onSuccessListener, OnCanceledListener onCanceledListener) {
+        DatabaseReference cartRef = FirebaseDatabase.getInstance().getReference().child("carts").child(userId).child("products").child(productId);
+        cartRef.child("checkPay").setValue(isChecked)
+                .addOnSuccessListener(onSuccessListener)
+                .addOnCanceledListener(onCanceledListener);
+    }
+
     //interfaces
     public interface FirebaseCallbackAll {
         void onCallback(ArrayList<Order> orders);
@@ -220,4 +261,41 @@ public class CartAPI {
     public interface FirebaseCallback {
         void onCallback(Order order);
     }
+
+    public static void updateOrderedProduct(String userId, OrderedProduct updatedProduct, OnSuccessListener<Void> onSuccessListener, OnCanceledListener onCanceledListener) {
+        DatabaseReference itemRef = cartRef.child(userId);
+        itemRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    Order order = snapshot.getValue(Order.class);
+                    if (order != null && order.getOrderedProducts() != null) {
+                        ArrayList<OrderedProduct> orderedProducts = order.getOrderedProducts();
+                        for (int i = 0; i < orderedProducts.size(); i++) {
+                            if (orderedProducts.get(i).getProduct().getKey().equals(updatedProduct.getProduct().getKey())) {
+                                orderedProducts.set(i, updatedProduct);
+                                break;
+                            }
+                        }
+                        order.setOrderedProducts(orderedProducts);
+                        itemRef.setValue(order)
+                                .addOnSuccessListener(onSuccessListener)
+                                .addOnCanceledListener(onCanceledListener);
+                    } else {
+                        onCanceledListener.onCanceled();
+                    }
+                } else {
+                    onCanceledListener.onCanceled();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.e("CartAPI", "Failed to update item in Firebase: " + error.getMessage());
+                onCanceledListener.onCanceled();
+            }
+        });
+    }
+
 }
+
