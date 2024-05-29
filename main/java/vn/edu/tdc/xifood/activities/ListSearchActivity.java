@@ -1,22 +1,24 @@
 package vn.edu.tdc.xifood.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
+import android.view.Menu;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 
 import java.util.ArrayList;
 
-import vn.edu.tdc.xifood.adapters.ListProductsAdapter;
+import vn.edu.tdc.xifood.adapters.ListSearchProductsAdapter;
 import vn.edu.tdc.xifood.adapters.ItemSearchAdapter;
 import vn.edu.tdc.xifood.apis.ProductAPI;
-import vn.edu.tdc.xifood.apis.SharePreference;
 import vn.edu.tdc.xifood.databinding.ListSearchLayoutBinding;
 import vn.edu.tdc.xifood.datamodels.Product;
 
@@ -26,7 +28,6 @@ public class ListSearchActivity extends AppCompatActivity {
     private ArrayList<Product> productsSearch;
     private ItemSearchAdapter itemSearchAdapter;
     private String keyWord = "";
-    private ListProductsAdapter listProductsAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,72 +35,72 @@ public class ListSearchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ListSearchLayoutBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        ImageButton startSearch = binding.startSearch;
         EditText editText = binding.keyWordOfSearchLayout;
+
         productsSearch = new ArrayList<Product>();
-
-        itemSearchAdapter = new ItemSearchAdapter(productsSearch, ListSearchActivity.this);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(ListSearchActivity.this);
-        layoutManager.setReverseLayout(false);
-        binding.listSearchProducts.setLayoutManager(layoutManager);
-        binding.listSearchProducts.setAdapter(itemSearchAdapter);
-
-        listProductsAdapter = new ListProductsAdapter(ListSearchActivity.this, new ArrayList<>());
-        GridLayoutManager layoutManager1 = new GridLayoutManager(ListSearchActivity.this, 3);
-        layoutManager1.setOrientation(GridLayoutManager.VERTICAL);
-        binding.recentSearchList.setLayoutManager(layoutManager1);
-        binding.recentSearchList.setAdapter(listProductsAdapter);
-
-        itemSearchAdapter.setItemClickListener(new ItemSearchAdapter.ItemClickListener() {
+        ProductAPI.all(new ProductAPI.FirebaseCallbackAll() {
             @Override
-            public void onItemClick(ItemSearchAdapter.MyViewHolder holder) {
-                Intent intent = new Intent(ListSearchActivity.this, DetailActivity.class);
-                intent.putExtra(DetailActivity.DETAIL_PRODUCT_KEY, holder.getKey());
+            public void onCallback(ArrayList<Product> products) {
+                productsSearch=products;
+                itemSearchAdapter = new ItemSearchAdapter(productsSearch, ListSearchActivity.this);
+                LinearLayoutManager layoutManager = new LinearLayoutManager(ListSearchActivity.this);
+                layoutManager.setReverseLayout(false);
+                binding.listSearchProducts.setLayoutManager(layoutManager);
+                binding.listSearchProducts.setAdapter(itemSearchAdapter);
+            }
+        });
 
-                String txtKeys = SharePreference.find(SharePreference.LIKED_PRODUCTS_KEY);
-                String[] keys = txtKeys.split("_____");
-                ArrayList<String> arrKeys = new ArrayList<>();
 
-                for (String key : keys) {
-                    if (key.equals(holder.getKey())) { //exists
-                        arrKeys.remove(key); //remove
-                    } else {
-                        arrKeys.add(key + "_____");
+
+        startSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                keyWord = String.valueOf(binding.keyWordOfSearchLayout.getText());
+                Log.d("startSearch", "onItemClick: " + keyWord);
+
+//                productsSearch = search(keyWord);
+//                itemSearchAdapter = new ItemSearchAdapter(productsSearch, ListSearchActivity.this);
+//                LinearLayoutManager layoutManager = new LinearLayoutManager(ListSearchActivity.this);
+//                layoutManager.setReverseLayout(false);
+//                binding.listSearchProducts.setLayoutManager(layoutManager);
+//                binding.listSearchProducts.setAdapter(itemSearchAdapter);
+                ProductAPI.all(new ProductAPI.FirebaseCallbackAll() {
+                    @Override
+                    public void onCallback(ArrayList<Product> products) {
+                        productsSearch.clear();
+                        for (int i = 0; i < products.size(); i++) {
+
+                            if (products.get(i).getName().toLowerCase().contains(keyWord.toLowerCase()) == true) {
+//                                productsSearch.clear();
+                                productsSearch.add(products.get(i));
+                                Log.d("product search list", "product " + products.get(i).getName());
+                            }
+                        }
+                        Log.d("a", "onTextChanged: " + productsSearch.size());
+                        itemSearchAdapter.notifyDataSetChanged();
                     }
-                }
+                });
 
-                if (arrKeys.size() < 6) {
-                    arrKeys.add(0, holder.getKey() + "_____");
-                } else {
-                    arrKeys.remove(5);
-                    arrKeys.add(0, holder.getKey() + "_____");
-                }
 
-                txtKeys = "";
-                for (String key: arrKeys ) {
-                    txtKeys += key;
-                }
-                SharePreference.store(
-                        SharePreference.LIKED_PRODUCTS_KEY, //overwrites the previous value
-                       txtKeys //shave key
-                );
-
-                startActivity(intent);
             }
         });
 
-        listProductsAdapter.setItemClickListener(new ListProductsAdapter.ItemClickListener() {
-            @Override
-            public void onItemClick(ListProductsAdapter.ViewHolder holder) {
-                Intent intent = new Intent(ListSearchActivity.this, DetailActivity.class);
-                intent.putExtra(DetailActivity.DETAIL_PRODUCT_KEY, holder.getProductKey());
-                startActivity(intent);
-            }
-        });
 
         editText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                search("");
+
+                ProductAPI.all(new ProductAPI.FirebaseCallbackAll() {
+                    @Override
+                    public void onCallback(ArrayList<Product> products) {
+                        for (int i = 0; i < products.size(); i++) {
+                            productsSearch.add(products.get(i));
+                        }
+                        itemSearchAdapter.notifyDataSetChanged();
+                    }
+                });
+
             }
 
             @Override
@@ -114,8 +115,7 @@ public class ListSearchActivity extends AppCompatActivity {
                 search(keyWord);
             }
         });
-
-        // chuyen lai man hinh truoc do
+        // chuyen lai mang hinh truoc do
         binding.btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -124,46 +124,30 @@ public class ListSearchActivity extends AppCompatActivity {
 
         });
 
+
+    }
+
+    public void search(String key) {
         ProductAPI.all(new ProductAPI.FirebaseCallbackAll() {
             @Override
             public void onCallback(ArrayList<Product> products) {
-                productsSearch = products;
-                search("");
+                productsSearch.clear();
+                for (int i = 0; i < products.size(); i++) {
+                    Log.d("dss", "onCallback: "+products.size());
+                    if (products.get(i).getName().toLowerCase().contains(keyWord.toLowerCase()) == true) {
+//                                productsSearch.clear();
+                        productsSearch.add(products.get(i));
+
+                        Log.d("product search list", "product " + products.get(i).getName());
+                    }
+                }
+
+                Log.d("TAG", "onCallback: " + productsSearch.size());
+                itemSearchAdapter.setProducts(productsSearch);
+                itemSearchAdapter.notifyDataSetChanged();
+
             }
         });
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-//        Log.d("--TAG", "onResume: " + SharePreference.find(SharePreference.LIKED_PRODUCTS_KEY));
-        ArrayList<Product> searchedProducts = new ArrayList<Product>();
-
-        String[] keys = SharePreference.find(SharePreference.LIKED_PRODUCTS_KEY).split("_____");
-//        Log.d("--TAG", "keys size : " + keys.length);
-        for (String key : keys) {
-//            Log.d("--TAG", "key: " + key);
-            if (key.isEmpty()) continue;
-            for (Product product : productsSearch) {
-                if (product.getKey().equals(key)) {
-                    searchedProducts.add(product);
-                }
-            }
-        }
-
-        listProductsAdapter.setProducts(searchedProducts);
-        listProductsAdapter.notifyDataSetChanged();
-    }
-
-    public void search(String key) {
-        ArrayList<Product> searchedProducts = new ArrayList<Product>();
-        for (int i = 0; i < productsSearch.size(); i++) {
-            if (key.isEmpty() || productsSearch.get(i).getName().toLowerCase().contains(key.toLowerCase()) == true) {
-                searchedProducts.add(productsSearch.get(i));
-            }
-        }
-
-        itemSearchAdapter.setProducts(searchedProducts);
-        itemSearchAdapter.notifyDataSetChanged();
-    }
 }

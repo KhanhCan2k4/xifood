@@ -17,7 +17,7 @@ public class TableAPI {
     private static String tblName = "tables";
     private static DatabaseReference tableRef = FirebaseDatabase.getInstance().getReference(tblName);
     public static void all(FirebaseCallbackAll callback) {
-        tableRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        tableRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 ArrayList<Table> tables = new ArrayList<>();

@@ -96,6 +96,26 @@ public class CartAPI {
         });
     }
 
+//    public static void find(String userId, FirebaseCallback callback) {
+//        DatabaseReference itemRef = cartRef.child(userId);
+//
+//        itemRef.addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                Order order = null;
+//                if (snapshot.exists()) {
+//                    order = snapshot.getValue(Order.class);
+//                }
+//                callback.onCallback(order);
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//                callback.onCallback(null);
+//            }
+//        });
+//    }
+
     public static void find(String userId, FirebaseCallback callback) {
         DatabaseReference itemRef = cartRef.child(userId);
 
@@ -105,6 +125,13 @@ public class CartAPI {
                 Order order = null;
                 if (snapshot.exists()) {
                     order = snapshot.getValue(Order.class);
+
+                    // Ghi nhật ký để kiểm tra dữ liệu trả về từ Firebase
+                    if (order != null) {
+                        for (OrderedProduct orderedProduct : order.getOrderedProducts()) {
+                            Log.d("CartAPI", "Loaded Product: " + orderedProduct.getProduct().getKey() + ", isCheckedPay: " + orderedProduct.isCheckedPay());
+                        }
+                    }
                 }
                 callback.onCallback(order);
             }
@@ -115,6 +142,7 @@ public class CartAPI {
             }
         });
     }
+
 
     public static void store(String userId, Order order, OnSuccessListener<Void> onSuccessListener, OnCanceledListener onCanceledListener) {
         find(userId, new FirebaseCallback() {

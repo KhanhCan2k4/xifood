@@ -65,6 +65,6 @@ public class Product implements Serializable {
     }
 
     public static String getPriceInFormat(Object price) {
-        return new DecimalFormat("#,###,### VND").format(price);
+        return new DecimalFormat("#,###,###VND").format(price);
     }
 }

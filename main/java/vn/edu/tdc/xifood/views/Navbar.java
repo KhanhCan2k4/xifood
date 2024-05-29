@@ -9,37 +9,16 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 
 import vn.edu.tdc.xifood.R;
 
 public class Navbar extends LinearLayout {
     private View prevView = null;
-    private ImageButton btnHome;
-    private  ImageButton btnDiscount;
-    private ImageButton btnOrder;
-    private ImageButton btnAccount;
-    private Context context;
-    public void setActiveIndex(int activeIndex) {
-        ImageButton activeButton = btnHome;
-
-        switch (activeIndex) {
-            case 1:
-                activeButton = btnDiscount;
-                break;
-            case 2:
-                activeButton = btnOrder;
-                break;
-            case 3:
-                activeButton = btnAccount;
-                break;
-        }
-
-        activeButton.setBackgroundTintList(ContextCompat.getColorStateList(this.context, R.color.active_button));
-
-    }
-
     private OnNavClickListener navClickListener = null;
+
+    public OnNavClickListener getNavClickListener() {
+        return navClickListener;
+    }
 
     public void setNavClickListener(OnNavClickListener navClickListener) {
         this.navClickListener = navClickListener;
@@ -95,13 +74,12 @@ public class Navbar extends LinearLayout {
     }
 
     protected void setUp(Context context) {
-        this.context = context;
         inflate(context, R.layout.navbar_layout, this);
 
-        btnHome = findViewById(R.id.btnHome);
-        btnDiscount = findViewById(R.id.btnDiscount);
-        btnOrder = findViewById(R.id.btnOrder);
-        btnAccount = findViewById(R.id.btnAccount);
+        ImageButton btnHome = findViewById(R.id.btnHome);
+        ImageButton btnDiscount = findViewById(R.id.btnDiscount);
+        ImageButton btnOrder = findViewById(R.id.btnOrder);
+        ImageButton btnAccount = findViewById(R.id.btnAccount);
 
         btnHome.setOnClickListener(onClickListener);
         btnDiscount.setOnClickListener(onClickListener);
