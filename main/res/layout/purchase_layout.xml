@@ -36,7 +36,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="30dp"
-                android:text="Thông tin đơn hàng"
+                android:text="@string/productInfomationTitle"
                 android:textColor="#FF4F4F"
                 android:textSize="18dp"
                 android:textStyle="bold" />
@@ -66,7 +66,7 @@
                     android:ellipsize="end"
                     android:gravity="center"
                     android:maxLines="1"
-                    android:text="53 Võ Văn Ngân, Linh Chiểu, Thành Phố Thủ Đức, Thành phố Hồ Chí Minh" />
+                    android:text="@string/addressDefaultProduct" />
             </LinearLayout>
 
             <LinearLayout
@@ -95,7 +95,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginRight="5dp"
-                    android:text="không voucher"
+                    android:text="@string/voucherDefaultTitle"
                     android:textAlignment="center" />
             </LinearLayout>
 
@@ -144,7 +144,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:hint="Nhập ghi chú"
+                    android:hint="@string/inputNote"
                     android:textSize="15dp" />
             </LinearLayout>
 
@@ -152,8 +152,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="50dp"
-
-                android:text="Tóm tắt đơn hàng"
+                android:text="@string/summaryProduct"
                 android:textColor="#FF4F4F"
                 android:textSize="18dp"
                 android:textStyle="bold" />
@@ -171,7 +170,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
                     android:layout_weight="5"
-                    android:text="Sản phẩm chính" />
+                    android:text="@string/mainProductTitle" />
 
                 <TextView
                     android:id="@+id/giaProduct"
@@ -180,7 +179,7 @@
                     android:layout_marginRight="5dp"
                     android:layout_weight="5"
                     android:gravity="right"
-                    android:text="80000" />
+                    android:text="@string/mainProductItem" />
             </LinearLayout>
 
             <LinearLayout
@@ -195,7 +194,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
                     android:layout_weight="5"
-                    android:text="Topping đi kèm" />
+                    android:text="@string/toppingForProduct" />
 
                 <TextView
                     android:id="@+id/giaTopping"
@@ -204,7 +203,7 @@
                     android:layout_marginRight="5dp"
                     android:layout_weight="5"
                     android:gravity="right"
-                    android:text="80000" />
+                    android:text="@string/mainProductItem" />
             </LinearLayout>
 
             <LinearLayout
@@ -219,7 +218,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
                     android:layout_weight="5"
-                    android:text="Vận chuyển" />
+                    android:text="@string/shipTitle" />
 
                 <TextView
                     android:id="@+id/phiVanChuyen"
@@ -228,7 +227,7 @@
                     android:layout_marginRight="5dp"
                     android:layout_weight="5"
                     android:gravity="right"
-                    android:text="20000" />
+                    android:text="@string/shipItemValue" />
             </LinearLayout>
 
             <LinearLayout
@@ -237,13 +236,12 @@
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:orientation="horizontal">
-
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
                     android:layout_weight="5"
-                    android:text="Giảm giá vocher" />
+                    android:text="@string/voucherDiscountTitle" />
 
                 <TextView
                     android:id="@+id/giaGia"
@@ -252,7 +250,7 @@
                     android:layout_marginRight="5dp"
                     android:layout_weight="5"
                     android:gravity="right"
-                    android:text="-200" />
+                    android:text="@string/discountVoucherItem" />
             </LinearLayout>
 
             <LinearLayout
@@ -268,7 +266,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
                     android:layout_weight="5"
-                    android:text="tổng đơn hàng"
+                    android:text="@string/totalBill"
                     android:textStyle="bold" />
 
                 <TextView
@@ -278,7 +276,7 @@
                     android:layout_marginRight="5dp"
                     android:layout_weight="5"
                     android:gravity="right"
-                    android:text="120000"
+                    android:text="@string/totalBillItem"
                     android:textStyle="bold" />
             </LinearLayout>
 
@@ -289,7 +287,7 @@
                 android:layout_margin="5dp"
                 android:layout_weight="5"
                 android:backgroundTint="#FF4F4F"
-                android:text="buy now" />
+                android:text="@string/buyNow" />
 
         </LinearLayout>
 

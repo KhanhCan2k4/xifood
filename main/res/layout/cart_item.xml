@@ -10,7 +10,7 @@
         android:id="@+id/sttSanPham"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="sanPham1"
+        android:text="@string/locationItemCart"
         android:textStyle="bold"
         android:textSize="18dp"
         android:gravity="right"
@@ -31,22 +31,24 @@
             android:layout_weight="7"/>
 
        <ImageButton
-           android:layout_width="30dp"
-           android:layout_height="30dp"
+           android:layout_width="@dimen/sizeButton30"
+           android:layout_height="@dimen/sizeButton30"
            android:id="@+id/btnsua"
            android:layout_margin="5dp"
+           android:scaleY="0.9"
            android:backgroundTint="@color/white"
-android:src="@drawable/edit"
-           android:text="edit"/>
+           android:src="@drawable/edit" />
+
         <ImageButton
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="@dimen/sizeButton30"
+            android:layout_height="@dimen/sizeButton30"
             android:backgroundTint="@color/white"
             android:layout_margin="5dp"
+            android:scaleX="1.1"
+            android:scaleY="1.1"
             android:src="@drawable/delete_left_solid"
-           android:layout_marginRight="5dp"
-            android:id="@+id/btnxoa"
-            android:text="edit"/>
+            android:layout_marginRight="5dp"
+            android:id="@+id/btnxoa" />
 
     </LinearLayout>
 
@@ -81,13 +83,13 @@ android:src="@drawable/edit"
                     android:layout_margin="5dp"
                     android:layout_height="30dp"
                     android:id="@+id/btnTang"
-                    android:text="edit"/>
+                    />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/soLuongSanPham"
                     android:padding="5dp"
-                    android:text="01"/>
+                    android:text="@string/countDefaultProduct"/>
                 <ImageButton
                     android:layout_width="30dp"
                     android:src="@drawable/add"
@@ -95,7 +97,7 @@ android:src="@drawable/edit"
                     android:layout_height="30dp"
                     android:layout_margin="5dp"
                     android:id="@+id/btnGiam"
-                    android:text="edit"/>
+                    />
             </LinearLayout>
 
         </LinearLayout>
@@ -110,9 +112,8 @@ android:src="@drawable/edit"
                 android:textStyle="bold"
                 android:textSize="20dp"
                 android:layout_margin="5dp"
-
                 android:id="@+id/tenSanPham"
-                android:text="Tra Sua Chan Trau"/>
+                android:text="@string/nameProductDefault"/>
             <TextView
                 android:id="@+id/toppingThem"
                 android:layout_width="match_parent"
@@ -122,14 +123,14 @@ android:src="@drawable/edit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/noteSanPham"
-                android:text="It da nhieu duong"/>
+                android:text="@string/noteProductDefault"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/giaSanPham"
                 android:textColor="#765ABC"
                 android:textStyle="bold"
-                android:text="Gia: 12000vnd"/>
+                android:text="@string/priceDefaultProduct"/>
 
 
         </LinearLayout>
@@ -148,7 +149,7 @@ android:src="@drawable/edit"
         android:id="@+id/checkChonMua"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Chọn mua" />
+        android:text="@string/buyFooter" />
 </LinearLayout>
 
 </LinearLayout>

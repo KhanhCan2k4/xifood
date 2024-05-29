@@ -138,8 +138,6 @@ public class DetailActivity extends AppCompatActivity {
                 Order order = new Order();
                 ArrayList<OrderedProduct> products = new ArrayList<>();
                 OrderedProduct orderedProduct = new OrderedProduct(product, amount, false);
-                Map                <String, Long> orderedToppings = new HashMap<>();
-                OrderedProduct orderedProduct = new OrderedProduct(product, amount, false);
                 Map<String, Long> orderedToppings = new HashMap<>();
                 for (Map.Entry<Topping, Integer> entry : toppingsWithAmount.entrySet()) {
                     Topping topping = entry.getKey();
@@ -160,13 +158,6 @@ public class DetailActivity extends AppCompatActivity {
                 user.setGender(SharePreference.find(SharePreference.USER_GENDER));
                 user.setPassword(SharePreference.find(SharePreference.USER_PASS));
                 user.setPermistion(SharePreference.findPermission());
-                String s = "Chưa có địa chỉ nào!";
-
-                ArrayList<String> diachi= new ArrayList<>();
-
-                diachi.add(s);
-
-                user.setAddress(diachi);
                 String s = "Chưa có địa chỉ nào!";
 
                 ArrayList<String> diachi = new ArrayList<>();
@@ -197,13 +188,6 @@ public class DetailActivity extends AppCompatActivity {
                     }
                 };
 
-                if (SharePreference.findPermission() ==  UserAPI.STAFF_PERMISSION) {
-
-                CartAPI.store(SharePreference.find(SharePreference.USER_TOKEN_KEY), order, onSuccessListener, onCanceledListener);
-                } else  {
-                    CartAPI.storeM(SharePreference.find(SharePreference.USER_TOKEN_KEY), order, onSuccessListener, onCanceledListener);
-                }
-
                 if (SharePreference.findPermission() == UserAPI.STAFF_PERMISSION) {
 
                     CartAPI.store(SharePreference.find(SharePreference.USER_TOKEN_KEY), order, onSuccessListener, onCanceledListener);
@@ -214,7 +198,6 @@ public class DetailActivity extends AppCompatActivity {
         });
 
 
-
         binding.buyNow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -223,7 +206,6 @@ public class DetailActivity extends AppCompatActivity {
 
                 Order order = new Order();
                 ArrayList<OrderedProduct> products = new ArrayList<>();
-                OrderedProduct orderedProduct = new OrderedProduct(product, amount, false);
                 OrderedProduct orderedProduct = new OrderedProduct(product, amount, false);
                 Map<String, Long> orderedToppings = new HashMap<>();
                 for (Map.Entry<Topping, Integer> entry : toppingsWithAmount.entrySet()) {

@@ -24,11 +24,11 @@ import vn.edu.tdc.xifood.databinding.VerificationLayoutBinding;
 import vn.edu.tdc.xifood.views.CancelHeader;
 
 public class VerificationActivity extends AppCompatActivity {
-    private VerificationLayoutBinding binding ;
+    private VerificationLayoutBinding binding;
     private int verificationCode;
     private String phoneNumber;
-
     private String curentOTP;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,7 +45,7 @@ public class VerificationActivity extends AppCompatActivity {
                 curentOTP = getOTPInput();
                 Log.d("click", curentOTP);
                 Log.d("clicked", verificationCode + "");
-                if(curentOTP.length() != 6){
+                if (curentOTP.length() != 6) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
                     builder.setMessage("OTP is not filled");
                     builder.setCancelable(true);
@@ -58,17 +58,14 @@ public class VerificationActivity extends AppCompatActivity {
                     });
                     AlertDialog alert = builder.create();
                     alert.show();
-                }
-                else if(curentOTP.equals(verificationCode+"")){
-                    Log.d("clicked", verificationCode+"");
+                } else if (curentOTP.equals(verificationCode + "")) {
+                    Log.d("clicked", verificationCode + "");
                     SharePreference.store(SharePreference.USER_PHONE, phoneNumber);
                     Intent intent = new Intent(VerificationActivity.this, AccountActivity.class);
                     startActivity(intent);
                 }
             }
         });
-
-
 
         //cancelled header
         binding.cancelHeader.setCancelListener(new CancelHeader.OnCancelListener() {
@@ -81,7 +78,7 @@ public class VerificationActivity extends AppCompatActivity {
     }//end onCreate
 
     //tao OTP input
-    private void setOTPInput(){
+    private void setOTPInput() {
         ArrayList<EditText> editTexts = new ArrayList<>();
         editTexts.add(binding.inputCode1);
         editTexts.add(binding.inputCode2);
@@ -96,28 +93,29 @@ public class VerificationActivity extends AppCompatActivity {
         }
     }
 
-    private String getOTPInput(){
-      String otp = "";
-      otp += binding.inputCode1.getText().toString().trim();
-      otp += binding.inputCode2.getText().toString().trim();
-      otp += binding.inputCode3.getText().toString().trim();
-      otp += binding.inputCode4.getText().toString().trim();
-      otp += binding.inputCode5.getText().toString().trim();
-      otp += binding.inputCode6.getText().toString().trim();
-      return otp.trim();
+    private String getOTPInput() {
+        String otp = "";
+        otp += binding.inputCode1.getText().toString().trim();
+        otp += binding.inputCode2.getText().toString().trim();
+        otp += binding.inputCode3.getText().toString().trim();
+        otp += binding.inputCode4.getText().toString().trim();
+        otp += binding.inputCode5.getText().toString().trim();
+        otp += binding.inputCode6.getText().toString().trim();
+        return otp.trim();
     }
-    private void checkInputEmpty(){
-        if(binding.inputCode1.getText().toString().isEmpty()){
+
+    private void checkInputEmpty() {
+        if (binding.inputCode1.getText().toString().isEmpty()) {
             binding.inputCode1.requestFocus();
-        }else if(binding.inputCode2.getText().toString().isEmpty()){
+        } else if (binding.inputCode2.getText().toString().isEmpty()) {
             binding.inputCode2.requestFocus();
-        }else if(binding.inputCode3.getText().toString().isEmpty()){
+        } else if (binding.inputCode3.getText().toString().isEmpty()) {
             binding.inputCode3.requestFocus();
-        }else if(binding.inputCode4.getText().toString().isEmpty()){
+        } else if (binding.inputCode4.getText().toString().isEmpty()) {
             binding.inputCode4.requestFocus();
-        }else if(binding.inputCode5.getText().toString().isEmpty()){
+        } else if (binding.inputCode5.getText().toString().isEmpty()) {
             binding.inputCode5.requestFocus();
-        }else {
+        } else {
             binding.inputCode6.requestFocus();
         }
     }

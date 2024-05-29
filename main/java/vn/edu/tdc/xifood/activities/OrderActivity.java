@@ -68,9 +68,9 @@ public class OrderActivity extends AppCompatActivity {
                     orderAdapter.setOnItemClickListener(new OrderAdapter.OnItemClickListener() {
                         @Override
                         public void onView(View view, String key) {
-                            Intent intent = new Intent(OrderActivity.this, DanhGiaActivity.class);
+                            Intent intent = new Intent(OrderActivity.this, RattingActivity.class);
                             Log.d("key", "onView: " + key);
-                            intent.putExtra(DanhGiaActivity.ORDERED_KEY, key);
+                            intent.putExtra(RattingActivity.ORDERED_KEY, key);
                             startActivity(intent);
                         }
 
@@ -93,7 +93,6 @@ public class OrderActivity extends AppCompatActivity {
             @Override
             public void onHomeButtonClick(View view) {
                 Intent intent = new Intent(OrderActivity.this, MainActivity.class);
-
                 intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 
                 // chuyen
@@ -105,7 +104,6 @@ public class OrderActivity extends AppCompatActivity {
                 //chuyen qua danh muc uu dai
                 Intent intent = new Intent(OrderActivity.this, ListProductsActivity.class);
                 intent.putExtra("id", 1);
-
                 intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 
                 // chuyen
@@ -186,8 +184,6 @@ public class OrderActivity extends AppCompatActivity {
                 public void onCallback(Order order) {
                     if (order != null) {
 
-                        // Thêm đơn hàng mới vào danh sách
-//                        thisUserOrder.add(order);
 
                         // cap nhat lai giao dien
                         orderAdapter.notifyDataSetChanged();

@@ -17,7 +17,7 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:text="Tổng cộng:"
+            android:text="@string/totalFooter"
             android:textSize="15sp"
             android:textColor="@color/black"
             android:textStyle="bold"
@@ -30,7 +30,7 @@
             android:textColor="#F44336"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:text="0 vnd"
+            android:text="@string/defaultPriceBill"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
     </LinearLayout>
@@ -39,7 +39,7 @@
         android:id="@+id/btnAction"
         android:layout_width="0dp"
         android:layout_margin="15dp"
-        android:text="buy"
+        android:text="@string/buyFooter"
         android:layout_weight="2"
         android:layout_height="match_parent"/>
 

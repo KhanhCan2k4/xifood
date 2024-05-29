@@ -31,7 +31,7 @@
                 android:layout_marginRight="15dp"
                 android:background="@drawable/search_icon"
                 android:backgroundTint="@color/black"
-                android:hint="Tìm kiếm thức ăn"
+                android:hint="@string/searchFood"
                 android:gravity="start">
             </ImageButton>
 
@@ -40,7 +40,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@null"
-                android:hint="Tìm kiếm thức ăn...">
+                android:hint="@string/searchFoodHint">
             </EditText>
 
 
@@ -59,9 +59,10 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="CÁC DANH MỤC HÀNG TẠI XIFOOD"
+        android:text="@string/listCategoriesTitle"
         android:textStyle="bold"
         android:layout_marginTop="5dp"
+        android:gravity="center"
         android:layout_marginHorizontal="20dp"
         android:textColor="@color/black"
         android:textSize="15sp">
@@ -79,7 +80,7 @@
         android:id="@+id/categoryName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="SNACK"
+        android:text="@string/categoriesName"
         android:textStyle="bold"
         android:textAllCaps="true"
         android:textAlignment="center"

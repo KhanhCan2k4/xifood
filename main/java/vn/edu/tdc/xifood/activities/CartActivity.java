@@ -2,6 +2,7 @@ package vn.edu.tdc.xifood.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 import androidx.annotation.Nullable;
@@ -14,11 +15,14 @@ import java.util.HashMap;
 import java.util.Map;
 import vn.edu.tdc.xifood.adapters.CartAdapter;
 import vn.edu.tdc.xifood.apis.CartAPI;
+import vn.edu.tdc.xifood.apis.OrderAPI;
 import vn.edu.tdc.xifood.apis.SharePreference;
+import vn.edu.tdc.xifood.apis.UserAPI;
 import vn.edu.tdc.xifood.databinding.ActionFooterLayoutBinding;
 import vn.edu.tdc.xifood.databinding.ActivityCartLayoutBinding;
 import vn.edu.tdc.xifood.datamodels.Order;
 import vn.edu.tdc.xifood.datamodels.OrderedProduct;
+import vn.edu.tdc.xifood.datamodels.User;
 import vn.edu.tdc.xifood.views.CancelHeader;
 
 public class CartActivity extends AppCompatActivity {
@@ -26,6 +30,7 @@ public class CartActivity extends AppCompatActivity {
     private ActivityCartLayoutBinding binding;
     private ActionFooterLayoutBinding bindingFooter;
     private ArrayList<OrderedProduct> orders = new ArrayList<>();
+    private ArrayList<OrderedProduct> selectedItems = new ArrayList<>();
     private CartAdapter adapter;
     private String userId;
     private static final int REQUEST_CODE_UPDATE_PRODUCT = 1;
@@ -58,9 +63,24 @@ public class CartActivity extends AppCompatActivity {
             }
         });
 
-        // Display the total bill
-
-
+        bindingFooter.btnAction.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ArrayList<OrderedProduct> checkedItems = adapter.getCheckedItems();
+                if (!checkedItems.isEmpty()) {
+                    Intent intent = new Intent(CartActivity.this, PurchaseActivity.class);
+                    ArrayList<OrderedProduct> checkedItemsList = new ArrayList<>(checkedItems);
+                    Order order = new Order();
+                    order.setOrderedProducts(checkedItemsList);
+                    OrderAPI.store(order);
+                    intent.putExtra("keyUser", SharePreference.find(SharePreference.USER_TOKEN_KEY));
+                    intent.putExtra("ORDERED_KEY", order.getKey());
+                    startActivity(intent);
+                } else {
+                    // Show a message or handle the case when no items are selected
+                }
+            }
+        });
     }
 
     private void updateTotalBill(long total) {

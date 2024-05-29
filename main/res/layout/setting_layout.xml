@@ -39,21 +39,16 @@
                 <TextView
                     android:id="@+id/username"
                     android:layout_width="10dp"
-                    android:text="Nhi"
+                    android:text="@string/nameUser"
                     android:gravity="bottom"
                     android:textSize="25sp"
                     android:textStyle="bold"
                     android:paddingBottom="10dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="3" />
+                    android:layout_weight="5" />
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:gravity="right"
-                android:layout_weight="2">
-            </LinearLayout>
+
             <LinearLayout
                 android:id="@+id/logout"
                 android:layout_width="0dp"
@@ -111,7 +106,7 @@
                             <TextView
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
-                                android:text="Giỏ hàng"
+                                android:text="@string/cartTitle"
                                 android:textSize="17dp"
                                 android:gravity="center_vertical"
                                 android:layout_weight="4"/>
@@ -147,7 +142,7 @@
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:text="Voucher"
+                            android:text="@string/voucher"
                             android:textSize="17dp"
                             android:gravity="center_vertical"
                             android:layout_weight="4"/>
@@ -183,7 +178,7 @@
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:text="Đánh giá"
+                            android:text="@string/ratting"
                             android:textSize="17dp"
                             android:gravity="center_vertical"
                             android:layout_weight="4"/>
@@ -219,7 +214,7 @@
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:text="Xem lịch sử mua hàng"
+                            android:text="@string/orderedHistory"
                             android:textSize="17dp"
                             android:gravity="center_vertical"
                             android:layout_weight="4"/>
@@ -254,7 +249,7 @@
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:text="Liên hệ với chúng tôi"
+                            android:text="@string/contactUs"
                             android:textSize="17dp"
                             android:gravity="center_vertical"
                             android:layout_weight="4"/>
@@ -279,7 +274,7 @@
                         android:layout_height="wrap_content"
                         android:textSize="17sp"
                         android:textStyle="bold"
-                        android:text="Các món đã xem gần đây:"/>
+                        android:text="@string/recentsBuy"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"

@@ -9,4 +9,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="neon">#33FF00</color>
     <color name="active_button">#FB5F2F</color>
+    <color name="text_hint">#BABABA</color>
 </resources>

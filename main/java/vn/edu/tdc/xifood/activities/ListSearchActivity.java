@@ -16,7 +16,6 @@ import java.util.ArrayList;
 import vn.edu.tdc.xifood.adapters.ListProductsAdapter;
 import vn.edu.tdc.xifood.adapters.ItemSearchAdapter;
 import vn.edu.tdc.xifood.apis.ProductAPI;
-import vn.edu.tdc.xifood.apis.ProductAPI;
 import vn.edu.tdc.xifood.apis.SharePreference;
 import vn.edu.tdc.xifood.databinding.ListSearchLayoutBinding;
 import vn.edu.tdc.xifood.datamodels.Product;
@@ -124,7 +123,6 @@ public class ListSearchActivity extends AppCompatActivity {
             }
 
         });
-
 
         ProductAPI.all(new ProductAPI.FirebaseCallbackAll() {
             @Override

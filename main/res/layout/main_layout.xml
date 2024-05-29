@@ -31,7 +31,7 @@
                 android:layout_marginRight="15dp"
                 android:background="@drawable/search_icon"
                 android:backgroundTint="@color/black"
-                android:hint="Tìm kiếm thức ăn"
+                android:hint="@string/searchFoodHint"
                 android:gravity="start">
             </ImageButton>
 
@@ -40,7 +40,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@null"
-                android:hint="Tìm kiếm thức ăn...">
+                android:hint="@string/searchFoodHint">
             </EditText>
 
 
@@ -75,7 +75,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="CÁC DANH MỤC HÀNG TẠI XIFOOD"
+            android:text="@string/listCategoriesTitle"
             android:textStyle="bold"
             android:layout_marginTop="5dp"
             android:layout_marginHorizontal="20dp"
@@ -101,21 +101,26 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dp"
                 android:layout_marginLeft="40dp">
-
-                <ImageButton
-                    android:id="@+id/logo"
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
-                    android:scaleX="0.7"
-                    android:scaleY="0.7"
-                    android:background="@drawable/xifood_logo">
-                </ImageButton>
+                <androidx.cardview.widget.CardView
+                    android:layout_width="60dp"
+                    app:cardCornerRadius="30dp"
+                    android:layout_height="60dp">
+                    <ImageButton
+                        android:id="@+id/logo"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleX="1"
+                        android:scaleY="1"
+                        android:background="@drawable/xifood_logo">
+                    </ImageButton>
+                </androidx.cardview.widget.CardView>
 
                 <TextView
                     android:id="@+id/appName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="25sp"
+                    android:layout_margin="10dp"
                     android:textStyle="bold|italic"
                     android:layout_gravity="center"
                     android:textColor="@color/black"
@@ -132,7 +137,7 @@
                 android:textSize="15sp"
                 android:textStyle="bold"
                 android:textColor="@color/black"
-                android:text="Giảm giá 30% đối với các tài khoản đăng kí lần đầu">
+                android:text="@string/maketingTitle">
             </TextView>
 
             <TextView
@@ -141,14 +146,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:textSize="15sp"
-                android:text="Đặt ngay món ăn ưa thích và đăng kí tài khoản ngay để được nhận giảm giá">
+                android:text="@string/makettingContent">
             </TextView>
         </LinearLayout>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="MÓN MỚI PHẢI THỬ"
+            android:text="@string/makettingNewProductShouldTry"
             android:textStyle="bold"
             android:layout_marginTop="5dp"
             android:layout_marginHorizontal="20dp"
