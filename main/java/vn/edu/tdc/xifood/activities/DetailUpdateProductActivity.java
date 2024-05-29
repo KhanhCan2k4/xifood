@@ -19,7 +19,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicLong;
 
 import vn.edu.tdc.xifood.adapters.ToppinAdapter;
 import vn.edu.tdc.xifood.apis.CartAPI;
@@ -247,15 +246,7 @@ public class DetailUpdateProductActivity extends AppCompatActivity {
         orderedProduct.setToppings(orderedToppings);
         products.add(orderedProduct);
 
-        User user = new User();
-        user.setKey(SharePreference.find(SharePreference.USER_TOKEN_KEY));
-        user.setFullName(SharePreference.find(SharePreference.USER_NAME));
-        user.setEmail(SharePreference.find(SharePreference.USER_EMAIL));
-        user.setAvatar(SharePreference.find(SharePreference.USER_AVATAR));
-        user.setDayOfBirth(SharePreference.find(SharePreference.USER_DOB));
-        user.setGender(SharePreference.find(SharePreference.USER_GENDER));
-        user.setPassword(SharePreference.find(SharePreference.USER_PASS));
-        user.setPermistion(SharePreference.findPermission());
+        User user = SharePreference.getUser();
 
         order.setOrderedProducts(products);
         long totalPrice = product.getPrice();

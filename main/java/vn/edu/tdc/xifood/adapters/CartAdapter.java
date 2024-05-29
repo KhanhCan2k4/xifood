@@ -22,7 +22,7 @@ import java.util.Map;
 import vn.edu.tdc.xifood.activities.DetailUpdateProductActivity;
 import vn.edu.tdc.xifood.apis.CartAPI;
 import vn.edu.tdc.xifood.apis.ImageStorageReference;
-import vn.edu.tdc.xifood.databinding.CartItemtBinding;
+import vn.edu.tdc.xifood.databinding.CartItemBinding;
 import vn.edu.tdc.xifood.datamodels.OrderedProduct;
 import vn.edu.tdc.xifood.datamodels.Product;
 
@@ -57,7 +57,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ViewHolder(CartItemtBinding.inflate(context.getLayoutInflater(), parent, false));
+        return new ViewHolder(CartItemBinding.inflate(context.getLayoutInflater(), parent, false));
     }
 
     @SuppressLint("RecyclerView")
@@ -195,6 +195,16 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
         });
     }
 
+    public ArrayList<OrderedProduct> getCheckedItems() {
+        ArrayList<OrderedProduct> checkedItemsList = new ArrayList<>();
+        for (OrderedProduct orderedProduct : orderedProducts) {
+            if (checkedItems.get(orderedProduct.getProduct().getKey())) {
+                checkedItemsList.add(orderedProduct);
+            }
+        }
+        return checkedItemsList;
+    }
+
     private void updatePrice(ViewHolder holder, OrderedProduct orderedProduct) {
         if (orderedProduct == null || orderedProduct.getProduct() == null) {
             Log.e("CartAdapter", "OrderedProduct or Product is null.");
@@ -302,10 +312,10 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        CartItemtBinding cartBinding;
+        CartItemBinding cartBinding;
         boolean isCheckEnabled = true;
 
-        public ViewHolder(@NonNull CartItemtBinding binding) {
+        public ViewHolder(@NonNull CartItemBinding binding) {
             super(binding.getRoot());
             this.cartBinding = binding;
         }

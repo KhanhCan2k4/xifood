@@ -2,6 +2,9 @@ package vn.edu.tdc.xifood.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.InputFilter;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -35,7 +38,25 @@ public class SendOTPActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = SendOtpLayoutBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        binding.cancelHeader.setTitle("Xác minh số điện thoại");
+        binding.btnsendOtp.setEnabled(false);
 
+        // Tạo ràng buộc cho numberfield
+        binding.phonenumber.setFilters(new InputFilter[]{new InputFilter.LengthFilter(10)});
+        binding.phonenumber.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                binding.btnsendOtp.setEnabled(s.length() == 10);
+            }
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
         //send button
         binding.btnsendOtp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,7 +69,6 @@ public class SendOTPActivity extends AppCompatActivity {
                 binding.btnsendOtp.setVisibility(View.INVISIBLE);
                 binding.processBar.setVisibility(View.VISIBLE);
 
-//                Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
                 String number = binding.phonenumber.getText().toString();
                 if(number.startsWith("0")){
                     number = number.substring(1);

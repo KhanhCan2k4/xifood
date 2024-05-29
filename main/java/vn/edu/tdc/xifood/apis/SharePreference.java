@@ -3,6 +3,8 @@ package vn.edu.tdc.xifood.apis;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import vn.edu.tdc.xifood.datamodels.User;
+
 public class SharePreference {
     private static String sharePreferenceName = "MY_PREFERENCE";
     public static final String USER_TOKEN_KEY = "USER_TOKEN_KEY";
@@ -46,6 +48,19 @@ public class SharePreference {
         editor.apply();
     }
 
+    //Hàm truy vấn dữ liệu của người dùng từ local
+    public static User getUser() {
+        User user = new User();
+        user.setKey(SharePreference.find(SharePreference.USER_TOKEN_KEY));
+        user.setFullName(SharePreference.find(SharePreference.USER_NAME));
+        user.setEmail(SharePreference.find(SharePreference.USER_EMAIL));
+        user.setAvatar(SharePreference.find(SharePreference.USER_AVATAR));
+        user.setDayOfBirth(SharePreference.find(SharePreference.USER_DOB));
+        user.setGender(SharePreference.find(SharePreference.USER_GENDER));
+        user.setPassword(SharePreference.find(SharePreference.USER_PASS));
+        user.setPermistion(SharePreference.findPermission());
+        return user;
+    }
     // Hàm xóa dữ liệu người dùng
     public static void clearAll() {
         SharedPreferences.Editor editor = sharedPreferences.edit();

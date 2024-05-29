@@ -40,7 +40,7 @@ public class ToppinAdapter extends RecyclerView.Adapter<ToppinAdapter.ViewHolder
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.topping_itemt, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.topping_item, parent, false);
         return new ViewHolder(view);
     }
 

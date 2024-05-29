@@ -1,11 +1,12 @@
 package vn.edu.tdc.xifood.datamodels;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Map;
 
 import vn.edu.tdc.xifood.apis.OrderAPI;
 
-public class Order {
+public class Order implements Serializable {
     public static final int STATUS_WAITING = 0;
     public static final int STATUS_DONE = 1;
     public static final int STATUS_CANCEL = 2;
@@ -14,6 +15,8 @@ public class Order {
     private String date;
     private int status;
     private User user;
+    private String voucher;
+    private String payment;
     private String table = "";
 
     private int rating;
@@ -44,6 +47,22 @@ public class Order {
     }
     public void setTable(String table) {
         this.table = table;
+    }
+
+    public String getVoucher() {
+        return voucher;
+    }
+
+    public void setVoucher(String voucher) {
+        this.voucher = voucher;
+    }
+
+    public String getPayment() {
+        return payment;
+    }
+
+    public void setPayment(String payment) {
+        this.payment = payment;
     }
 
     public String getKey() {

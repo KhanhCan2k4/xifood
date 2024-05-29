@@ -1,8 +1,9 @@
 package vn.edu.tdc.xifood.datamodels;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class User {
+public class User implements Serializable {
     //fields
     private String key;
     private String fullName;

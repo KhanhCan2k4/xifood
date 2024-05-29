@@ -1,14 +1,15 @@
 package vn.edu.tdc.xifood.activities;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 
+import android.app.AlertDialog;
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.location.Address;
-import android.location.Geocoder;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -16,22 +17,28 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import com.google.android.gms.tasks.OnCanceledListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 
+import java.util.ArrayList;
+
+import vn.edu.tdc.xifood.R;
 import vn.edu.tdc.xifood.adapters.OrderAdapter;
+import vn.edu.tdc.xifood.apis.ImageStorageReference;
 import vn.edu.tdc.xifood.apis.OrderAPI;
+import vn.edu.tdc.xifood.apis.PaymentAPI;
 import vn.edu.tdc.xifood.apis.SharePreference;
 import vn.edu.tdc.xifood.apis.ToppingAPI;
 import vn.edu.tdc.xifood.apis.UserAPI;
 import vn.edu.tdc.xifood.databinding.PurchaseLayoutBinding;
 import vn.edu.tdc.xifood.datamodels.Order;
 import vn.edu.tdc.xifood.datamodels.OrderedProduct;
+import vn.edu.tdc.xifood.datamodels.Payment;
 import vn.edu.tdc.xifood.datamodels.Topping;
 import vn.edu.tdc.xifood.datamodels.User;
 import vn.edu.tdc.xifood.views.CancelHeader;
@@ -41,7 +48,7 @@ public class PurchaseActivity extends AppCompatActivity {
     private OrderAdapter orderAdapter;
     private GridLayoutManager manager;
     private String key;
-
+    public static final int REQUEST_CODE_SET_ADDRESS = 123; // Thay 123 bằng giá trị bạn muốn
     private Order thisOrder;
     private Boolean xacNhanSDT = true;
 
@@ -80,22 +87,23 @@ public class PurchaseActivity extends AppCompatActivity {
 
         //chuan  bi du lieu gia
         // Chuẩn bị dữ liệu
-        String[] vochers = {"không voucher"};
+        String[] vochers = {"Không voucher"};
         ArrayAdapter<String> adapterVoucher = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, vochers);
         adapterVoucher.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         vocherList.setAdapter(adapterVoucher);
 
-        String[] adapterPhuongThucThanhToans = {"Thanh toán bằng tiền mặt", "Thanh toán online"};
+        String[] adapterPhuongThucThanhToans = {"Thanh toán khi nhận hàng", "Thanh toán Momo", "Thanh toán bằng Ngân Hàng"};
         ArrayAdapter<String> adapterPhuongThucThanhToan = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, adapterPhuongThucThanhToans);
         adapterVoucher.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         phuongThucThanhToan.setAdapter(adapterPhuongThucThanhToan);
+
+
 
 
         OrderAPI.find(key, new OrderAPI.FirebaseCallback() {
             @Override
             public void onCallback(Order order) {
                 thisOrder = order;
-                Log.d("diachinguoidung", order.getUser().getAddress().size() + "");
                 vocherList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -110,7 +118,6 @@ public class PurchaseActivity extends AppCompatActivity {
                             vocher[0] = 0.1;
                         }
                     }
-
                     @Override
                     public void onNothingSelected(AdapterView<?> parent) {
 
@@ -122,22 +129,27 @@ public class PurchaseActivity extends AppCompatActivity {
                     OrderAPI.update(order);
                     ///////adress để qua 1 bên
                     /////THỰC HIỆN VIỆC XÁC NHẬN ĐIA CHỈ
-
-                    if (order.getUser().getAddress() != null ) {
-                        if (order.getUser().getAddress() != null && !order.getUser().getAddress().isEmpty()){
-                            diaChi.setText(order.getUser().getAddress().get(0) + "");
+                    UserAPI.find(SharePreference.find(SharePreference.USER_TOKEN_KEY), new UserAPI.FirebaseCallback() {
+                        @Override
+                        public void onCallback(User user) {
+                            if (order.getUser().getAddress() != null ) {
+                                if (order.getUser().getAddress() != null && !order.getUser().getAddress().isEmpty()){
+                                    diaChi.setText(order.getUser().getAddress().get(0) + "");
+                                }
+                                else {
+                                    diaChi.setText("Cập nhật địa chỉ tại biểu tượng địa chỉ ở bên trái");
+                                }
+                            } else {
+                                diaChi.setText("Cập nhật địa chỉ tại biểu tượng địa chỉ ở bên trái");
+                            }
                         }
-                        else {
-                            diaChi.setText("Cập nhật địa chỉ tại biểu tượng địa chỉ ở bên trái");
-                        }
-                    } else {
-                        diaChi.setText("Cập nhật địa chỉ tại biểu tượng địa chỉ ở bên trái");
-                    }
+                    });
                     setAddress.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             Intent intent = new Intent(PurchaseActivity.this, SetAddressActivity.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                            order.getUser().setAddress(new ArrayList<>());
                             startActivity(intent);
 
                         }
@@ -174,6 +186,41 @@ public class PurchaseActivity extends AppCompatActivity {
                                 phiVanChuyen.setText(String.valueOf(vanchuyen));
                                 giaVoCher.setText(String.valueOf(sotienduocgiam[0]));
                                 tongDonHang.setText(String.valueOf(ketqaucuoicung[0]));
+
+                                phuongThucThanhToan.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                                    @Override
+                                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                                        switch (position){
+                                            case 1:
+                                                PaymentAPI.find(PaymentAPI.MOMO_KEY, new PaymentAPI.FirebaseCallback() {
+                                                    @Override
+                                                    public void onCallback(Payment payment) {
+                                                        if (payment != null) {
+                                                            payment.setTotal(ketqaucuoicung[0]);
+                                                            showPaymentDialog(payment, "Thay toán ví điện tử", R.drawable.momo_logo, ketqaucuoicung[0]);
+                                                            intent.putExtra("Payment", adapterPhuongThucThanhToans[position]);
+                                                        }
+                                                    }
+                                                });
+                                                break;
+                                            case 2:
+                                                PaymentAPI.find(PaymentAPI.SACOMBANK_KEY, new PaymentAPI.FirebaseCallback() {
+                                                    @Override
+                                                    public void onCallback(Payment payment) {
+                                                        if (payment != null) {
+                                                            payment.setTotal(ketqaucuoicung[0]);
+                                                            showPaymentDialog(payment, "Thay toán qua ngân hàng", R.drawable.bank_logo, ketqaucuoicung[0]);
+                                                        }
+                                                    }
+                                                });
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onNothingSelected(AdapterView<?> parent) {
+
+                                    }
+                                });
                             }
                         });
                     }
@@ -187,39 +234,41 @@ public class PurchaseActivity extends AppCompatActivity {
 
 
                     buy.setOnClickListener(new View.OnClickListener() {
-
                         @Override
                         public void onClick(View v) {
-                            Log.d("textnote", "onClick: " + order.getNote());
                             if (xacNhanSDT) {
-//                                if (order.getUser().g tAddress() != null) {
-//                                    note[0] = String.valueOf(ghichu.getText());
-                                String s = "bạn chưa có địa chỉ!";
-                                String s2="Chưa có địa chỉ nào!";
-                                if (order.getUser().getAddress().size() > 0) {
-                                    if( order.getUser().getAddress().get(0).equals(s)==false&&order.getUser().getAddress().get(0).equals(s2)==false){
-                                        Log.d("so sanh diachi", order.getUser().getAddress().get(0));
-                                        Log.d("so sanh", ""+order.getUser().getAddress().get(0).equals(s));
-                                        String address = order.getUser().getAddress().get(0);
-                                        order.setAddress(order.getUser().getAddress().get(0));
-                                        order.setStatus(Order.STATUS_WAITING);
-                                        OrderAPI.update(order);
-                                        Toast.makeText(PurchaseActivity.this, "Xin cảm ơn quý khách", Toast.LENGTH_SHORT).show();
-                                        Intent intent = new Intent(PurchaseActivity.this, OrderActivity.class);
-                                        intent.setFlags(Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT);
-                                        startActivity(intent);
-                                    }else {
-                                        Toast.makeText(PurchaseActivity.this, "Vui lòng cập nhật địa chỉ", Toast.LENGTH_SHORT).show();
-                                    }
-                                } else if (order.getUser().getAddress().size() <= 0) {
+                                if (order.getUser().getAddress() != null && order.getUser().getAddress().size() > 0) {
+                                    // Cập nhật ghi chú của đơn hàng
+                                    order.setNote(String.valueOf(ghichu.getText()));
+                                    // Cập nhật trạng thái của đơn hàng
+                                    order.setStatus(Order.STATUS_WAITING);
+                                    order.setPayment(String.valueOf(phuongThucThanhToan.getSelectedItem()));
+                                    order.setVoucher(String.valueOf(vocherList.getSelectedItem()));
+                                    // Cập nhật đơn hàng trong cơ sở dữ liệu
+                                    OrderAPI.update(order);
+
+                                    // Chuyển hướng sang OrderActivity
+                                    Intent intent = new Intent(PurchaseActivity.this, OrderActivity.class);
+                                    // Đặt đơn hàng vào intent để truyền sang OrderActivity
+                                    Bundle bundle = new Bundle();
+                                    bundle.putSerializable("Order", order); // Nhớ implement Serializable cho lớp Order
+                                    intent.putExtras(bundle);
+                                    intent.putExtra("Payment", String.valueOf(phuongThucThanhToan));
+                                    intent.putExtra("Voucher", vochers);
+                                    startActivity(intent);
+
+                                    // Kết thúc hoạt động hiện tại (PurchaseActivity)
+                                    finish();
+                                } else {
                                     Toast.makeText(PurchaseActivity.this, "Vui lòng cập nhật địa chỉ", Toast.LENGTH_SHORT).show();
                                 }
                             } else {
-                                // Xử lý xác nhận số đineje thoại tại đây
+                                // Xử lý xác nhận số điện thoại tại đây
                                 Toast.makeText(PurchaseActivity.this, "Vui lòng xác nhận số điện thoại", Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
+
                 } else {
                     Toast.makeText(PurchaseActivity.this, "Thông tin đơn hàng lỗi, vui lòng thử lại :<", Toast.LENGTH_SHORT).show();
                     finish();
@@ -235,8 +284,38 @@ public class PurchaseActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
 
+    public void showPaymentDialog(Payment payment, String title, int icon, long total) {
+        ImageView qr = new ImageView(PurchaseActivity.this);
+        try {
+            ImageStorageReference.setImageInto(qr, payment.getQr());
+        } catch (Exception e) {
+            //ignore
+        }
+        payment.setTotal(total);
 
+        AlertDialog.Builder builder = new AlertDialog.Builder(PurchaseActivity.this);
+        builder.setCancelable(false);
+        builder.setIcon(icon);
+        builder.setTitle(title);
+        builder.setMessage(payment.toString());
+        builder.setView(qr);
+        builder.setNegativeButton("Đóng", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+        builder.setNeutralButton("Sao chép STK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                ClipboardManager clipboardManager = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
+                clipboardManager.setPrimaryClip(ClipData.newPlainText(payment.getCode(), payment.getCode()));
+                Toast.makeText(PurchaseActivity.this, "Đã sao chép", Toast.LENGTH_SHORT).show();
+            }
+        });
+        builder.show();
     }
 
     @Override
@@ -257,15 +336,26 @@ public class PurchaseActivity extends AppCompatActivity {
                 } else {
                     diaChi.setText("Cập nhật địa chỉ tại biểu tượng địa chỉ ở bên trái");
                 }
-
             }
         });
-
     }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE_SET_ADDRESS && resultCode == RESULT_OK) {
+            if (data != null && data.hasExtra("selectedAddress")) {
+                String selectedAddress = data.getStringExtra("selectedAddress");
+                // Cập nhật địa chỉ trong đơn đặt hàng
+                thisOrder.setAddress(selectedAddress);
+                // Hiển thị địa chỉ đã chọn lên giao diện
+                binding.diaChi.setText(selectedAddress);
+            }
+        }
+    }
+
 
     private long soTienGiam(long tongGia, double vochern) {
         return (long) (tongGia * vochern);
     }
-
 
 }

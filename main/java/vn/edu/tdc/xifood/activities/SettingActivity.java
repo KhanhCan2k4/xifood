@@ -1,23 +1,49 @@
 package vn.edu.tdc.xifood.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.Toast;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Set;
 
+import vn.edu.tdc.xifood.R;
+import vn.edu.tdc.xifood.adapters.ListCategoryAdapter;
+import vn.edu.tdc.xifood.adapters.ListProductsAdapter;
+import vn.edu.tdc.xifood.adapters.OrderAdapter;
+import vn.edu.tdc.xifood.adapters.RecentsProductsAdapter;
+import vn.edu.tdc.xifood.datamodels.Product;
+import vn.edu.tdc.xifood.apis.CategoryAPI;
 import vn.edu.tdc.xifood.apis.ImageStorageReference;
+import vn.edu.tdc.xifood.apis.OrderAPI;
 import vn.edu.tdc.xifood.apis.SharePreference;
+import vn.edu.tdc.xifood.apis.UserAPI;
 import vn.edu.tdc.xifood.databinding.SettingLayoutBinding;
+import vn.edu.tdc.xifood.datamodels.Category;
+import vn.edu.tdc.xifood.datamodels.Order;
 import vn.edu.tdc.xifood.datamodels.User;
 import vn.edu.tdc.xifood.views.Navbar;
 
 public class SettingActivity extends AppCompatActivity {
     private SettingLayoutBinding binding;
+    private RecentsProductsAdapter adapter;
+    private ArrayList<Product> boughts;
+    private ListProductsAdapter listProductsAdapter;
+
+    private ArrayList<Product> products = new ArrayList<>();
+
 
     private User user;
 
@@ -53,7 +79,47 @@ public class SettingActivity extends AppCompatActivity {
                         .show();
             }
         });
+binding.btnContact.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+        Toast.makeText(SettingActivity.this, "Vui lòng liên hệ 19008080 để được hỗ trợ", Toast.LENGTH_LONG).show();
 
+    }
+});
+binding.btnRate.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+        Intent intent = new Intent(SettingActivity.this, RattingActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+        // chuyen
+        startActivity(intent);
+    }
+});
+binding.btnVoucher.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+        Toast.makeText(SettingActivity.this, "tính năng đang được cập nhật", Toast.LENGTH_LONG).show();
+
+    }
+});
+binding.btnOrderHistory.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+        Intent intent = new Intent(SettingActivity.this, OrderActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+        // chuyen
+        startActivity(intent);
+    }
+});
+binding.btnCart.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+        Intent intent = new Intent(SettingActivity.this, CartActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+        // chuyen
+        startActivity(intent);
+    }
+});
 
         binding.username.setText(SharePreference.find(SharePreference.USER_NAME));
         try {
@@ -64,6 +130,19 @@ public class SettingActivity extends AppCompatActivity {
         } catch (Exception e) {
             //ignore
         }
+
+        products = new ArrayList<>();
+
+//        adapter = new RecentsProductsAdapter(this, products);
+
+        Log.d("product", products.size() + "");
+
+        //Tạo đối tượng layout Mânger
+        GridLayoutManager layoutManager = new GridLayoutManager(this, 2);
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        binding.recentsSettingRecycleView.setLayoutManager(layoutManager);
+
+        binding.recentsSettingRecycleView.setAdapter(adapter);
 
         binding.user.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,6 +191,50 @@ public class SettingActivity extends AppCompatActivity {
                 //ignore
             }
         });
+
+        OrderAPI.all(new OrderAPI.FirebaseCallbackAll() {
+            @Override
+            public void onCallback(ArrayList<Order> orders) {
+                if (orders != null) {
+                    boughts = new ArrayList<>();
+
+                    String userToken = SharePreference.find(SharePreference.USER_TOKEN_KEY);
+
+                    // Kiểm tra token không null
+                    if (userToken == null || userToken.isEmpty()) {
+                        Log.e("OrderActivity", "User token is null or empty");
+                        return;
+                    }
+
+                    // Lấy đơn hàng của người dùng này
+                    for (Order order : orders) {
+                        User user = order.getUser();
+                        if (user != null && user.getKey() != null && user.getKey().equals(userToken)) {
+                            Product p = order.getOrderedProducts().get(0).getProduct();
+                            boughts.add(p);
+                        }
+                    }
+
+                    //get this user's order
+                    listProductsAdapter = new ListProductsAdapter(SettingActivity.this, boughts);
+                    GridLayoutManager manager = new GridLayoutManager(SettingActivity.this, 2);
+                    manager.setOrientation(RecyclerView.VERTICAL);
+
+                    binding.recentsSettingRecycleView.setLayoutManager(manager);
+                    binding.recentsSettingRecycleView.setAdapter(listProductsAdapter);
+                    listProductsAdapter.setItemClickListener(new ListProductsAdapter.ItemClickListener() {
+                        @Override
+                        public void onItemClick(ListProductsAdapter.ViewHolder holder) {
+                            Intent intent = new Intent(SettingActivity.this, DetailActivity.class);
+                            intent.putExtra(DetailActivity.DETAIL_PRODUCT_KEY, holder.getProductKey());
+
+                            startActivity(intent);
+                        }
+                    });
+                }
+            }
+        });
+
     }
 
     @Override

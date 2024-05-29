@@ -148,9 +148,7 @@ public class MainActivity extends AppCompatActivity {
             public void onOrderButtonClick(View view) {
                 Intent intent;
                 intent = new Intent(MainActivity.this, OrderActivity.class);
-
                 intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-
                 // chuyen
                 startActivity(intent);
             }

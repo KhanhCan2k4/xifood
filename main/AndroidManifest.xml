@@ -22,7 +22,7 @@
             android:name=".activities.SetAddressActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.DanhGiaActivity"
+            android:name=".activities.RattingActivity"
             android:exported="false" />
         <activity
             android:name=".activities.SendOTPActivity"

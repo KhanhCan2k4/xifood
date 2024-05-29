@@ -12,10 +12,11 @@
         android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:layout_weight="4"
-        android:textSize="15sp"
+        android:textSize="19sp"
         android:textStyle="bold|italic"
+        android:gravity="center_vertical"
         android:textColor="@color/black"
-        android:text="Dep nam" />
+        android:text="@string/itemNameTitle" />
 
     <ImageView
         android:id="@+id/btnImage"

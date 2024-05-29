@@ -1,10 +1,11 @@
 package vn.edu.tdc.xifood.datamodels;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class OrderedProduct {
+public class OrderedProduct implements Serializable {
     private Product product;
     private Map<String, Long> toppings;
     private int amount;

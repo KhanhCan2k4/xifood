@@ -20,6 +20,8 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import vn.edu.tdc.xifood.R;
 import vn.edu.tdc.xifood.apis.SharePreference;
@@ -78,13 +80,18 @@ public class RegisterActivity extends AppCompatActivity {
         diachi.add(s);
 
         //check less then 6 characters password
-        if (username.length() < 6 || username.length() > 35) {
-            showAlert("THÔNG BÁO", "Tên người dùng chỉ từ 6 đến 35 kí tự");
+        if (username.length() < 6 || username.length() > 36) {
+            showAlert("THÔNG BÁO", "Tên người dùng chỉ từ 6 đến 36 kí tự");
             registerButton.setText("Đăng ký");
             registerButton.setEnabled(true);
             return;
         }
-
+        if (email.length()>255) {
+            showAlert("THÔNG BÁO", "email không vượt quá 255 kí tự");
+            registerButton.setText("Đăng ký");
+            registerButton.setEnabled(true);
+            return;
+        }
         //check valid email
         if (!LoginActivity.VALID_EMAIL_ADDRESS_REGEX.matcher(email).matches()) {
             showAlert("THÔNG BÁO", "Email không hợp lệ");
@@ -94,8 +101,8 @@ public class RegisterActivity extends AppCompatActivity {
         }
 
         //check less then 6 characters password
-        if (password.length() < 6 || password.length() > 15) {
-            showAlert("THÔNG BÁO", "Mật khẩu chỉ từ 6 đến 15 kí tự");
+        if (password.length() < 6 || password.length() > 24) {
+            showAlert("THÔNG BÁO", "Mật khẩu chỉ từ 6 đến 24 kí tự");
             registerButton.setText("Đăng ký");
             registerButton.setEnabled(true);
             return;
@@ -138,28 +145,27 @@ public class RegisterActivity extends AppCompatActivity {
                 user.setDayOfBirth("");
 
                 UserAPI.store(user)
-                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void unused) {
-                            //Save into local
-                            SharePreference.store(SharePreference.USER_TOKEN_KEY, user.getKey());
-                            SharePreference.store(SharePreference.USER_NAME, user.getFullName());
-                            SharePreference.store(SharePreference.USER_EMAIL, user.getEmail());
-                            SharePreference.store(SharePreference.USER_PASS, user.getPassword());
-                            SharePreference.store(SharePreference.USER_GENDER, AccountActivity.GENDER_DEFAULT);
-
-                            Toast.makeText(RegisterActivity.this, "Xin chào" + username, Toast.LENGTH_LONG).show();
-                            showAlertAndNavigate("THÔNG BÁO", "Đăng kí thành công");
-                        }
-                    })
-                    .addOnCanceledListener(new OnCanceledListener() {
-                        @Override
-                        public void onCanceled() {
-                            showAlert("THÔNG BÁO", "Đăng ký thất bại :< Vui lòng thử lại");
-                            registerButton.setEnabled(true);
-                            registerButton.setText("Đăng ký");
-                        }
-                    });
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void unused) {
+                                //Save into local
+                                SharePreference.store(SharePreference.USER_TOKEN_KEY, user.getKey());
+                                SharePreference.store(SharePreference.USER_NAME, user.getFullName());
+                                SharePreference.store(SharePreference.USER_EMAIL, user.getEmail());
+                                SharePreference.store(SharePreference.USER_PASS, user.getPassword());
+                                SharePreference.store(SharePreference.USER_GENDER, AccountActivity.GENDER_DEFAULT);
+                                Toast.makeText(RegisterActivity.this, "Xin chào" + username, Toast.LENGTH_LONG).show();
+                                showAlertAndNavigate("THÔNG BÁO", "Đăng kí thành công");
+                            }
+                        })
+                        .addOnCanceledListener(new OnCanceledListener() {
+                            @Override
+                            public void onCanceled() {
+                                showAlert("THÔNG BÁO", "Đăng ký thất bại :< Vui lòng thử lại");
+                                registerButton.setEnabled(true);
+                                registerButton.setText("Đăng ký");
+                            }
+                        });
             }
         });
     }
@@ -193,5 +199,14 @@ public class RegisterActivity extends AppCompatActivity {
                     }
                 })
                 .show();
+    }
+        public static boolean containsSpecialCharacter(String text) {
+        // Biểu thức chính quy để tìm các ký tự đặc biệt !@#$%^&*()
+        String specialCharacterRegex = ".*[!@#$%^&*()].*";
+        Pattern pattern = Pattern.compile(specialCharacterRegex);
+        Matcher matcher = pattern.matcher(text);
+
+        // Kiểm tra chuỗi text với biểu thức chính quy
+        return matcher.matches();
     }
 }
