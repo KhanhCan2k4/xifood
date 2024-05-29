@@ -17,7 +17,6 @@ import vn.edu.tdc.xifood.datamodels.Product;
 public class ListProductsAdapter extends RecyclerView.Adapter<ListProductsAdapter.ViewHolder> {
     private Activity context;
     private ArrayList<Product> products;
-    
 
     private ItemClickListener itemClickListener;
 
@@ -41,7 +40,7 @@ public class ListProductsAdapter extends RecyclerView.Adapter<ListProductsAdapte
         Product product = products.get(position);
         holder.listProductBinding.productImage.setImageResource(R.drawable.milk_tea);
         holder.listProductBinding.productName.setText(product.getName());
-        holder.listProductBinding.priceProduct.setText(Product.getPriceInFormat(product.getPrice()));
+        holder.listProductBinding.priceProduct.setText(product.getPrice() + "VND");
         holder.setProductKey(product.getKey());
     }
 

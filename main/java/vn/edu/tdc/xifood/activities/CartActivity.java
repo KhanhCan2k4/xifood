@@ -2,12 +2,14 @@ package vn.edu.tdc.xifood.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import com.google.android.gms.tasks.OnCanceledListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -57,10 +59,6 @@ public class CartActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-        // Display the total bill
-
-
     }
 
     private void updateTotalBill(long total) {
@@ -77,8 +75,11 @@ public class CartActivity extends AppCompatActivity {
 
             for (OrderedProduct orderedProduct : orders) {
                 if (orderedProduct.getProduct().getKey().equals(productId)) {
-                    orderedProduct.setAmount(amount);
 
+                    // giu nguyen gia tri isCheckPay hiện tại
+                    boolean currentCheckedPayStatus = orderedProduct.isCheckedPay();
+
+                    orderedProduct.setAmount(amount);
                     Map<String, Long> orderedToppings = new HashMap<>();
                     if (selectedToppings != null && !selectedToppings.isEmpty()) {
                         String[] toppingArray = selectedToppings.split(", ");
@@ -89,25 +90,42 @@ public class CartActivity extends AppCompatActivity {
                             orderedToppings.put(toppingName, toppingPrice);
                         }
                     }
+
                     orderedProduct.setToppings(orderedToppings);
+
+                    // Đảm bảo rằng isCheckedPay không bị thay đổi
+                    orderedProduct.setCheckedPay(currentCheckedPayStatus);
+
                     updateFirebase(orderedProduct);
+
+                    Log.d("CartActivity", "After update: Product: " + productId + ", isCheckedPay: " + orderedProduct.isCheckedPay());
                     break;
                 }
             }
-            // Cập nhật lại totalBill
-            long totalBill = 0;
-            for (OrderedProduct orderedProduct : orders) {
-                if (orderedProduct.isCheckedPay() == true) {
-                    totalBill += orderedProduct.getProduct().getPrice() * orderedProduct.getAmount();
-                    for (Map.Entry<String, Long> entry : orderedProduct.getToppings().entrySet()) {
-                        totalBill += entry.getValue();
-                    }
-                }
-            }
+
+            // Cập nhật lại tổng số tiền
+            long totalBill = calculateTotalBill();
             updateTotalBill(totalBill);
             adapter.notifyDataSetChanged();
         }
     }
+
+
+    private long calculateTotalBill() {
+        long totalBill = 0;
+        for (OrderedProduct orderedProduct : orders) {
+            Log.d("CartActivity", "Calculating: Product: " + orderedProduct.getProduct().getName() + ", isCheckedPay: " + orderedProduct.isCheckedPay() + ", Amount: " + orderedProduct.getAmount());
+            if (orderedProduct.isCheckedPay()) {
+                totalBill += orderedProduct.getProduct().getPrice() * orderedProduct.getAmount();
+                for (Map.Entry<String, Long> entry : orderedProduct.getToppings().entrySet()) {
+                    totalBill += entry.getValue();
+                }
+            }
+        }
+        Log.d("CartActivity", "Total Bill: " + totalBill);
+        return totalBill;
+    }
+
 
     private void updateFirebase(OrderedProduct orderedProduct) {
         CartAPI.update(userId, orderedProduct, new OnSuccessListener<Void>() {
@@ -122,6 +140,9 @@ public class CartActivity extends AppCompatActivity {
             }
         });
     }
+
+
+
 
     @Override
     protected void onResume() {
@@ -148,4 +169,5 @@ public class CartActivity extends AppCompatActivity {
             }
         });
     }
+
 }

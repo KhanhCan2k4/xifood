@@ -122,7 +122,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-
                 android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
             " />
 
@@ -133,99 +132,30 @@
                 android:layout_marginTop="30dp"
                 android:layout_marginBottom="10dp"
                 android:textColor="#FF4F4F"
-                android:text="topping them"
+                android:text="Topping"
                 android:textSize="16dp"
-                android:textStyle="bold" />
+                android:textStyle="italic|bold" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/toppingList"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="300dp"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp" />
 
-            <TextView
-                android:id="@+id/Bill"
+            <View
+                android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:layout_marginBottom="10dp"
-                android:textColor="#FF4F4F"
-                android:text="Don Hang Cua Ban"
-                android:textSize="16dp"
-                android:textStyle="bold" />
+                android:layout_height="1dp"
+                android:background="#000000" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="6"
-                    android:text="ten"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="sl"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="3"
-                    android:text="gia"
-                    android:textStyle="bold" />
-            </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="#000000" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/oderListView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#000000" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="6"
-                    android:gravity="right"
-                    android:text="tong: "
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="0"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="3"
-                    android:text="0000"
-                    android:textStyle="bold" />
-            </LinearLayout>
 
 
             <LinearLayout
@@ -240,7 +170,7 @@
                     android:layout_margin="5dp"
                     android:layout_weight="5"
                     android:backgroundTint="#CF0000"
-                    android:text="Quay lai" />
+                    android:text="Back" />
                 <!--                    android:background="#CF0000"-->
 
 
@@ -251,7 +181,7 @@
                     android:layout_margin="5dp"
                     android:layout_weight="5"
                     android:backgroundTint="#FFC327"
-                    android:text="Cap nhat" />
+                    android:text="Update" />
                 <!--                    android:background="#FFC327"-->
 
 

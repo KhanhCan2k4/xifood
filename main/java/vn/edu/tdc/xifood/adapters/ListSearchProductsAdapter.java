@@ -42,7 +42,8 @@ public class ListSearchProductsAdapter extends RecyclerView.Adapter<ListSearchPr
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Product product = products.get(position);
-        holder.key = product.getKey();
+
+
     }
 
     @Override
@@ -51,12 +52,6 @@ public class ListSearchProductsAdapter extends RecyclerView.Adapter<ListSearchPr
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-
-        private String key;
-
-        public String getKey() {
-            return key;
-        }
 
         public ViewHolder(@NonNull ListSearchLayoutBinding itemView) {
             super(itemView.getRoot());
