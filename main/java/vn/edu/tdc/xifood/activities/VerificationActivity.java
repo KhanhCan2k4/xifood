@@ -8,6 +8,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AlertDialog;
@@ -17,6 +18,8 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import vn.edu.tdc.xifood.R;
 import vn.edu.tdc.xifood.apis.SharePreference;
@@ -27,6 +30,10 @@ public class VerificationActivity extends AppCompatActivity {
     private VerificationLayoutBinding binding ;
     private int verificationCode;
     private String phoneNumber;
+    private static final String NUMERIC_PATTERN = "^\\d{9}$";
+
+    private static final Pattern pattern2 = Pattern.compile(NUMERIC_PATTERN);
+
 
     private String curentOTP;
     @Override
@@ -37,46 +44,40 @@ public class VerificationActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         verificationCode = getIntent().getIntExtra("otp", 00000);
         phoneNumber = getIntent().getStringExtra("phoneNumber");
-        setOTPInput();
 
-        binding.btnVerify.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                curentOTP = getOTPInput();
-                Log.d("click", curentOTP);
+
+    setOTPInput();
+    binding.btnVerify.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            curentOTP = getOTPInput();
+            Log.d("click", curentOTP);
+            Log.d("clicked", verificationCode + "");
+            if (curentOTP.length() != 6) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+                builder.setMessage("OTP is not filled");
+                builder.setCancelable(true);
+                builder.setNegativeButton("Ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        checkInputEmpty();
+                        dialog.cancel();
+                    }
+                });
+                AlertDialog alert = builder.create();
+                alert.show();
+            } else if (curentOTP.equals(verificationCode + "")) {
                 Log.d("clicked", verificationCode + "");
-                if(curentOTP.length() != 6){
-                    AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
-                    builder.setMessage("OTP is not filled");
-                    builder.setCancelable(true);
-                    builder.setNegativeButton("Ok", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            checkInputEmpty();
-                            dialog.cancel();
-                        }
-                    });
-                    AlertDialog alert = builder.create();
-                    alert.show();
-                }
-                else if(curentOTP.equals(verificationCode+"")){
-                    Log.d("clicked", verificationCode+"");
-                    SharePreference.store(SharePreference.USER_PHONE, phoneNumber);
-                    Intent intent = new Intent(VerificationActivity.this, AccountActivity.class);
-                    startActivity(intent);
-                }
+                SharePreference.store(SharePreference.USER_PHONE, phoneNumber);
+                Intent intent = new Intent(VerificationActivity.this, AccountActivity.class);
+                startActivity(intent);
             }
-        });
-
+        }
+    });
 
 
         //cancelled header
-        binding.cancelHeader.setCancelListener(new CancelHeader.OnCancelListener() {
-            @Override
-            public void onCancel(View view) {
-                finish();
-            }
-        });
+
 
     }//end onCreate
 
@@ -153,5 +154,11 @@ public class VerificationActivity extends AppCompatActivity {
             }
         }
     }
-
+    public static boolean isValidNumericString(String str) {
+        if (str == null) {
+            return false;
+        }
+        Matcher matcher = pattern2.matcher(str);
+        return matcher.matches();
+    }
 }//end class

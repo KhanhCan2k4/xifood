@@ -128,21 +128,21 @@ public class AccountStaffActivity extends AppCompatActivity {
     private void setUserInEditText(){
         user.setName(binding.nameUser.getText().toString());
 //        user.setGender(binding.genderUser.getText().toString());
-        user.setDayBorn(binding.dayBornUser.getText().toString());
+        user.setDayBorn(binding.textViewDate.getText().toString());
         user.setEmail(binding.emailUser.getText().toString());
         user.setPhoneNumber(binding.phoneNumberUser.getText().toString());
     }
     private void setUser(User user){
         binding.nameUser.setText(user.getName());
 //        binding.genderUser.setText(user.getGender());
-        binding.dayBornUser.setText(user.getDayBorn());
+        binding.textViewDate.setText(user.getDayBorn());
         binding.emailUser.setText(user.getEmail());
         binding.phoneNumberUser.setText(user.getPhoneNumber());
     }
     private void setEnableEdit(boolean isEditable){
         binding.nameUser.setEnabled(isEditable);
         binding.genderUser.setEnabled(isEditable);
-        binding.dayBornUser.setEnabled(isEditable);
+        binding.textViewDate.setEnabled(isEditable);
         binding.emailUser.setEnabled(isEditable);
         binding.phoneNumberUser.setEnabled(isEditable);
     }

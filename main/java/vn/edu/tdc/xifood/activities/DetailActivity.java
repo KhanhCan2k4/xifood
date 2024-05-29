@@ -65,6 +65,7 @@ public class DetailActivity extends AppCompatActivity {
         ProductAPI.find(key, new ProductAPI.FirebaseCallback() {
             @Override
             public void onCallback(Product p) {
+
                 if (p != null) {
                     binding.productName.setText(p.getName());
                     binding.productPrice.setText(p.getPrice() + "");

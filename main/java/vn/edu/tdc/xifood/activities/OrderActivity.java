@@ -151,7 +151,6 @@ public class OrderActivity extends AppCompatActivity {
 
                         if (remove) {
                             orderAdapter.notifyDataSetChanged();
-                            Toast.makeText(OrderActivity.this, "Đơn hàng đã được xóa", Toast.LENGTH_SHORT).show();
                         } else {
                             Log.e("OrderActivity", "Không thể xóa đơn hàng khỏi danh sách local");
                         }

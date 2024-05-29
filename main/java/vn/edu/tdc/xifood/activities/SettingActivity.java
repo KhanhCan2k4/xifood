@@ -3,6 +3,7 @@ package vn.edu.tdc.xifood.activities;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -19,19 +20,30 @@ import java.util.ArrayList;
 import java.util.Set;
 
 import vn.edu.tdc.xifood.R;
-import vn.edu.tdc.xifood.adapters.Product;
+import vn.edu.tdc.xifood.adapters.ListCategoryAdapter;
+import vn.edu.tdc.xifood.adapters.ListProductsAdapter;
+import vn.edu.tdc.xifood.adapters.OrderAdapter;
+import vn.edu.tdc.xifood.datamodels.Product;
 import vn.edu.tdc.xifood.adapters.RecentsProductsAdapter;
+import vn.edu.tdc.xifood.apis.CategoryAPI;
 import vn.edu.tdc.xifood.apis.ImageStorageReference;
+import vn.edu.tdc.xifood.apis.OrderAPI;
 import vn.edu.tdc.xifood.apis.SharePreference;
 import vn.edu.tdc.xifood.apis.UserAPI;
 import vn.edu.tdc.xifood.databinding.SettingLayoutBinding;
+import vn.edu.tdc.xifood.datamodels.Category;
+import vn.edu.tdc.xifood.datamodels.Order;
 import vn.edu.tdc.xifood.datamodels.User;
 import vn.edu.tdc.xifood.views.Navbar;
 
 public class SettingActivity extends AppCompatActivity {
     private SettingLayoutBinding binding;
-    RecentsProductsAdapter adapter;
+    private RecentsProductsAdapter adapter;
+    private ArrayList<Product> boughts;
+    private ListProductsAdapter listProductsAdapter;
+
     private ArrayList<Product> products = new ArrayList<>();
+
 
     private User user;
 
@@ -52,7 +64,7 @@ public class SettingActivity extends AppCompatActivity {
                 new AlertDialog.Builder(SettingActivity.this)
                         .setTitle("Đăng Xuất")
                         .setMessage("Bạn có chắc chắn muốn đăng xuất không?")
-                        .setPositiveButton("Đăng Xuất", new DialogInterface.OnClickListener() {
+                        .setPositiveButton("aĐăng Xuất", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 // Xóa tất cả dữ liệu người dùng
                                 SharePreference.clearAll();
@@ -81,7 +93,7 @@ public class SettingActivity extends AppCompatActivity {
 
         products = new ArrayList<>();
 
-        adapter = new RecentsProductsAdapter(this, products);
+//        adapter = new RecentsProductsAdapter(this, products);
 
         Log.d("product", products.size() + "");
 
@@ -139,6 +151,50 @@ public class SettingActivity extends AppCompatActivity {
                 //ignore
             }
         });
+
+        OrderAPI.all(new OrderAPI.FirebaseCallbackAll() {
+            @Override
+            public void onCallback(ArrayList<Order> orders) {
+                if (orders != null) {
+                    boughts = new ArrayList<>();
+
+                    String userToken = SharePreference.find(SharePreference.USER_TOKEN_KEY);
+
+                    // Kiểm tra token không null
+                    if (userToken == null || userToken.isEmpty()) {
+                        Log.e("OrderActivity", "User token is null or empty");
+                        return;
+                    }
+
+                    // Lấy đơn hàng của người dùng này
+                    for (Order order : orders) {
+                        User user = order.getUser();
+                        if (user != null && user.getKey() != null && user.getKey().equals(userToken)) {
+                            Product p = order.getOrderedProducts().get(0).getProduct();
+                            boughts.add(p);
+                        }
+                    }
+
+                    //get this user's order
+                    listProductsAdapter = new ListProductsAdapter(SettingActivity.this, boughts);
+                    GridLayoutManager manager = new GridLayoutManager(SettingActivity.this, 2);
+                    manager.setOrientation(RecyclerView.VERTICAL);
+
+                    binding.recentsSettingRecycleView.setLayoutManager(manager);
+                    binding.recentsSettingRecycleView.setAdapter(listProductsAdapter);
+                    listProductsAdapter.setItemClickListener(new ListProductsAdapter.ItemClickListener() {
+                        @Override
+                        public void onItemClick(ListProductsAdapter.ViewHolder holder) {
+                            Intent intent = new Intent(SettingActivity.this, DetailActivity.class);
+                            intent.putExtra(DetailActivity.DETAIL_PRODUCT_KEY, holder.getProductKey());
+
+                            startActivity(intent);
+                        }
+                    });
+                }
+            }
+        });
+
     }
 
     @Override

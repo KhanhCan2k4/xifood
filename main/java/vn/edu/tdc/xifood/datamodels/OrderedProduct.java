@@ -1,6 +1,5 @@
 package vn.edu.tdc.xifood.datamodels;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
