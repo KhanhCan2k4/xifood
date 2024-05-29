@@ -4,9 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
 import java.util.ArrayList;
@@ -14,11 +14,8 @@ import java.util.ArrayList;
 import vn.edu.tdc.xifood.adapters.ListCategoryAdapter;
 import vn.edu.tdc.xifood.adapters.ListProductsAdapter;
 import vn.edu.tdc.xifood.apis.CategoryAPI;
-import vn.edu.tdc.xifood.apis.ProductAPI;
 import vn.edu.tdc.xifood.apis.SharePreference;
 import vn.edu.tdc.xifood.apis.UserAPI;
-import vn.edu.tdc.xifood.data.CategoryData;
-import vn.edu.tdc.xifood.data.ListProductsData;
 import vn.edu.tdc.xifood.databinding.ListProductsLayoutBinding;
 import vn.edu.tdc.xifood.datamodels.Category;
 import vn.edu.tdc.xifood.datamodels.Product;
@@ -31,9 +28,9 @@ public class ListProductsActivity extends AppCompatActivity {
     private ArrayList<Category> categories;
     private ListCategoryAdapter listCategoryAdapter;
     private ListProductsAdapter adapter;
-    private int id;
+//    private int id;
     private String key;
-    public static final String DISCOUT_KEY = "DISCOUNT_KEY";
+    public static final String DISCOUNT_KEY = "DISCOUNT_KEY";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +70,7 @@ public class ListProductsActivity extends AppCompatActivity {
             @Override
             public void onItemClick(ListCategoryAdapter.ViewHolder holder) {
                 String nextKey = holder.getCategoryKey();
-                if (nextKey != key) {
+                if (nextKey.equals(key)) {
                     if (!nextKey.isEmpty()) {
                         upDate(nextKey);
                     } else {
@@ -91,16 +88,15 @@ public class ListProductsActivity extends AppCompatActivity {
         key = getIntent().getStringExtra(MainActivity.CLICKED_CATEGORY_KEY);
 
         CategoryAPI.all(new CategoryAPI.FirebaseCallbackAll() {
+            @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onCallback(ArrayList<Category> categoriesList) {
                 categories = categoriesList;
                 listCategoryAdapter.setCategories(categories);
                 listCategoryAdapter.notifyDataSetChanged();
-
                 for (Category category: categories ) {
                     if (category.getKey().equals(key)) {
                         binding.categoryName.setText(category.getName());
-
                         products = category.getProducts();
                         adapter.setProducts(products);
                         adapter.notifyDataSetChanged();
@@ -173,6 +169,7 @@ public class ListProductsActivity extends AppCompatActivity {
         });
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private void upDate(String nextKey) {
         key = nextKey;
         for (Category category: categories) {

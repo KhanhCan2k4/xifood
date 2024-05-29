@@ -2,7 +2,6 @@ package vn.edu.tdc.xifood.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 import androidx.annotation.Nullable;
@@ -17,12 +16,10 @@ import vn.edu.tdc.xifood.adapters.CartAdapter;
 import vn.edu.tdc.xifood.apis.CartAPI;
 import vn.edu.tdc.xifood.apis.OrderAPI;
 import vn.edu.tdc.xifood.apis.SharePreference;
-import vn.edu.tdc.xifood.apis.UserAPI;
 import vn.edu.tdc.xifood.databinding.ActionFooterLayoutBinding;
 import vn.edu.tdc.xifood.databinding.ActivityCartLayoutBinding;
 import vn.edu.tdc.xifood.datamodels.Order;
 import vn.edu.tdc.xifood.datamodels.OrderedProduct;
-import vn.edu.tdc.xifood.datamodels.User;
 import vn.edu.tdc.xifood.views.CancelHeader;
 
 public class CartActivity extends AppCompatActivity {

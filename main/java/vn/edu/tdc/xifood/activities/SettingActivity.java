@@ -55,7 +55,7 @@ public class SettingActivity extends AppCompatActivity {
 
         //lay nguoi dung tu SharePreference
         SharePreference.setSharedPreferences(SettingActivity.this); // phai co moi chay nhen ong co
-
+        binding.navbar.setActiveIndex(3);
         //Logout
         // Trong phương thức onCreate của bạn
         binding.logout.setOnClickListener(new View.OnClickListener() {
@@ -79,47 +79,47 @@ public class SettingActivity extends AppCompatActivity {
                         .show();
             }
         });
-binding.btnContact.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View v) {
-        Toast.makeText(SettingActivity.this, "Vui lòng liên hệ 19008080 để được hỗ trợ", Toast.LENGTH_LONG).show();
+        binding.btnContact.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(SettingActivity.this, "Vui lòng liên hệ 19008080 để được hỗ trợ", Toast.LENGTH_LONG).show();
 
-    }
-});
-binding.btnRate.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View v) {
-        Intent intent = new Intent(SettingActivity.this, RattingActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-        // chuyen
-        startActivity(intent);
-    }
-});
-binding.btnVoucher.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View v) {
-        Toast.makeText(SettingActivity.this, "tính năng đang được cập nhật", Toast.LENGTH_LONG).show();
+            }
+        });
+        binding.btnRate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SettingActivity.this, RattingActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                // chuyen
+                startActivity(intent);
+            }
+        });
+        binding.btnVoucher.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(SettingActivity.this, "tính năng đang được cập nhật", Toast.LENGTH_LONG).show();
 
-    }
-});
-binding.btnOrderHistory.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View v) {
-        Intent intent = new Intent(SettingActivity.this, OrderActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-        // chuyen
-        startActivity(intent);
-    }
-});
-binding.btnCart.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View v) {
-        Intent intent = new Intent(SettingActivity.this, CartActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-        // chuyen
-        startActivity(intent);
-    }
-});
+            }
+        });
+        binding.btnOrderHistory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SettingActivity.this, OrderActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                // chuyen
+                startActivity(intent);
+            }
+        });
+        binding.btnCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SettingActivity.this, CartActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                // chuyen
+                startActivity(intent);
+            }
+        });
 
         binding.username.setText(SharePreference.find(SharePreference.USER_NAME));
         try {
@@ -181,7 +181,6 @@ binding.btnCart.setOnClickListener(new View.OnClickListener() {
             public void onOrderButtonClick(View view) {
                 Intent intent = new Intent(SettingActivity.this, OrderActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-
                 // chuyen
                 startActivity(intent);
             }
@@ -241,6 +240,7 @@ binding.btnCart.setOnClickListener(new View.OnClickListener() {
     public void onActivityReenter(int resultCode, Intent data) {
         super.onActivityReenter(resultCode, data);
     }
+
     @Override
     protected void onResume() {
         super.onResume();

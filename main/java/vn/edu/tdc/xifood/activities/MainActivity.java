@@ -1,30 +1,20 @@
 package vn.edu.tdc.xifood.activities;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.content.Intent;
-import android.content.res.ColorStateList;
 import android.net.Uri;
 import android.os.Bundle;
-import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
-import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 import com.bumptech.glide.Glide;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,11 +24,8 @@ import vn.edu.tdc.xifood.adapters.ListCategoryAdapter;
 import vn.edu.tdc.xifood.adapters.ListProductsAdapter;
 import vn.edu.tdc.xifood.apis.CategoryAPI;
 import vn.edu.tdc.xifood.apis.ConfigAPI;
-import vn.edu.tdc.xifood.apis.ProductAPI;
 import vn.edu.tdc.xifood.apis.SharePreference;
 import vn.edu.tdc.xifood.apis.UserAPI;
-import vn.edu.tdc.xifood.data.CategoryData;
-import vn.edu.tdc.xifood.data.ListProductsData;
 import vn.edu.tdc.xifood.databinding.MainLayoutBinding;
 import vn.edu.tdc.xifood.datamodels.Category;
 import vn.edu.tdc.xifood.datamodels.Product;
@@ -136,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
             public void onDiscountButtonClick(View view) {
                 //chuyen qua danh muc uu dai
                 Intent intent = new Intent(MainActivity.this, ListProductsActivity.class);
-                intent.putExtra(MainActivity.CLICKED_CATEGORY_KEY, ListProductsActivity.DISCOUT_KEY);
+                intent.putExtra(MainActivity.CLICKED_CATEGORY_KEY, ListProductsActivity.DISCOUNT_KEY);
 
                 intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 

@@ -1,7 +1,7 @@
 package vn.edu.tdc.xifood.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
@@ -33,7 +33,7 @@ public class OrderActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         SharePreference.setSharedPreferences(this);
-
+        binding.navbar.setActiveIndex(2);
         OrderAPI.all(new OrderAPI.FirebaseCallbackAll() {
             @Override
             public void onCallback(ArrayList<Order> orders) {
@@ -58,8 +58,8 @@ public class OrderActivity extends AppCompatActivity {
 
                     //get this user's order
                     orderAdapter = new OrderAdapter(OrderActivity.this, thisUserOrder);
-                    GridLayoutManager manager = new GridLayoutManager(OrderActivity.this, 3);
-                    manager.setOrientation(RecyclerView.HORIZONTAL);
+                    LinearLayoutManager manager = new LinearLayoutManager(OrderActivity.this);
+                    manager.setOrientation(RecyclerView.VERTICAL);
 
                     binding.orderList.setLayoutManager(manager);
                     binding.orderList.setAdapter(orderAdapter);
