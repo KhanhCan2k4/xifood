@@ -8,8 +8,9 @@ import vn.edu.tdc.xifood.apis.OrderAPI;
 
 public class Order implements Serializable {
     public static final int STATUS_WAITING = 0;
-    public static final int STATUS_DONE = 1;
-    public static final int STATUS_CANCEL = 2;
+    public static final int STATUS_ACCEPT = 1;
+    public static final int STATUS_DONE = 2;
+    public static final int STATUS_CANCEL = 3;
     private String key;
     private ArrayList<OrderedProduct> orderedProducts;
     private String date;

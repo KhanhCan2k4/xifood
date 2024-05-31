@@ -41,7 +41,7 @@ public class ListProductsAdapter extends RecyclerView.Adapter<ListProductsAdapte
         Product product = products.get(position);
         holder.listProductBinding.productImage.setImageResource(R.drawable.milk_tea);
         holder.listProductBinding.productName.setText(product.getName());
-        holder.listProductBinding.priceProduct.setText(product.getPrice() + "VND");
+        holder.listProductBinding.priceProduct.setText(Product.getPriceInFormat(product.getPrice()));
         holder.setProductKey(product.getKey());
     }
 

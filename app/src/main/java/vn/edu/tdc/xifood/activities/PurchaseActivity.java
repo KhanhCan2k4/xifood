@@ -29,6 +29,7 @@ import java.util.ArrayList;
 
 import vn.edu.tdc.xifood.R;
 import vn.edu.tdc.xifood.adapters.OrderAdapter;
+import vn.edu.tdc.xifood.apis.CartAPI;
 import vn.edu.tdc.xifood.apis.ImageStorageReference;
 import vn.edu.tdc.xifood.apis.OrderAPI;
 import vn.edu.tdc.xifood.apis.PaymentAPI;
@@ -118,29 +119,39 @@ public class PurchaseActivity extends AppCompatActivity {
                             vocher[0] = 0.1;
                         }
                     }
-
                     @Override
                     public void onNothingSelected(AdapterView<?> parent) {
 
                     }
                 });
                 if (order != null) {
+                    binding.cancelHeader.setCancelListener(new CancelHeader.OnCancelListener() {
+                        @Override
+                        public void onCancel(View view) {
+                            OrderAPI.destroy(order);
+                            finish();
+                        }
+                    });
 
                     order.setNote(String.valueOf(ghichu.getText()));
                     OrderAPI.update(order);
                     ///////adress để qua 1 bên
                     /////THỰC HIỆN VIỆC XÁC NHẬN ĐIA CHỈ
-
-                    if (order.getUser().getAddress() != null ) {
-                        if (order.getUser().getAddress() != null && !order.getUser().getAddress().isEmpty()){
-                            diaChi.setText(order.getUser().getAddress().get(0) + "");
+                    UserAPI.find(SharePreference.find(SharePreference.USER_TOKEN_KEY), new UserAPI.FirebaseCallback() {
+                        @Override
+                        public void onCallback(User user) {
+                            if (order.getUser().getAddress() != null ) {
+                                if (order.getUser().getAddress() != null && !order.getUser().getAddress().isEmpty()){
+                                    diaChi.setText(order.getUser().getAddress().get(0) + "");
+                                }
+                                else {
+                                    diaChi.setText("Cập nhật địa chỉ tại biểu tượng địa chỉ ở bên trái");
+                                }
+                            } else {
+                                diaChi.setText("Cập nhật địa chỉ tại biểu tượng địa chỉ ở bên trái");
+                            }
                         }
-                        else {
-                            diaChi.setText("Cập nhật địa chỉ tại biểu tượng địa chỉ ở bên trái");
-                        }
-                    } else {
-                        diaChi.setText("Cập nhật địa chỉ tại biểu tượng địa chỉ ở bên trái");
-                    }
+                    });
                     setAddress.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -196,6 +207,7 @@ public class PurchaseActivity extends AppCompatActivity {
                                                             payment.setTotal(ketqaucuoicung[0]);
                                                             showPaymentDialog(payment, "Thay toán ví điện tử", R.drawable.momo_logo, ketqaucuoicung[0]);
                                                             intent.putExtra("Payment", adapterPhuongThucThanhToans[position]);
+                                                            intent.putExtra("resultPayment", ketqaucuoicung[0]);
                                                         }
                                                     }
                                                 });
@@ -207,6 +219,8 @@ public class PurchaseActivity extends AppCompatActivity {
                                                         if (payment != null) {
                                                             payment.setTotal(ketqaucuoicung[0]);
                                                             showPaymentDialog(payment, "Thay toán qua ngân hàng", R.drawable.bank_logo, ketqaucuoicung[0]);
+                                                            intent.putExtra("resultPayment", ketqaucuoicung[0]);
+
                                                         }
                                                     }
                                                 });
@@ -234,24 +248,27 @@ public class PurchaseActivity extends AppCompatActivity {
                         @Override
                         public void onClick(View v) {
                             if (xacNhanSDT) {
-                                if (order.getUser().getAddress() != null && order.getUser().getAddress().size() > 0) {
+                                if (order.getAddress().equals("bạn chưa có địa chỉ!")) {
+                                    Toast.makeText(PurchaseActivity.this, "Vui lòng cập nhật địa chỉ của bạn", Toast.LENGTH_SHORT).show();
+                                } else if (order.getUser().getAddress() != null && order.getUser().getAddress().size() > 0) {
                                     // Cập nhật ghi chú của đơn hàng
-                                    order.setNote(String.valueOf(ghichu.getText()));
+                                    order.setNote(ghichu.getText()+"");
                                     // Cập nhật trạng thái của đơn hàng
                                     order.setStatus(Order.STATUS_WAITING);
-                                    order.setPayment(String.valueOf(phuongThucThanhToan.getSelectedItem()));
-                                    order.setVoucher(String.valueOf(vocherList.getSelectedItem()));
+                                    order.setPayment(phuongThucThanhToan.getSelectedItem()+"");
+
                                     // Cập nhật đơn hàng trong cơ sở dữ liệu
                                     OrderAPI.update(order);
 
                                     // Chuyển hướng sang OrderActivity
-                                    Intent intent = new Intent(PurchaseActivity.this, OrderActivity.class);
+                                    Intent intent = new Intent(PurchaseActivity.this, PayingActivity.class);
                                     // Đặt đơn hàng vào intent để truyền sang OrderActivity
                                     Bundle bundle = new Bundle();
                                     bundle.putSerializable("Order", order); // Nhớ implement Serializable cho lớp Order
                                     intent.putExtras(bundle);
-                                    intent.putExtra("Payment", String.valueOf(phuongThucThanhToan));
-                                    intent.putExtra("Voucher", vochers);
+                                    intent.putExtra("Payment", String.valueOf(order.getPayment()));
+                                    intent.putExtra("Voucher", order.getVoucher());
+                                    intent.putExtra(ORDERED_KEY, order.getKey());
                                     startActivity(intent);
 
                                     // Kết thúc hoạt động hiện tại (PurchaseActivity)
@@ -275,12 +292,7 @@ public class PurchaseActivity extends AppCompatActivity {
 
         binding.cancelHeader.setTitle("# Thông tin đơn hàng #");
 
-        binding.cancelHeader.setCancelListener(new CancelHeader.OnCancelListener() {
-            @Override
-            public void onCancel(View view) {
-                finish();
-            }
-        });
+
     }
 
     public void showPaymentDialog(Payment payment, String title, int icon, long total) {

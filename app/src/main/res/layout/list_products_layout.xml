@@ -13,7 +13,7 @@
         android:background="@drawable/header_bg"
         android:gravity="center"
         android:orientation="horizontal"
-        android:layout_weight="1">
+        android:layout_weight="0.7">
 
         <LinearLayout
             android:layout_width="0dp"
@@ -29,30 +29,44 @@
                 android:layout_height="25dp"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
-                android:background="@drawable/order_icon"
-                android:hint="Tìm kiếm thức ăn"
+                android:background="@drawable/search_icon"
+                android:backgroundTint="@color/black"
+                android:hint="@string/searchFood"
                 android:gravity="start">
             </ImageButton>
 
             <EditText
+                android:id="@+id/txtSearch"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@null"
-                android:hint="Tìm kiếm thức ăn...">
+                android:hint="@string/searchFoodHint">
             </EditText>
 
 
         </LinearLayout>
 
         <ImageButton
-            android:id="@+id/homeIcon"
+            android:id="@+id/btnCart"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginRight="30dp"
-            android:background="@drawable/home_icon">
+            android:background="@drawable/cart_icon">
         </ImageButton>
 
     </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/listCategoriesTitle"
+        android:textStyle="bold"
+        android:layout_marginTop="5dp"
+        android:gravity="center"
+        android:layout_marginHorizontal="20dp"
+        android:textColor="@color/black"
+        android:textSize="15sp">
+    </TextView>
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_marginTop="10dp"
@@ -66,9 +80,14 @@
         android:id="@+id/categoryName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
+        android:text="@string/categoriesName"
+        android:textStyle="bold"
+        android:textAllCaps="true"
+        android:textAlignment="center"
+        android:layout_marginTop="5dp"
         android:textColor="@color/black"
-        android:textSize="30sp" />
+        android:textSize="15sp">
+    </TextView>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/listProducts"
@@ -80,7 +99,4 @@
         android:id="@+id/navbar"
         android:layout_width="match_parent"
         android:layout_height="70dp"/>
-
-
-
 </LinearLayout>

@@ -51,5 +51,9 @@ dependencies {
     implementation("com.squareup.picasso:picasso:2.71828")
     implementation("com.google.android.gms:play-services-auth:20.0.0")
     implementation("com.squareup.picasso:picasso:2.8.0")
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation("com.squareup.okhttp3:okhttp:4.9.1")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.9.1")
     implementation("org.springframework.security:spring-security-crypto:5.7.2")
 }

@@ -44,7 +44,6 @@ public class DetailActivity extends AppCompatActivity {
     private int amount = 1;
     public static final String DETAIL_PRODUCT_KEY = "DETAIL_PRODUCT_KEY";
     public static final int MAX_AMOUNT = 5;
-    private ArrayList<String> adress = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,8 +57,6 @@ public class DetailActivity extends AppCompatActivity {
         toppingsWithAmount = new HashMap<>();
         SharePreference.setSharedPreferences(this);
 
-        String s = "Bạn chưa có địa chỉ nào";
-        adress.add(s);
         binding.productName.setText("Đang tải...");
         binding.productPrice.setText("Đang tải...");
         binding.productDes.setText("Đang tải...");
@@ -70,7 +67,7 @@ public class DetailActivity extends AppCompatActivity {
             public void onCallback(Product p) {
                 if (p != null) {
                     binding.productName.setText(p.getName());
-                    binding.productPrice.setText(p.getPrice() + "");
+                    binding.productPrice.setText(Product.getPriceInFormat(p.getPrice()));
                     binding.productDes.setText(p.getDescription());
                     ImageStorageReference.setImageInto(binding.productImg, p.getImage().get(0));
                     product = p;
@@ -141,7 +138,7 @@ public class DetailActivity extends AppCompatActivity {
                 Order order = new Order();
                 ArrayList<OrderedProduct> products = new ArrayList<>();
                 OrderedProduct orderedProduct = new OrderedProduct(product, amount, false);
-                Map                <String, Long> orderedToppings = new HashMap<>();
+                Map<String, Long> orderedToppings = new HashMap<>();
                 for (Map.Entry<Topping, Integer> entry : toppingsWithAmount.entrySet()) {
                     Topping topping = entry.getKey();
                     int toppingAmount = entry.getValue();
@@ -163,7 +160,7 @@ public class DetailActivity extends AppCompatActivity {
                 user.setPermistion(SharePreference.findPermission());
                 String s = "Chưa có địa chỉ nào!";
 
-                ArrayList<String> diachi= new ArrayList<>();
+                ArrayList<String> diachi = new ArrayList<>();
 
                 diachi.add(s);
 
@@ -191,10 +188,10 @@ public class DetailActivity extends AppCompatActivity {
                     }
                 };
 
-                if (SharePreference.findPermission() ==  UserAPI.STAFF_PERMISSION) {
+                if (SharePreference.findPermission() == UserAPI.STAFF_PERMISSION) {
 
-                CartAPI.store(SharePreference.find(SharePreference.USER_TOKEN_KEY), order, onSuccessListener, onCanceledListener);
-                } else  {
+                    CartAPI.store(SharePreference.find(SharePreference.USER_TOKEN_KEY), order, onSuccessListener, onCanceledListener);
+                } else {
                     CartAPI.storeM(SharePreference.find(SharePreference.USER_TOKEN_KEY), order, onSuccessListener, onCanceledListener);
                 }
             }
@@ -229,7 +226,6 @@ public class DetailActivity extends AppCompatActivity {
                 user.setDayOfBirth(SharePreference.find(SharePreference.USER_DOB));
                 user.setGender(SharePreference.find(SharePreference.USER_GENDER));
                 user.setPassword(SharePreference.find(SharePreference.USER_PASS));
-                user.setAddress(adress);
                 user.setPermistion(SharePreference.findPermission());
 
                 order.setOrderedProducts(products);
@@ -259,7 +255,6 @@ public class DetailActivity extends AppCompatActivity {
                             }
                         });
             }
-
 
         });
     }

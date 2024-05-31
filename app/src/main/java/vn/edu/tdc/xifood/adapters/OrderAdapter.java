@@ -81,7 +81,29 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
             // để kiểm tra trạng thái là đã được đặt hay chưa -> xét lại nút
             switch  (order.getStatus()) {
                 case Order.STATUS_WAITING:
-                    holder.binding.btnBuyBack.setText("Hủy");
+                    holder.binding.btnBuyBack.setText("Xóa");
+                    holder.binding.btnBuyBack.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            if (itemClickListener != null) {
+                                itemClickListener.onCancel(holder.binding.btnBuyBack, order.getKey());
+                            }
+                        }
+                    });
+                    break;
+                case Order.STATUS_ACCEPT:
+                    holder.binding.btnBuyBack.setText("Xóa");
+                    holder.binding.btnBuyBack.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            if (itemClickListener != null) {
+                                itemClickListener.onCancel(holder.binding.btnBuyBack, order.getKey());
+                            }
+                        }
+                    });
+                    break;
+                case Order.STATUS_CANCEL:
+                    holder.binding.btnBuyBack.setText("Xóa");
                     holder.binding.btnBuyBack.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {

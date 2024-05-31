@@ -2,6 +2,7 @@ package vn.edu.tdc.xifood.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 import androidx.annotation.Nullable;
@@ -14,11 +15,14 @@ import java.util.HashMap;
 import java.util.Map;
 import vn.edu.tdc.xifood.adapters.CartAdapter;
 import vn.edu.tdc.xifood.apis.CartAPI;
+import vn.edu.tdc.xifood.apis.OrderAPI;
 import vn.edu.tdc.xifood.apis.SharePreference;
+import vn.edu.tdc.xifood.apis.UserAPI;
 import vn.edu.tdc.xifood.databinding.ActionFooterLayoutBinding;
 import vn.edu.tdc.xifood.databinding.ActivityCartLayoutBinding;
 import vn.edu.tdc.xifood.datamodels.Order;
 import vn.edu.tdc.xifood.datamodels.OrderedProduct;
+import vn.edu.tdc.xifood.datamodels.User;
 import vn.edu.tdc.xifood.views.CancelHeader;
 
 public class CartActivity extends AppCompatActivity {
@@ -26,8 +30,10 @@ public class CartActivity extends AppCompatActivity {
     private ActivityCartLayoutBinding binding;
     private ActionFooterLayoutBinding bindingFooter;
     private ArrayList<OrderedProduct> orders = new ArrayList<>();
+    private ArrayList<OrderedProduct> selectedItems = new ArrayList<>();
     private CartAdapter adapter;
     private String userId;
+    private Order cartOrder;
     private static final int REQUEST_CODE_UPDATE_PRODUCT = 1;
 
     @Override
@@ -57,9 +63,6 @@ public class CartActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-        // Display the total bill
-
 
     }
 
@@ -126,12 +129,12 @@ public class CartActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        // Retrieve userId from SharedPreferences
+        // Lấy userId từ SharedPreferences
         CartAPI.find(userId, new CartAPI.FirebaseCallback() {
             @Override
             public void onCallback(Order order) {
                 if (order != null && order.getOrderedProducts() != null) {
-                    // Update cart items
+                    // Cập nhật các mục trong giỏ hàng
                     orders.clear();
                     orders.addAll(order.getOrderedProducts());
                     adapter.notifyDataSetChanged();
@@ -141,11 +144,47 @@ public class CartActivity extends AppCompatActivity {
                             updateTotalBill(totalBill);
                         }
                     });
+
+
                     Log.d("CartActivity", "onCallback: " + orders);
                 } else {
                     Log.d("CartActivity", "Null");
                 }
             }
         });
+        bindingFooter.btnAction.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ArrayList<OrderedProduct> checkedItems = adapter.getCheckedItems();
+                if (!checkedItems.isEmpty()) {
+                    // Tạo một danh sách mới chứa các mục đã chọn cần xóa
+                    ArrayList<OrderedProduct> itemsToRemove = new ArrayList<>(checkedItems);
+                    Intent intent = new Intent(CartActivity.this, PurchaseActivity.class);
+                    Order ordersToPurchase = new Order();
+                    ordersToPurchase.setOrderedProducts(itemsToRemove);
+                    OrderAPI.store(ordersToPurchase);
+                    intent.putExtra("ORDERED_KEY", ordersToPurchase.getKey());
+
+                    startActivity(intent);
+                } else {
+                    // Hiển thị thông báo hoặc xử lý khi không có mục nào được chọn
+                }
+            }
+        });
+
+    }
+
+    // Phương thức tính tổng bill
+    private long calculateTotalBill() {
+        long totalBill = 0;
+        for (OrderedProduct orderedProduct : orders) {
+            if (orderedProduct.isCheckedPay()) {
+                totalBill += orderedProduct.getProduct().getPrice() * orderedProduct.getAmount();
+                for (Map.Entry<String, Long> entry : orderedProduct.getToppings().entrySet()) {
+                    totalBill += entry.getValue();
+                }
+            }
+        }
+        return totalBill;
     }
 }

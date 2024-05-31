@@ -157,7 +157,7 @@ public class DetailUpdateProductActivity extends AppCompatActivity {
                 binding.Capnhat.setText("Cập nhật Thành Công");
                 binding.Capnhat.setEnabled(false);
 
-                UpdateProduct(oldAmount[0], toppingsWithAmount, false);
+                UpdateProduct(oldAmount[0], toppingsWithAmount);
             }
 
         });
@@ -190,49 +190,11 @@ public class DetailUpdateProductActivity extends AppCompatActivity {
             }
         });
     }
-    private void uncheckAllProductsInCart() {
-        // Lấy danh sách sản phẩm trong giỏ hàng
-        CartAPI.find(SharePreference.find(SharePreference.USER_TOKEN_KEY), new CartAPI.FirebaseCallback() {
-            @Override
-            public void onCallback(Order order) {
-                // Duyệt qua từng sản phẩm và đặt trạng thái isCheckedPay thành false
-                for (OrderedProduct orderedProduct : order.getOrderedProducts()) {
-                    orderedProduct.setCheckedPay(false);
-                    // Cập nhật giỏ hàng với trạng thái mới
-                    OnSuccessListener<Void> onSuccessListener = new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void aVoid) {
-                            binding.Capnhat.setText("Cập nhật sản phẩm");
-                            binding.Capnhat.setEnabled(true);
-                            showAlert("THÔNG BÁO", "Cập nhật sản phẩm thành công");
 
-                            Intent intent = new Intent();
-                            intent.putExtra("isCartUpdated", true);
-                            setResult(RESULT_OK, intent);
-                            finish();
-                        }
-                    };
-
-                    OnCanceledListener onCanceledListener = new OnCanceledListener() {
-                        @Override
-                        public void onCanceled() {
-                            binding.Capnhat.setText("Cập nhật sản phẩm");
-                            binding.Capnhat.setEnabled(true);
-                            showAlert("THÔNG BÁO", "Đã xảy ra lỗi, vui lòng thử lại sau :<");
-                        }
-                    };
-
-                    CartAPI.update(SharePreference.find(SharePreference.USER_TOKEN_KEY), orderedProduct, onSuccessListener, onCanceledListener);
-                }
-
-            }
-        });
-    }
-
-    private void UpdateProduct(int soluong, Map<Topping, Integer> toppings, boolean isCheckedPay) {
+    private void UpdateProduct(int soluong, Map<Topping, Integer> toppings) {
         Order order = new Order();
         ArrayList<OrderedProduct> products = new ArrayList<>();
-        OrderedProduct orderedProduct = new OrderedProduct(product, soluong, isCheckedPay);
+        OrderedProduct orderedProduct = new OrderedProduct(product, soluong);
         Map<String, Long> orderedToppings = new HashMap<>();
         long totalToppingPrice = 0;
 
@@ -246,7 +208,6 @@ public class DetailUpdateProductActivity extends AppCompatActivity {
         }
         orderedProduct.setToppings(orderedToppings);
         products.add(orderedProduct);
-
         User user = new User();
         user.setKey(SharePreference.find(SharePreference.USER_TOKEN_KEY));
         user.setFullName(SharePreference.find(SharePreference.USER_NAME));
@@ -256,8 +217,8 @@ public class DetailUpdateProductActivity extends AppCompatActivity {
         user.setGender(SharePreference.find(SharePreference.USER_GENDER));
         user.setPassword(SharePreference.find(SharePreference.USER_PASS));
         user.setPermistion(SharePreference.findPermission());
-
         order.setOrderedProducts(products);
+
         long totalPrice = product.getPrice();
         Log.d("gia", "UpdateProduct: " + totalPrice);
         order.getOrderedProducts().get(0).getProduct().setPrice(totalPrice);

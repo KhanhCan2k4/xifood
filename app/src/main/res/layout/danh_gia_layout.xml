@@ -36,7 +36,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginTop="10dp"
                 android:textColor="#FF4F4F"
-                android:text="Thông tin đơn hàng"
+                android:text="@string/productInfomationTitle"
                 android:textSize="18dp"
                 android:textStyle="bold" />
 
@@ -44,12 +44,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-
-
                 android:orientation="horizontal">
 
                 <ImageButton
-
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_gravity="center_vertical"
@@ -66,7 +63,7 @@
                     android:gravity="center_vertical"
                     android:maxLines="1"
                     android:paddingLeft="20dp"
-                    android:text="53 Võ Văn Ngân, Linh Chiểu, Thành Phố Thủ Đức, Thành phố Hồ Chí Minh" />
+                    android:text="@string/addressDefaultProduct" />
             </LinearLayout>
 
             <LinearLayout
@@ -75,15 +72,12 @@
                 android:layout_marginHorizontal="5dp"
                 android:layout_weight="1"
                 android:orientation="horizontal">
-
                 <ImageButton
                     android:layout_width="30dp"
                     android:layout_height="20dp"
                     android:backgroundTint="#FF9999"
                     android:layout_gravity="center_vertical"
                     android:background="@drawable/vocher" />
-
-
                 <TextView
                     android:id="@+id/vocherList"
                     android:layout_width="match_parent"
@@ -91,7 +85,7 @@
                     android:layout_gravity="center_vertical"
                     android:gravity="center_vertical"
                     android:paddingLeft="20dp"
-                    android:text="Voucher giam gia 200%" />
+                    android:text="@string/voucherDefaultTitle" />
             </LinearLayout>
 
             <LinearLayout
@@ -140,7 +134,7 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     android:textSize="15dp"
-                    android:hint="Nhập ghi chú" />
+                    android:hint="@string/noteDefaultProduct" />
             </LinearLayout>
 
             <TextView
@@ -165,7 +159,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
                     android:layout_weight="5"
-                    android:text="Giá trị đơn hàng" />
+                    android:text="@string/productValueTitle" />
 
                 <TextView
                     android:id="@+id/giaDonHang"
@@ -174,7 +168,7 @@
                     android:layout_marginRight="5dp"
                     android:layout_weight="5"
                     android:gravity="right"
-                    android:text="80000" />
+                    android:text="@string/productValueItem" />
             </LinearLayout>
 
             <LinearLayout
@@ -189,7 +183,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
                     android:layout_weight="5"
-                    android:text="Vận chuyển" />
+                    android:text="@string/shipTitle" />
 
                 <TextView
                     android:id="@+id/phiVanChuyen"
@@ -198,7 +192,7 @@
                     android:layout_marginRight="5dp"
                     android:layout_weight="5"
                     android:gravity="right"
-                    android:text="10000" />
+                    android:text="@string/shipItem" />
             </LinearLayout>
 
             <LinearLayout
@@ -213,7 +207,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
                     android:layout_weight="5"
-                    android:text="Giảm giá vocher" />
+                    android:text="@string/voucherDiscountTitle" />
 
                 <TextView
                     android:id="@+id/giaGia"
@@ -222,7 +216,7 @@
                     android:layout_marginRight="5dp"
                     android:layout_weight="5"
                     android:gravity="right"
-                    android:text="0" />
+                    android:text="@string/discountVoucherItem" />
             </LinearLayout>
 
             <LinearLayout
@@ -238,7 +232,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
                     android:layout_weight="5"
-                    android:text="tổng đơn hàng"
+                    android:text="@string/totalBill"
                     android:textStyle="bold" />
 
                 <TextView
@@ -248,7 +242,7 @@
                     android:layout_marginRight="5dp"
                     android:layout_weight="5"
                     android:gravity="right"
-                    android:text="120000"
+                    android:text="@string/totalBillItem"
                     android:textStyle="bold" />
             </LinearLayout>
 
@@ -278,15 +272,16 @@
                     android:id="@+id/btnAddImage"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Chọn Ảnh"/>
+                    android:text="@string/chooseImageRatting"/>
 
                 <!-- Review Content -->
                 <EditText
                     android:id="@+id/txtReview"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Nhập nội dung đánh giá"
+                    android:hint="@string/noteRatting"
                     android:layout_marginTop="10dp"
+                    android:textSize="15dp"
                     android:layout_marginBottom="10dp"/>
 
                 <Button
@@ -294,14 +289,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textStyle="italic|bold"
-                    android:text="Đánh giá"/>
+                    android:text="@string/confirmRatting"/>
             </LinearLayout>
-
-
         </LinearLayout>
-
     </ScrollView>
-
-
-
 </LinearLayout>

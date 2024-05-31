@@ -24,7 +24,7 @@
             android:layout_height="130dp"
             android:src="@drawable/logo"
             android:layout_marginTop="40dp"
-            android:contentDescription="Logo"/>
+            android:contentDescription="@string/logo"/>
         <TextView
             android:id="@+id/textTitle"
             android:layout_width="wrap_content"
@@ -42,7 +42,7 @@
             android:gravity="center"
             android:layout_marginTop="8dp"
             android:textSize="14sp"
-            android:text="we will send to you an OTP to verify your phone number"/>
+            android:text="@string/hintOTP"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -54,7 +54,7 @@
                 android:layout_height="40dp"
                 android:gravity="center"
                 android:textSize="16sp"
-                android:text="+84 "/>
+                android:text="@string/codeCountry"/>
             <EditText
                 android:id="@+id/phonenumber"
                 android:layout_width="wrap_content"
@@ -62,7 +62,7 @@
                 android:gravity="center"
                 android:imeOptions="actionDone"
                 android:background="@null"
-                android:hint="0123456789"
+                android:hint="@string/phoneNumber"
                 android:importantForAutofill="no"
                 android:inputType="number"
                 android:textSize="16sp"
@@ -86,7 +86,7 @@
                 android:layout_margin="30dp"
                 android:background="@drawable/custom_button_login"
                 android:backgroundTint="@color/design_default_color_secondary"
-                android:text="Send OTP"
+                android:text="@string/sendOTP"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 />

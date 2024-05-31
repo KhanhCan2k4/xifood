@@ -101,7 +101,18 @@ public class OrderActivity extends AppCompatActivity {
         orderAdapter.setOnItemClickListener(new OrderAdapter.OnItemClickListener() {
             @Override
             public void onView(View view, String key) {
-                navigateTo(RattingActivity.class, RattingActivity.ORDERED_KEY, key);
+                OrderAPI.find(key, new OrderAPI.FirebaseCallback() {
+                    @Override
+                    public void onCallback(Order order) {
+                        if (order.getStatus() == 2){
+                            navigateTo(RatingActivity.class, RatingActivity.ORDERED_KEY, key);
+                        }
+                        else {
+                            navigateTo(PayingActivity.class, RatingActivity.ORDERED_KEY, key);
+                        }
+                    }
+                });
+
             }
 
             @Override

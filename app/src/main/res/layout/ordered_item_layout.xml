@@ -9,7 +9,7 @@
 
     <TextView
         android:id="@+id/textOrderCode"
-        android:text="Đơn số #1"
+        android:text="@string/positionProduct"
         android:layout_marginRight="10dp"
         android:textSize="20sp"
         android:textColor="@color/black"
@@ -34,7 +34,7 @@
 
         <Button
             android:id="@+id/btnView"
-            android:text="Xem"
+            android:text="@string/checkProduct"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_marginHorizontal="20dp"
@@ -42,7 +42,7 @@
 
         <Button
             android:id="@+id/btnBuyBack"
-            android:text="Mua lại"
+            android:text="@string/buyBack"
             android:layout_marginHorizontal="20dp"
             android:layout_width="0dp"
             android:layout_weight="1"

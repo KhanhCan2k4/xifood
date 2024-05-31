@@ -10,163 +10,92 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1bf8303f-f628-4058-a9e6-2510e437338c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/activities/DetailUpdateProductActivity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/adapters/OrderedItemAdapter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/datamodels/Cart.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/update_product_layout.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/values-en/strings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/values/dimens.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.0/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.0/checksums/checksums.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.0/checksums/md5-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.0/checksums/md5-checksums.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.0/checksums/sha1-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.0/checksums/sha1-checksums.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.0/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.0/executionHistory/executionHistory.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.0/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.0/executionHistory/executionHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.0/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.0/fileHashes/fileHashes.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.0/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.0/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.0/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.0/fileHashes/resourceHashesCache.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/file-system.probe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle.kts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/activities/AccountActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/activities/AccountActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/activities/CartActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/activities/CartActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/activities/DetailActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/activities/DetailActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/activities/DetailUpdateProductActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/activities/DetailUpdateProductActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/activities/ListProductsActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/activities/ListProductsActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/activities/ListSearchActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/activities/ListSearchActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/activities/LoginActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/activities/LoginActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/activities/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/activities/MainActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/activities/OrderActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/activities/OrderActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/activities/OrderProcessingActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/activities/OrderProcessingActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/activities/PayingActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/activities/PayingActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/activities/PurchaseActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/activities/PurchaseActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/activities/RattingActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/activities/RatingActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/activities/RegisterActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/activities/RegisterActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/activities/SetAddressActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/activities/SetAddressActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/activities/SettingActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/activities/SettingActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/adapters/BillAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/adapters/BillAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/activities/StaffOrderActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/activities/StaffOrderActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/adapters/BillAdapter.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/adapters/CartAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/adapters/CartAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/adapters/ListCategoryAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/adapters/ListCategoryAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/adapters/ItemSearchAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/adapters/ItemSearchAdapter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/adapters/ListProductsAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/adapters/ListProductsAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/adapters/NewProductAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/adapters/NewProductAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/adapters/OrderAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/adapters/OrderAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/adapters/OrderedProductAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/adapters/OrderedProductAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/adapters/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/adapters/Product.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/adapters/RecentsProductsAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/adapters/RecentsProductsAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/adapters/ListSearchProductsAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/adapters/ListSearchProductsAdapter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/adapters/ToppinAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/adapters/ToppinAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/apis/CartAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/apis/CartAPI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/apis/CategoryAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/apis/CategoryAPI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/apis/ImageStorageReference.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/apis/ImageStorageReference.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/apis/OrderAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/apis/OrderAPI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/apis/ProductAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/apis/ProductAPI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/apis/SharePreference.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/apis/SharePreference.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/apis/ToppingAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/apis/ToppingAPI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/apis/UserAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/apis/UserAPI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/apis/UserPreferences.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/apis/UserPreferences.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/data/BillData.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/data/BillData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/data/CartData.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/data/CartData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/data/CategoryData.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/data/CategoryData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/data/ListProductsData.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/data/ListProductsData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/data/NewProductData.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/data/NewProductData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/data/ToppingData.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/data/ToppingData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/datamodels/Category.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/datamodels/Category.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/datamodels/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/datamodels/Order.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/datamodels/OrderedProduct.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/datamodels/OrderedProduct.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/datamodels/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/datamodels/Product.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/datamodels/Topping.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/datamodels/Topping.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/datamodels/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/datamodels/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/models/Bill.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/models/Bill.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/models/Cart.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/models/Cart.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/models/Category.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/models/Category.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/models/CategoryProduct.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/models/CategoryProduct.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/models/NewProduct.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/models/NewProduct.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/models/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/models/Order.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/models/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/models/Product.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/models/Topping.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/models/Topping.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/models/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/models/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/staffProcessing/AccountStaffActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/staffProcessing/AccountStaffActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/staffProcessing/CartStaffActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/staffProcessing/CartStaffActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/staffProcessing/MainStaffActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/staffProcessing/MainStaffActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/staffProcessing/OrderStaffActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/staffProcessing/OrderStaffActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/staffProcessing/PurchaseStaffActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/staffProcessing/PurchaseStaffActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/views/ActionFooter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/views/ActionFooter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/views/CancelHeader.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/views/CancelHeader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/apis/TableAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/apis/TableAPI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/staffProcessing/AccountStaffActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/staffProcessing/CartStaffActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/staffProcessing/MainStaffActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/staffProcessing/OrderStaffActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/staffProcessing/PurchaseStaffActivity.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/views/Navbar.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/vn/edu/tdc/xifood/views/Navbar.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/anim/slide_in_right.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/anim/slide_in_right.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/anim/slide_out_right.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/anim/slide_out_right.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/account_icon.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/account_icon.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/add.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/add.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/back_account_icon.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/back_account_icon.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/bannerlogin.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/bannerlogin.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/baseline_cancel_24.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/baseline_cancel_24.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/boder_item_cart.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/boder_item_cart.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/border_radius.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/border_radius.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/botron_background.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/botron_background.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/botron_foreground.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/botron_foreground.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/box_radius.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/box_radius.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/btn_close.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/btn_close.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/cancel_header_bg.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/cancel_header_bg.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/cart_icon.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/cart_icon.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/comment_setting_icon.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/comment_setting_icon.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/confirm_account_icon.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/confirm_account_icon.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/coupon_icon.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/coupon_icon.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/cusstom_button_login.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/cusstom_button_login.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/custom_button_login.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/custom_button_login.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/custom_edit_text_login.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/custom_edit_text_login.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/custom_switch_page_register.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/custom_switch_page_register.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/decrease_amount_icon.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/decrease_amount_icon.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/delete_left_solid.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/delete_left_solid.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/bank_logo.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/bank_logo.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/discount_icon.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/discount_icon.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/dot.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/dot.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/drink_icon.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/drink_icon.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/edit.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/edit.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/edit_account.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/edit_account.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/email_icon.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/email_icon.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/familiar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/familiar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/food_icon.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/food_icon.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/hand_point_left_solid.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/hand_point_left_solid.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/header_bg.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/header_bg.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/home_icon.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/home_icon.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_launcher_background.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_launcher_background.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_launcher_foreground.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_launcher_foreground.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/increase_amount_icon.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/increase_amount_icon.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/line.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/line.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/linear_login.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/linear_login.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/login_layout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/login_layout.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/main_icon.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/main_icon.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/mid.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/mid.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/navbar_bg.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/navbar_bg.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/next_setting_icon.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/next_setting_icon.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/note.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/note.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/notify.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/notify.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/order_icon.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/order_icon.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/order_item_bg.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/order_item_bg.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/password_icon.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/password_icon.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/payment.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/payment.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/play.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/play.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/plus_setting_icon.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/plus_setting_icon.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/product_image_background.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/product_image_background.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/round_shape.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/round_shape.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/search_header.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/search_header.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/search_icon.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/search_icon.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/snack_icon.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/snack_icon.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/star_setting_icon.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/star_setting_icon.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/user_name.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/user_name.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/account_layout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/account_layout.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/action_footer_layout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/action_footer_layout.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_cart_layout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_cart_layout.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/bill_itemt.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/bill_itemt.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/bill_itemt.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/cancel_header_layout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/cancel_header_layout.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/cart_itemt.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/cart_itemt.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/cart_layout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/cart_layout.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/detail_product.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/detail_product.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/cart_itemt.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/cart_item.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/cart_layout.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/danh_gia_layout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/danh_gia_layout.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/detail_product.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/item_search_layout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/item_search_layout.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/list_categories.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/list_categories.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/list_item_recents_setting.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/list_item_recents_setting.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/list_product.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/list_product.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/list_products_layout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/list_products_layout.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/list_search_layout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/list_search_layout.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/login_layout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/login_layout.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/main_layout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/main_layout.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/navbar_layout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/navbar_layout.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/new_products.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/new_products.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/order_item_layout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/order_item_layout.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/order_layout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/order_layout.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/ordered_item_layout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/ordered_item_layout.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/ordered_product_item_layout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/ordered_product_item_layout.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/product_details_layout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/product_details_layout.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/purchase_layout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/purchase_layout.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/register_layout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/register_layout.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/topping_itemt.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/topping_itemt.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-anydpi/ic_launcher.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-anydpi/ic_launcher.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-anydpi/ic_launcher_round.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-anydpi/ic_launcher_round.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values-night/themes.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values-night/themes.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/send_otp_layout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/send_otp_layout.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/set_address_layout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/set_address_layout.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/setting_layout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/setting_layout.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/staff_order_item_layout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/staff_order_item_layout.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/staff_order_layout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/staff_order_layout.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/topping_itemt.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/topping_item.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/update_product_layout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/update_product_layout.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/verification_layout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/verification_layout.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/values/themes.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/themes.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/xml/backup_rules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/xml/backup_rules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/xml/data_extraction_rules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/xml/data_extraction_rules.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -185,6 +114,7 @@
         <option value="resourceFile" />
         <option value="layoutResourceFile" />
         <option value="Class" />
+        <option value="valueResourceFile" />
       </list>
     </option>
   </component>
@@ -209,6 +139,7 @@
     "RunOnceActivity.cidr.known.project.marker": "true",
     "android-custom-viewC:/Users/adminn/.gradle/caches/modules-2/files-2.1/androidx.recyclerview/recyclerview/1.1.0/f2bdf79e1977939817f54a9d3e2f6bc52b63bdd0/recyclerview-1.1.0-sources.jar!/androidx/recyclerview/widget/RecyclerView.java_SELECTED": "RecyclerView",
     "cidr.known.project.marker": "true",
+    "com.android.tools.idea.devicemanager.tab": "Physical",
     "last_opened_file_path": "C:/Users/adminn/AndroidStudioProjects/XiFood/app/src/main/java/vn/edu/tdc/xifood/activities",
     "settings.editor.selected.configurable": "AndroidSdkUpdater"
   }
@@ -216,8 +147,10 @@
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\adminn\AndroidStudioProjects\XiFood\app\src\main\java\vn\edu\tdc\xifood\activities" />
-      <recent name="C:\Users\adminn\AndroidStudioProjects\XiFood\app\src\main\res\drawable" />
       <recent name="C:\Users\adminn\AndroidStudioProjects\XiFood\app\src\main\res\layout" />
+      <recent name="C:\Users\adminn\AndroidStudioProjects\XiFood\app\src\main\java\vn\edu\tdc\xifood\adapters" />
+      <recent name="C:\Users\adminn\AndroidStudioProjects\XiFood\app\src\main\java\vn\edu\tdc\xifood" />
+      <recent name="C:\Users\adminn\AndroidStudioProjects\XiFood\app\src\main\java\vn\edu\tdc\xifood\datamodels" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\adminn\AndroidStudioProjects\XiFood\app\src\main\res\drawable" />

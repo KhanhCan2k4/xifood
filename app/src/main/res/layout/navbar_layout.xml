@@ -5,12 +5,12 @@
     android:background="@drawable/navbar_bg"
     android:gravity="center"
     android:orientation="horizontal"
-    android:paddingHorizontal="10dp">
+    android:paddingHorizontal="5dp">
 
     <ImageButton
         android:id="@+id/btnHome"
         style="@style/NavButtonStyle"
-        android:background="@drawable/home_icon" />
+        android:background="@drawable/home_icon"/>
 
     <ImageButton
         android:id="@+id/btnDiscount"

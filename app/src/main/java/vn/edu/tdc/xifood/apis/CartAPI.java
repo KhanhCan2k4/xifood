@@ -96,24 +96,21 @@ public class CartAPI {
         });
     }
 
-    public static void find(String userId, FirebaseCallback callback) {
-        DatabaseReference itemRef = cartRef.child(userId);
+    public static void find(String userId, final FirebaseCallback callback) {
+        FirebaseDatabase.getInstance().getReference("carts")
+                .child(userId)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot snapshot) {
+                        Order order = snapshot.getValue(Order.class);
+                        callback.onCallback(order);
+                    }
 
-        itemRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Order order = null;
-                if (snapshot.exists()) {
-                    order = snapshot.getValue(Order.class);
-                }
-                callback.onCallback(order);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                callback.onCallback(null);
-            }
-        });
+                    @Override
+                    public void onCancelled(DatabaseError error) {
+                        Log.e("CartAPI", "Error fetching data", error.toException());
+                    }
+                });
     }
 
     public static void store(String userId, Order order, OnSuccessListener<Void> onSuccessListener, OnCanceledListener onCanceledListener) {
@@ -189,7 +186,6 @@ public class CartAPI {
         DatabaseReference itemRef = cartRef.child(SharePreference.find(SharePreference.CART_KEY));
         return itemRef.removeValue();
     }
-
     public static void destroy(String userId, String productKey, OnSuccessListener<Void> onSuccessListener, OnCanceledListener onCanceledListener) {
         DatabaseReference itemRef = cartRef.child(userId);
         itemRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -244,13 +240,6 @@ public class CartAPI {
     public static void update(String userId, Order order) {
         DatabaseReference itemRef = cartRef.child(userId);
         itemRef.setValue(order);
-    }
-
-    public static void updateOrderedProductCheckPay(String userId, String productId, boolean isChecked, OnSuccessListener<Void> onSuccessListener, OnCanceledListener onCanceledListener) {
-        DatabaseReference cartRef = FirebaseDatabase.getInstance().getReference().child("carts").child(userId).child("products").child(productId);
-        cartRef.child("checkPay").setValue(isChecked)
-                .addOnSuccessListener(onSuccessListener)
-                .addOnCanceledListener(onCanceledListener);
     }
 
     //interfaces

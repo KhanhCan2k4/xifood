@@ -12,7 +12,7 @@
         android:layout_height="70dp"/>
 
     <TextView
-        android:text="Chọn bàn"
+        android:text="@string/chooseTableTitle"
         android:textStyle="bold"
         android:textSize="15sp"
         android:textColor="@color/black"
@@ -57,7 +57,7 @@
 
 
     <TextView
-        android:text="Tổng cộng"
+        android:text="@string/totalFooter"
         android:textStyle="bold"
         android:textSize="15sp"
         android:textColor="@color/black"
@@ -68,7 +68,7 @@
 
     <TextView
         android:id="@+id/total"
-        android:text="120000VND"
+        android:text="@string/totalBillItemCart"
         android:textStyle="bold"
         android:textSize="25sp"
         android:textColor="#F44336"
@@ -86,7 +86,7 @@
 
         <Button
             android:id="@+id/btnCancelOrder"
-            android:text="Huỷ"
+            android:text="@string/cancelButton"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:paddingVertical="10dp"
@@ -95,7 +95,7 @@
 
         <Button
             android:id="@+id/btnAcceptOrder"
-            android:text="Tạo đơn"
+            android:text="@string/createBill"
             android:layout_width="0dp"
             android:paddingVertical="10dp"
             android:layout_marginHorizontal="10dp"

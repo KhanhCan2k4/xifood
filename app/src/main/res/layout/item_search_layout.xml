@@ -12,14 +12,16 @@
         android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:layout_weight="4"
-        android:textSize="25sp"
-        android:text="Dep nam" />
+        android:textSize="19sp"
+        android:textStyle="bold|italic"
+        android:gravity="center_vertical"
+        android:textColor="@color/black"
+        android:text="@string/itemNameTitle" />
 
-    <ImageButton
+    <ImageView
         android:id="@+id/btnImage"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:background="@drawable/milk_tea"/>
-
+        android:src="@drawable/default_product"/>
 
 </LinearLayout>

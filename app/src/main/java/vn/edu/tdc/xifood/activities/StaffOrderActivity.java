@@ -1,6 +1,5 @@
 package vn.edu.tdc.xifood.activities;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -17,11 +16,8 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCanceledListener;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import vn.edu.tdc.xifood.R;
@@ -43,7 +39,7 @@ import vn.edu.tdc.xifood.views.CancelHeader;
 public class StaffOrderActivity extends AppCompatActivity {
     private StaffOrderLayoutBinding binding;
     private long totalPrice = 0;
-
+    private ArrayList<Table> tableArrayList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,11 +60,15 @@ public class StaffOrderActivity extends AppCompatActivity {
 
         binding.total.setText("0VND");
 
+        tableArrayList = new ArrayList<>();
+
         TableAPI.all(new TableAPI.FirebaseCallbackAll() {
             @Override
             public void onCallback(ArrayList<Table> tables) {
-                ArrayAdapter<Table> tableArrayAdapter = new ArrayAdapter<>(StaffOrderActivity.this, android.R.layout.simple_spinner_item, tables);
+                tableArrayList = tables;
+                final ArrayAdapter<Table> tableArrayAdapter = new ArrayAdapter<>(StaffOrderActivity.this, android.R.layout.simple_spinner_item, tableArrayList);
                 binding.tables.setAdapter(tableArrayAdapter);
+                tableArrayAdapter.notifyDataSetChanged();
             }
         });
 
@@ -250,6 +250,7 @@ public class StaffOrderActivity extends AppCompatActivity {
 
                         }
                     });
+
                     binding.btnMomo.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {

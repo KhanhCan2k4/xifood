@@ -15,17 +15,20 @@
                 android:id="@+id/productImage"
                 android:layout_gravity="center"
                 android:layout_width="80dp"
-                android:src="@drawable/milk_tea"
+                android:src="@drawable/default_product"
                 android:layout_height="100dp">
             </ImageView>
 
             <TextView
                 android:id="@+id/productName"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_gravity="center"
+                android:gravity="center"
                 android:layout_height="wrap_content"
-                android:text="Tra sua duong den"
-                android:textSize="20dp"
+                android:text="@string/nameProductDefault"
+                android:maxLines="1"
+                android:textSize="15sp"
+                android:textStyle="bold|italic"
                 android:layout_marginTop="5dp"
                 android:textColor="@color/black">
             </TextView>
@@ -35,7 +38,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="59.000VND"
+            android:maxLines="1"
+            android:text="@string/priceProductList"
             android:textSize="15dp"
             android:textColor="#F44336">
         </TextView>
