@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingVertical="15dp"
+        android:background="@color/black"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_height="40dp"
+            android:background="@drawable/search_header">
+
+            <ImageButton
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:background="@drawable/search_icon"
+                android:backgroundTint="@color/black"
+                android:hint="@string/searchFoodHint"
+                android:gravity="start">
+            </ImageButton>
+
+            <EditText
+                android:id="@+id/txtSearch"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@null"
+                android:hint="@string/searchFoodHint">
+            </EditText>
+
+
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/btnCart"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginRight="30dp"
+            android:background="@drawable/cart_icon">
+        </ImageButton>
+
+    </LinearLayout>
+
+<!--    app info-->
+    <LinearLayout
+        android:layout_marginTop="3dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/cancel_header_bg"
+        android:paddingBottom="10dp"
+        android:orientation="vertical">
+        <LinearLayout
+            android:id="@+id/websiteLink"
+            android:paddingVertical="3dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/black"
+            android:paddingLeft="40dp">
+
+<!--            Logo-->
+            <androidx.cardview.widget.CardView
+                android:layout_width="60dp"
+                app:cardCornerRadius="30dp"
+                android:background="@drawable/category_circle"
+                android:layout_height="60dp">
+                <ImageButton
+                    android:id="@+id/logo"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleX="1"
+                    android:scaleY="1"
+                    android:background="@drawable/xifood_logo">
+                </ImageButton>
+            </androidx.cardview.widget.CardView>
+
+<!--            app name-->
+            <TextView
+                android:id="@+id/appName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="25sp"
+                android:layout_margin="10dp"
+                android:textStyle="bold|italic"
+                android:layout_gravity="center"
+                android:textColor="@color/white"
+                android:textAllCaps="true"
+                android:text="@string/app_name">
+            </TextView>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/event"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="3dp"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:text="@string/maketingTitle">
+        </TextView>
+
+        <TextView
+            android:id="@+id/eventDesc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            android:text="@string/makettingContent">
+        </TextView>
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_marginTop="3dp"
+        android:layout_weight="1"
+        android:layout_height="0dp">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+<!--            Banner-->
+            <ViewFlipper
+                android:id="@+id/bannerViewFlipper"
+                android:layout_width="match_parent"
+                android:layout_marginTop="3dp"
+                android:layout_height="150dp"/>
+
+<!--            category list-->
+            <LinearLayout
+                android:layout_marginTop="3dp"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:background="@drawable/cancel_header_bg"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:background="@color/black"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/listCategoriesTitle"
+                    android:textStyle="bold"
+                    android:paddingVertical="5dp"
+                    android:paddingHorizontal="20dp"
+                    android:textColor="@color/white"
+                    android:textSize="15sp" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_marginTop="3dp"
+                    android:padding="30dp"
+                    android:paddingTop="10dp"
+                    android:id="@+id/list_category"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                </androidx.recyclerview.widget.RecyclerView>
+
+            </LinearLayout>
+
+<!--            product list-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:background="@drawable/cancel_header_bg"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/lblCategoryName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Các sản phẩm trong danh mục\n(hãy chọn 1 danh mục)"
+                    android:textAllCaps="true"
+                    android:textStyle="bold"
+                    android:background="@color/black"
+                    android:paddingVertical="5dp"
+                    android:paddingHorizontal="20dp"
+                    android:textColor="@color/white"
+                    android:textSize="15sp">
+                </TextView>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/listProducts"
+                    android:paddingHorizontal="10dp"
+                    android:paddingVertical="30dp"
+                    android:minHeight="500dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                </androidx.recyclerview.widget.RecyclerView>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <vn.edu.tdc.xifood.views.Navbar
+        android:id="@+id/navbar"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"/>
+</LinearLayout>
