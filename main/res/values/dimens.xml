@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <dimen name="witdhDefaultICon">20dp</dimen>
-    <dimen name="heightDefaultIcon">15dp</dimen>
-    <dimen name="textSize25">25dp</dimen>
-    <dimen name="heightCustomIcon20">20dp</dimen>
-    <dimen name="textSize20">20dp</dimen>
-    <dimen name="sizeButton30">30dp</dimen>
-</resources>
