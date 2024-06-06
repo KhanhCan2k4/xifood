@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activities.ListSearchActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <!--            search bar-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/black"
+                android:orientation="horizontal"
+                android:paddingVertical="15dp">
+
+                <ImageButton
+                    android:id="@+id/btnBack"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="15dp"
+                    android:background="@drawable/btn_close"
+                    android:backgroundTint="@color/white" />
+
+                <EditText
+                    android:id="@+id/keyWordOfSearchLayout"
+                    android:layout_width="0dp"
+                    android:layout_height="45dp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="4"
+                    android:background="@drawable/search_header"
+                    android:hint="@string/search"
+                    android:paddingLeft="15dp" />
+
+            </LinearLayout>
+
+            <!--            filter-->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@color/black"
+                android:paddingHorizontal="20dp"
+                android:paddingVertical="3dp"
+                android:text="BỘ LỌC"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                android:textStyle="bold"></TextView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="60dp"
+                app:cardCornerRadius="20dp">
+
+                <CheckBox
+                    android:id="@+id/openFilter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="20dp"
+                    android:background="@drawable/category_circle"
+                    android:buttonTint="@color/black"
+                    android:checked="false"
+                    android:text="Mở bộ lọc  " />
+
+                <LinearLayout
+                    android:id="@+id/filter"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="20dp"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="20dp">
+
+                    <CheckBox
+                        android:id="@+id/ckbName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                        android:buttonTint="#F44336"
+                        android:textColor="@color/black"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        android:text="Lọc theo tên" />
+
+                    <CheckBox
+                        android:id="@+id/ckbDesc"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="#FFC107"
+                        android:textColor="@color/black"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        android:text="Lọc theo mô tả" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <EditText
+                            android:id="@+id/minPrice"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:textColor="@color/black"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:backgroundTint="#3F51B5"
+                            android:layout_height="wrap_content"
+                            android:hint="Nhập giá tối thiểu"
+                            android:inputType="numberDecimal"
+                            android:lines="1"
+                            android:tooltipText="Nhập giá sản phẩm tìm kiếm" />
+
+                        <EditText
+                            android:id="@+id/maxPrice"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:hint="Nhập giá tối đa"
+                            android:textColor="@color/black"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:backgroundTint="#009688"
+                            android:inputType="numberDecimal"
+                            android:lines="1"
+                            android:tooltipText="Nhập giá sản phẩm tìm kiếm" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:text="Lọc theo đánh giá"
+                            android:textStyle="bold"
+                            android:textSize="12sp"
+                            android:gravity="center"
+                            android:textColor="@color/black"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"/>
+
+                        <Spinner
+                            android:id="@+id/ckbRating"
+                            android:theme="@style/mySpinnerItemStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="#3F51B5"
+                            android:entries="@array/rating_value"
+                            android:text="Lọc theo đánh giá"
+                            android:tooltipText="Lọc theo đánh giá" />
+
+                    </LinearLayout>
+
+                    <Button
+                        android:id="@+id/btnFilter"
+                        android:text="LỌC"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@color/black"
+                android:paddingHorizontal="20dp"
+                android:paddingVertical="3dp"
+                android:text="@string/productsFound"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                android:textStyle="bold"></TextView>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/listSearchProducts"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/cancel_header_bg"
+                android:minHeight="100dp"
+                android:padding="30dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@color/black"
+                android:paddingHorizontal="20dp"
+                android:paddingVertical="3dp"
+                android:text="@string/resultSearchBefore"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                android:textStyle="bold"></TextView>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recentSearchList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/cancel_header_bg"
+                android:minHeight="100dp"
+                android:padding="30dp" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

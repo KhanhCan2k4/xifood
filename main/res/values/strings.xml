@@ -1,0 +1,126 @@
+<resources>
+    <string name="app_name">XiFood</string>
+    <string name="nameSettingActivity">Sửa hồ sơ</string>
+    <string name="gender">Giới tính:</string>
+    <string name="dayBorn">Ngày Sinh:</string>
+    <string name="inputDayBorn">Chọn ngày sinh</string>
+    <string name="email">Email:</string>
+    <string name="phone">Số điện thoại:</string>
+    <string name="changePhoneNumber">Sửa số điện thoại</string>
+    <string name="oldPass">Mật khẩu cũ</string>
+    <string name="comfirmChangePass">Xác nhận đổi mật khẩu</string>
+    <string name="newPass">Mật khẩu mới</string>
+    <string name="confirmNewPass">Xác nhận mật khẩu mới</string>
+    <string name="totalFooter">Tổng cộng:</string>
+    <string name="defaultPriceBill">0 vnd</string>
+    <string name="buyFooter">Mua</string>
+    <string name="titleHeader">Tiêu đề</string>
+    <string name="locationItemCart">Sản phẩm 1</string>
+    <string name="countDefaultProduct">01</string>
+    <string name="nameProductDefault">Trà sữa trân châu</string>
+    <string name="noteProductDefault">Ít đá nhiều đường, thêm trà bỏ sữa</string>
+    <string name="priceDefaultProduct">Giá: 0.000vnd</string>
+    <string name="productInfomationTitle">Thông tin đơn hàng</string>
+    <string name="addressDefaultProduct">53 Võ Văn Ngân, Linh Chiểu, Thành Phố Thủ Đức, Thành phố Hồ Chí Minh</string>
+    <string name="voucherDefaultTitle">Mã giảm giá 200%</string>
+    <string name="noteDefaultProduct">Nhập ghi chú</string>
+    <string name="productValueTitle">Giá trị đơn hàng</string>
+    <string name="productValueItem">0000</string>
+    <string name="shipTitle">Vận chuyển</string>
+    <string name="shipItem">10000</string>
+    <string name="voucherDiscountTitle">Giảm giá vocher</string>
+    <string name="discountVoucherItem">0</string>
+    <string name="totalBill">Tổng đơn hàng</string>
+    <string name="totalBillItem">120000</string>
+    <string name="chooseImageRatting">Chọn Ảnh</string>
+    <string name="noteRatting">Nhập nội dung đánh giá</string>
+    <string name="confirmRatting">Đánh giá</string>
+    <string name="itemNameTitle">Dép nam</string>
+    <string name="priceProductList">69.000VND</string>
+    <string name="searchFood">Tìm kiếm thức ăn</string>
+    <string name="searchFoodHint">Tìm kiếm thức ăn...</string>
+    <string name="listCategoriesTitle">CÁC DANH MỤC HÀNG TẠI XIFOOD</string>
+    <string name="categoriesName">ĂN VẶT</string>
+    <string name="search">Tìm kiếm ...</string>
+    <string name="productsFound">CÁC SẢN PHẨM TÌM THẤY</string>
+    <string name="resultSearchBefore">KẾT QUẢ TÌM KIẾM TRƯỚC ĐÂY</string>
+    <string name="sloganLogin">Chào mừng bạn đến với XiFood</string>
+    <string name="password">Mật khẩu</string>
+    <string name="emailLogin">Email</string>
+    <string name="loginButton">Đăng nhập</string>
+    <string name="createNewAccount">Tạo tài khoản mới</string>
+    <string name="maketingTitle">Giảm giá 30% đối với các tài khoản đăng kí lần đầu</string>
+    <string name="makettingContent">Đặt ngay món ăn ưa thích và đăng kí tài khoản ngay để được nhận giảm giá</string>
+    <string name="makettingNewProductShouldTry">MÓN MỚI PHẢI THỬ</string>
+    <string name="positionProduct">Đơn số #1</string>
+    <string name="checkProduct">Xem</string>
+    <string name="buyBack">Mua lại</string>
+    <string name="infomationProduct">THÔNG TIN SẢN PHẦM</string>
+    <string name="countCustomProduct">1</string>
+    <string name="toppingTitle">TOPPING ĐI KÈM</string>
+    <string name="addToCart">THÊM VÀO GIỎ HÀNG</string>
+    <string name="buyNow">MUA NGAY</string>
+    <string name="inputNote">Nhập ghi chú</string>
+    <string name="summaryProduct">Tóm tắt đơn hàng</string>
+    <string name="mainProductTitle">Sản phẩm chính</string>
+    <string name="mainProductItem">80000</string>
+    <string name="toppingForProduct">Topping đi kèm</string>
+    <string name="shipItemValue">20000</string>
+    <string name="fullName">Họ và tên</string>
+    <string name="confirmPassword">Xác nhận mật khẩu</string>
+    <string name="register">Đăng kí</string>
+    <string name="loginNow">Đăng nhập ngay</string>
+    <string name="logo">Logo</string>
+    <string name="codeCountry">+84</string>
+    <string name="phoneNumber">0123456789</string>
+    <string name="addressFound">Địa chỉ tìm thấy</string>
+    <string name="addressSaved">Địa chỉ đã lưu lại</string>
+    <string name="nameUser">Người dùng</string>
+    <string name="cartTitle">Giỏ hàng</string>
+    <string name="voucher">Mã giảm giá</string>
+    <string name="ratting">Đánh giá</string>
+    <string name="orderedHistory">Xem lịch sử mua hàng</string>
+    <string name="contactUs">Liên hệ với chúng tôi</string>
+    <string name="recentsBuy">Các món đã mua gần đây:</string>
+    <string name="nameProductTitle">Tên sản phẩm</string>
+    <string name="priceTitle">Giá</string>
+    <string name="toppingsTitle">Toppings</string>
+    <string name="noteTitle">Ghi chú</string>
+    <string name="chooseTableTitle">Chọn bàn</string>
+    <string name="totalBillItemCart">12.000VND</string>
+    <string name="cancelButton">Huỷ</string>
+    <string name="createBill">Tạo đơn</string>
+    <string name="nameTopping">Chân châu đen</string>
+    <string name="toppingTitleName">Topping</string>
+    <string name="backBefore">Quay về</string>
+    <string name="updateProduct">Cập Nhật</string>
+    <string name="verify">Xác thực</string>
+    <string-array name="genderUser">
+        <item>Male</item>
+        <item>Female</item>
+        <item>Default</item>
+    </string-array>
+    <string name="otp_verification">Xác nhận OTP</string>
+    <string name="descriptionProduct">Lorem ipsum dolor sit amet, consectetur ad</string>
+    <string name="hintOTP">Chúng tôi sẽ gửi cho bạn một OTP để xác minh số điện thoại của bạn</string>
+    <string name="sendOTP">Gửi mã</string>
+    <string name="toppingItemValueName">* Chân châu * Thạch trái cây</string>
+    <string name="hintConfirmOTP">Nhập mã đã được gửi tới</string>
+    <string name="hintNextOTP">Nếu bạn không nhận được mã ?</string>
+    <string name="resend">Gửi lại mã</string>
+    <string-array name="rating_value">
+        <item>Không lọc</item>
+        <item>1+</item>
+        <item>2+</item>
+        <item>3+</item>
+        <item>4+</item>
+        <item>5</item>
+    </string-array>
+    <string-array name="amount">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </string-array>
+</resources>
